@@ -1,20 +1,16 @@
-import { useState } from 'react'
-
-function Filters({tasksArray, tasksRender, filterAllArray,filterDoneArray,filterUnDoneArray,sortEarlyDate, sortLastDate}){    
-
-    const [btnActive, setActiveBtn] = useState({ filter:'filter__undone', sort:'sort__last'} )
+function Filters({filters, sort, onFilter, onSort}){    
 
     return(
         <section className="filterBox">
             <div className="filterBox__filter">
-                <button className={btnActive.filter === 'filter__all' ? 'filter__all btnActive' : 'filter__all'} onClick={() => {setActiveBtn({...btnActive, filter:'filter__all'}); filterAllArray()}} >All</button>
-                <button className={btnActive.filter === 'filter__done' ? 'filter__donel btnActive' : 'filter__done'} onClick={() => {setActiveBtn({...btnActive, filter:'filter__done'});filterDoneArray(tasksArray)}}>Done</button>
-                <button className={btnActive.filter === 'filter__undone' ? 'filter__undone btnActive' : 'filter__undone'} onClick={() => {setActiveBtn({...btnActive, filter:'filter__undone'});filterUnDoneArray(tasksArray)}}>Undone</button>
+                <button className={filters === 'filter__all' ? 'filter__all btnActive' : 'filter__all'} onClick={() => {onFilter('filter__all')}} >All</button>
+                <button className={filters === 'filter__done' ? 'filter__donel btnActive' : 'filter__done'} onClick={() => {onFilter('filter__done')}}>Done</button>
+                <button className={filters === 'filter__undone' ? 'filter__undone btnActive' : 'filter__undone'} onClick={() => {onFilter('filter__undone')}}>Undone</button>
             </div>
             <div className="filterBox__sorting">
                 <span>Sort by Date</span>
-                <button className={btnActive.sort === 'sort__early' ? 'sort__early btnActive' : 'sort__early'} onClick={() => {setActiveBtn({...btnActive, sort:'sort__early'});sortEarlyDate(tasksRender)}}>Ear</button>
-                <button className={btnActive.sort === 'sort__last' ? 'sort__last btnActive' : 'sort__last'} onClick={() => {setActiveBtn({...btnActive, sort:'sort__last'});sortLastDate(tasksRender)}}>Las</button>
+                <button className={sort === 'sort__early' ? 'sort__early btnActive' : 'sort__early'} onClick={() => {onSort('sort__early')}}>Ear</button>
+                <button className={sort === 'sort__last' ? 'sort__last btnActive' : 'sort__last'} onClick={() => {onSort('sort__last')}}>Las</button>
             </div>
         </section>
     )
