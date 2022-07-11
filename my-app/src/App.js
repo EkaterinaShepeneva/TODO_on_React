@@ -21,6 +21,11 @@ function App() {
     }
   }
 
+  const removeTask = (id) => {
+    tasksArray = tasksArray.filter(task => task.id !== id)
+    setRender(tasksArray)
+  }
+
   return (
     <main>
     <h1>ToDo</h1>
@@ -33,6 +38,8 @@ function App() {
           <Task
             task={task}
             key={task.id}
+           // checkTask = {checkTask}
+            removeTask = {removeTask}
           />)}
       )}
     </div>

@@ -3,8 +3,8 @@ import { useState } from "react"
 function TodoForm({addTask}) {
     const [userInput, setUserInput] = useState('')
 
-    const changeInput = (e) => {
-        setUserInput([e.currentTarget.value])
+    const changeInput = (event) => {
+        setUserInput([event.currentTarget.value])
     }
 
     const handleSubmit = (event) => {

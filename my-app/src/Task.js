@@ -1,4 +1,6 @@
-function Task({task}) {
+function Task({task, removeTask}) {
+
+
     return (
         <div key={task.id} className="task">     
             <section className="task__left">
@@ -7,7 +9,7 @@ function Task({task}) {
             </section>
             <section className="task__right">
                 <div className="task__date">{task.date}</div>
-                <button className="task__btnDelete" >del</button>
+                <button className="task__btnDelete" onClick={() => removeTask(task.id)} >del</button>
             </section>
         </div>
     )
