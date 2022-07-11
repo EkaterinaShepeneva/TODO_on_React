@@ -60,6 +60,7 @@ const addTask = (userInput) => {
             removeTask = {removeTask}
             checkTask = {checkTask}
             addTask={addTask}
+            tasks={tasks}
           />)}
       )}
     </div>
