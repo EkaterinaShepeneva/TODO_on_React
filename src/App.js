@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Task from './Task';
 import TodoForm from './TodoForm.js';
+import Filters from './Filters';
 import moment from "moment";
 
 let tasksArray = []
@@ -26,11 +27,41 @@ function App() {
     setRender(tasksArray)
   }
 
+  const checkTask = (id) => {
+    tasksArray.find(task => {
+        if (task.id === id){
+          task.check = !task.check
+        }
+      })
+    setRender(tasksArray)
+  }
+
+  const filterAllArray = () => setRender(tasksArray)
+
+  const filterDoneArray = (array) => setRender([...array.filter(task => task.check === true)])
+
+  const filterUnDoneArray = (array) => setRender([...array.filter(task => !task.check === true)])
+
+  const sortEarlyDate = (array) => setRender([...array.sort((prev, next) => next.id - prev.id)])
+
+  const sortLastDate = (array) => setRender([...array.sort((prev, next) => prev.id - next.id)])
+
+
+
   return (
     <main>
     <h1>ToDo</h1>
     <TodoForm 
     addTask={addTask}
+    />
+    <Filters
+      tasksArray={tasksArray}
+      tasksRender={tasksRender}
+      filterAllArray={filterAllArray}
+      filterDoneArray={filterDoneArray}
+      filterUnDoneArray={filterUnDoneArray}
+      sortEarlyDate={sortEarlyDate}
+      sortLastDate={sortLastDate}
     />
     <div className="tasksBox">
       {tasksRender.map((task) =>{ 
@@ -38,8 +69,8 @@ function App() {
           <Task
             task={task}
             key={task.id}
-           // checkTask = {checkTask}
             removeTask = {removeTask}
+            checkTask = {checkTask}
           />)}
       )}
     </div>

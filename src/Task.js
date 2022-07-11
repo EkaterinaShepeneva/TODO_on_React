@@ -1,10 +1,12 @@
-function Task({task, removeTask}) {
+import { useState } from "react"
 
+function Task({task, removeTask, checkTask}) {
+    const [checked, setChecked] = useState(false);
 
     return (
         <div key={task.id} className="task">     
             <section className="task__left">
-                <input className="task__check" defaultChecked={task.check} type="checkbox" />
+                <input className="task__check" defaultChecked={task.check} onChange={() => setChecked(!checked)} onClick={() => checkTask(task.id)} type="checkbox" />
                 <div className="task__text">{task.title}</div>
             </section>
             <section className="task__right">
