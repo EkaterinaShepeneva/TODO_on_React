@@ -1,1 +1,284 @@
+body {
+  background: rgba(205, 219, 216, 1);
+  display: flex;
+  justify-content: center;
+}
 
+main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+h1 {
+  margin: 10px;
+  font-family: 'Inika', serif;
+  font-size: 76px;
+  line-height: 99px;
+  color: rgba(86, 96, 94, 1);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+span {
+  margin: 0px;
+  font-family: 'Inika';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 25px;
+  color:  rgba(48, 119, 105, 1);
+}
+
+button {
+  padding: 3px 10px;
+  margin: 3px;
+  font-family: 'Inika';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 25px;
+  color: rgba(48, 119, 105, 1);
+  background: rgba(255, 255, 255, 1);
+  border: 1px solid rgba(48, 119, 105, 1);
+  border-radius: 6px;
+}
+
+button:hover, .btnActive {
+  color: rgba(255, 255, 255, 1);
+  background: rgba(48, 119, 105, 1);
+}
+
+.inputBox {
+  width: 405px;
+  height: 46px;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 12px;
+  display: flex;
+  align-items:center;
+  justify-content: center;
+}
+
+.inputBox__input {
+  padding: 5px;
+  resize: none;
+  overflow: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  outline: 0;
+  border: none;
+  background-color: rgba(86, 96, 94, 0);
+  width: 383px;
+  height: 30px;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 22px;
+  color: rgba(86, 96, 94, 1);
+}
+
+.inputBox__input::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.filterBox {
+  margin: 34px 0 13px 0;
+  width: 520px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+.filterBox__filter {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.filterBox__sorting {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.tasksBox {
+  width: 555px;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid rgb(79, 151, 137);
+  border-radius: 6px;
+}
+
+.task {
+  width: 520px;
+  min-height: 46px;
+  margin: 5px;
+  padding: 6px;
+  background: rgba(86, 96, 94, 1);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.task__left {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.task__right {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.task__check {
+  width: 27px;
+  height: 27px;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 9px;
+}
+
+.task__text {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 19px;
+  overflow-wrap: break-word;
+  line-height: 22px;
+  display: flex;
+  align-items: center;
+  color:  rgba(255, 255, 255, 1);
+}
+
+.task__date{
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: rgba(205, 219, 216, 0.58);
+}
+
+.editTask {
+  border: none;
+  outline: none;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 22px;
+  display: flex;
+  align-items: center;
+  color:  rgba(255, 255, 255, 1);
+  height: 46px;
+  background: rgba(153, 154, 158, 0.479);
+}
+
+.pagination {
+  width: 341px;
+  margin: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.pagination__pages {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.pagination__pages__number {
+  margin: 3px;
+  font-size: 19px;
+  font-family: 'Inika';
+  font-style: normal;
+  font-weight: 700;
+  color: rgba(86, 96, 94, 1);
+}
+
+.activePages {
+  padding: 3px;
+  border: 1px solid rgba(86, 96, 94, 1);
+}
+
+@media screen and (max-width: 650px) {
+
+  button {
+      font-size:15px;
+      width: 70px;
+  }
+
+  span {
+      font-size:15px;
+  }
+
+  .filterBox {
+      flex-direction: column;
+      justify-content: space-between;
+      max-width: 310px;
+  }
+
+  .inputBox {
+      max-width: 300px;
+      height: 100px;
+      align-items: flex-start;
+      padding: 5px;
+  }
+
+  .inputBox__input {
+      font-size:15px;
+      white-space:pre-wrap;
+      overflow-wrap: break-word;
+  }
+
+  .filterBox {
+      max-width: 350px;
+      margin: 10px 0 10px 0;
+  }
+
+  .filterBox__filter, .filterBox__sorting {
+      min-width: 310px;
+      justify-content: space-between;
+  }
+
+  .tasksBox {
+      max-width: 350px;
+      min-width: 300px;
+  }
+
+  .task {
+      max-width: 327px;
+      min-width: 300px;
+  }
+
+  .task__right {
+      flex-direction: column-reverse;
+      align-items: normal;
+  }
+
+  .task__text {
+      max-width: 210px;
+      min-width: 150px;
+      font-size:15px;
+  }
+
+  .pagination {
+      margin-top: 30px;
+  }
+}
