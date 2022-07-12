@@ -3,21 +3,24 @@ import { useEffect } from "react";
 import Task from "./Task";
 import TodoForm from "./TodoForm.js";
 import Filters from "./Filters";
+import Pagination from "./Pagination";
 import moment from "moment";
 
 function App() {
   const NUM_TASK = 4;
   const [tasks, setTasks] = useState([]);
   const [filters, setFilter] = useState("filter__all");
-  const [statusTask, setstatusTask] = useState(0);
+  //const [statusTask, setstatusTask] = useState(0);
   const [page, setPages] = useState(1);
   const [pagesCount, setPagesCount] = useState(1);
+  const [pagesCountArray, setPagesCountArray] = useState([page]);
   const [sort, setSort] = useState("sort__last");
 
-  useEffect(() => {
-    console.log('use effect');
-    setPagesCount((Math.ceil((tasks.length + 1) / 4)) || 1)
-  }, [filters]);
+
+  // useEffect(() => {
+  //   console.log('use effect');
+  //   setPagesCount((Math.ceil((tasks.length + 1) / 4)) || 1)
+  // }, [filters]);
 
   const handleFilter = (filter) => {
     setFilter(filter);
@@ -44,24 +47,24 @@ function App() {
     }
   };
 
-  const pagination = () => {
-    let arrayPages = [];
-    for (let i = 1; i < pagesCount + 1; i++) {
-      arrayPages.push(
-        <div
-          key={Math.random()}
-          className={
-            i === page
-              ? "pagination__pages__number activePages"
-              : "pagination__pages__number"
-          }
-        >
-          {i}
-        </div>
-      );
-    }
-    return arrayPages;
-  };
+  // const pagination = () => {
+  //   let arrayPages = [];
+  //   for (let i = 1; i < pagesCount + 1; i++) {
+  //     arrayPages.push(
+  //       <div
+  //         key={Math.random()}
+  //         className={
+  //           i === page
+  //             ? "pagination__pages__number activePages"
+  //             : "pagination__pages__number"
+  //         }
+  //       >
+  //         {i}
+  //       </div>
+  //     );
+  //   }
+  //   return arrayPages;
+  // };
 
   const addTask = (userInput) => {
     if (userInput) {
@@ -72,19 +75,44 @@ function App() {
         date: moment().format("DD/MM/YYYY"),
       };
 
-      setTasks((tasks) => [...tasks, newTask]);
+      setTasks([...tasks, newTask]);
     }
-    setPagesCount((Math.ceil((tasks.length + 1) / 4)) || 1);
+    
+    
+    //setPagesCount((Math.ceil((tasks.length + 1) / 4)) || 1);
   };
+  useEffect(()=> {
+    setPagesCount((Math.ceil((tasks.length) / 4)) || 1)
+  }, [tasks])
 
+  useEffect(()=> {
+    console.log(pagesCount);
+    changePagesCount()
+  }, [pagesCount])
+
+  
   const removeTask = (id) => {
     setTasks(tasks.filter((task) => task.id !== id))
-    setPagesCount((Math.ceil((tasks.length-1) / 4)) || 1);
+    console.log(tasks.length );
+    //setPagesCount((Math.ceil((tasks.length-1) / 4)) || 1);
   };
+
+  const changePagesCount = () => {
+    console.log(pagesCountArray);
+    //let count = (Math.ceil((tasks.length) / NUM_TASK))|| 1
+    // console.log(tasks.length );
+    //setPagesCount(Math.ceil(tasks.length / NUM_TASK)|| 1)
+    // console.log(pagesCount);
+    // if (count){
+    //   setPagesCount([...pagesCount, count])
+    // }
+    
+    // console.log(pagesCount);
+  }
 
   const checkTask = (task) => {
     (task.check = !task.check)
-    setstatusTask(1)
+   // setstatusTask(1)
   };
 
   return (
@@ -133,7 +161,13 @@ function App() {
         >
           back
         </button>
-        <div className="pagination__pages">{pagination()}</div>
+        <div className="pagination__pages">{pagesCountArray.map((item) => {
+          return (<Pagination 
+                  key={Math.random()}
+                  item={item} 
+                  page={page}
+                    />)
+        })}</div>
         <button
           className="pagination__forward"
           onClick={(event) => {
