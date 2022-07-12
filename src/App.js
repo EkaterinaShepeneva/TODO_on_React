@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useEffect } from "react";
 import Task from "./Task";
 import TodoForm from "./TodoForm.js";
 import Filters from "./Filters";
@@ -8,9 +9,15 @@ function App() {
   const NUM_TASK = 4;
   const [tasks, setTasks] = useState([]);
   const [filters, setFilter] = useState("filter__all");
+  const [statusTask, setstatusTask] = useState(0);
   const [page, setPages] = useState(1);
   const [pagesCount, setPagesCount] = useState(1);
   const [sort, setSort] = useState("sort__last");
+
+  useEffect(() => {
+    console.log('use effect');
+    setPagesCount((Math.ceil((tasks.length + 1) / 4)) || 1)
+  }, [filters]);
 
   const handleFilter = (filter) => {
     setFilter(filter);
@@ -67,13 +74,18 @@ function App() {
 
       setTasks((tasks) => [...tasks, newTask]);
     }
-
-    setPagesCount(Math.ceil((tasks.length + 1) / 4) || 1);
+    setPagesCount((Math.ceil((tasks.length + 1) / 4)) || 1);
   };
 
-  const removeTask = (id) => setTasks(tasks.filter((task) => task.id !== id));
+  const removeTask = (id) => {
+    setTasks(tasks.filter((task) => task.id !== id))
+    setPagesCount((Math.ceil((tasks.length-1) / 4)) || 1);
+  };
 
-  const checkTask = (task) => (task.check = !task.check);
+  const checkTask = (task) => {
+    (task.check = !task.check)
+    setstatusTask(1)
+  };
 
   return (
     <main>
