@@ -59,7 +59,6 @@ const addTask = (userInput) => {
             key={task.id}
             removeTask = {removeTask}
             checkTask = {checkTask}
-            addTask={addTask}
             tasks={tasks}
           />)}
       )}

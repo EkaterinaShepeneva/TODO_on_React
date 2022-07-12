@@ -1,9 +1,7 @@
 import { useState } from "react";
 import React from "react";
-import TodoForm from "./TodoForm";
-import ReactDOM from "react-dom/client";
 
-function Task({ task, removeTask, checkTask, addTask, tasks }) {
+function Task({ task, removeTask, checkTask, tasks }) {
   const [checked, setChecked] = useState(false);
   const [statusInput, setStatusInput] = useState(0);
   const [userInput, setUserInput] = useState();
@@ -12,10 +10,14 @@ function Task({ task, removeTask, checkTask, addTask, tasks }) {
     setUserInput(event.target.value);
   };
 
-  const changeStatusInput = (value, id) => {
+  const changeStatusInput = (value, event) => {
     setUserInput(value);
     setStatusInput(1);
   };
+
+  const blurInput = (event, id) => {
+    handleSubmit(event, id)
+  }
 
   const handleSubmit = (event, id) => {
     event.preventDefault();
@@ -29,8 +31,15 @@ function Task({ task, removeTask, checkTask, addTask, tasks }) {
   };
 
   const handleKeyPress = (event, id) => {
-    if (event.key === "Enter") {
-      handleSubmit(event, id);
+    switch(event.key){
+      case 'Enter':
+        handleSubmit(event, id)
+        break
+      case "Escape":
+        setStatusInput(0)
+        break
+      default:
+        break
     }
   };
 
@@ -47,6 +56,8 @@ function Task({ task, removeTask, checkTask, addTask, tasks }) {
         {statusInput === 1 ? (
           <input
             className="editTask"
+            autoFocus
+            onBlur={(event) => {blurInput(event, task.id)}}
             onKeyDown={(event) => {
               handleKeyPress(event, task.id);
             }}
@@ -58,8 +69,8 @@ function Task({ task, removeTask, checkTask, addTask, tasks }) {
           <div
             className="task__text"
             id={task.id}
-            onDoubleClick={() => {
-              changeStatusInput(task.title, task.id);
+            onDoubleClick={(event) => {
+              changeStatusInput(task.title, event);
             }}
           >
             {task.title}
