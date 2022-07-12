@@ -23,7 +23,7 @@ function App() {
 
   const handleFilter = (filter) => {
     setFilter(filter);
-    setPagesCount(Math.ceil(tasks.length / 4) || 1);
+    //setPagesCount(Math.ceil(tasks.length / 4) || 1);
   };
   const handleSort = (sort) => {
     setSort(sort);
