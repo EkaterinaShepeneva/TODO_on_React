@@ -1,5 +1,6 @@
 import { useState } from "react"
 
+
 function TodoForm({addTask}) {
     const [userInput, setUserInput] = useState('')
 
@@ -8,8 +9,9 @@ function TodoForm({addTask}) {
     }
 
     const handleSubmit = (event) => {
+        const title =String(userInput).trim()
         event.preventDefault()
-        addTask(userInput)
+        addTask(title)
         setUserInput("")
     }
 
@@ -22,6 +24,7 @@ function TodoForm({addTask}) {
     return (
          <form className="inputBox" onSubmit={handleSubmit}>
              <input 
+                autoFocus
                 className="inputBox__input"
                 value={userInput}
                 type="text"

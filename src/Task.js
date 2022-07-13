@@ -16,30 +16,34 @@ function Task({ task, removeTask, checkTask, tasks }) {
   };
 
   const blurInput = (event, id) => {
-    handleSubmit(event, id)
-  }
+    handleSubmit(event, id);
+  };
 
   const handleSubmit = (event, id) => {
     event.preventDefault();
-    tasks.find((task) => {
-      if (task.id === id) {
-        task.title = userInput;
-        return true;
-      }
-    });
+    const title = String(userInput).trim();
+    if (title) {
+      tasks.find((task) => {
+        if (task.id === id) {
+          task.title = title;
+          return true;
+        }
+      });
+    }
+
     setStatusInput(0);
   };
 
   const handleKeyPress = (event, id) => {
-    switch(event.key){
-      case 'Enter':
-        handleSubmit(event, id)
-        break
+    switch (event.key) {
+      case "Enter":
+        handleSubmit(event, id);
+        break;
       case "Escape":
-        setStatusInput(0)
-        break
+        setStatusInput(0);
+        break;
       default:
-        break
+        break;
     }
   };
 
@@ -57,7 +61,9 @@ function Task({ task, removeTask, checkTask, tasks }) {
           <input
             className="editTask"
             autoFocus
-            onBlur={(event) => {blurInput(event, task.id)}}
+            onBlur={(event) => {
+              blurInput(event, task.id);
+            }}
             onKeyDown={(event) => {
               handleKeyPress(event, task.id);
             }}
