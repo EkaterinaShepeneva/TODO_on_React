@@ -11,6 +11,7 @@ function PagesButton ({handlePage, pagesCount, page, movingOnPages}){
         >
           back
         </button>
+        <button onClick={() => movingOnPages(1)} className="first_page">First page</button>
         <div className="pagination__pages">
           {new Array(pagesCount).fill().map((el, i) => 
           <Pagination
@@ -21,6 +22,7 @@ function PagesButton ({handlePage, pagesCount, page, movingOnPages}){
             movingOnPages={movingOnPages}
           />)}
         </div>
+        <button onClick={() => movingOnPages(pagesCount)} className="last_page">Last page</button>
         <button
           className="pagination__forward"
           onClick={(event) => {
