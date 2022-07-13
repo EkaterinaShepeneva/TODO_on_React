@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import Task from "./Task";
 import TodoForm from "./TodoForm.js";
 import Filters from "./Filters";
-import Pagination from "./Pagination";
 import PagesButton from "./PagesButton";
 import moment from "moment";
 
@@ -102,7 +101,7 @@ function App() {
     }
   };
 
-  const validate = (val) => { //validate
+  const validate = (val) => {
     if (val === '') {
         alert('Введите что-нибудь');
         return false};
