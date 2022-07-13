@@ -90,6 +90,7 @@ function App() {
   };
 
   const addTask = (userInput) => {
+    if (!validate(userInput))return
     if (userInput) {
       const newTask = {
         title: userInput,
@@ -100,6 +101,22 @@ function App() {
       setTasks([...tasks, newTask]);
     }
   };
+
+  const validate = (val) => { //validate
+    if (val === '') {
+        alert('Введите что-нибудь');
+        return false};
+    let arrayWord = val.split(' ');
+    let result = true;
+
+    arrayWord.forEach(item => {
+        if (item.length > 32) {
+            alert('многого хотите, нет такого слова');
+            result = false;}
+    });
+
+    return result;
+}
 
   const removeTask = (id) => {
     setTasks(tasks.filter((task) => task.id !== id));
@@ -136,6 +153,7 @@ function App() {
                 checkTask={checkTask}
                 tasks={tasks}
                 page={page}
+                validate={validate}
               />
             );
           })}
