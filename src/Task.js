@@ -49,7 +49,8 @@ function Task({ task, removeTask, checkTask, tasks }) {
 
   return (
     <div key={task.id} className="task">
-      <section className="task__left">
+      <div  className="task__inputs">
+        <section className="task__left">
         <input
           className="task__check"
           defaultChecked={task.check}
@@ -82,13 +83,15 @@ function Task({ task, removeTask, checkTask, tasks }) {
             {task.title}
           </div>
         )}
+
       </section>
-      <section className="task__right">
-        <div className="task__date">{task.date}</div>
-        <button className="task__btnDelete" onClick={() => removeTask(task.id)}>
+                      <button className="task__btnDelete" onClick={() => removeTask(task.id)}>
           del
         </button>
-      </section>
+      </div>
+      
+
+        <div className="task__date">{task.date}</div>
     </div>
   );
 }

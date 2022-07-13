@@ -76,7 +76,7 @@ function App() {
         title: userInput,
         id: Date.now(),
         check: false,
-        date: moment().format("DD/MM/YYYY"),
+        date: moment().format("LLLL"),
       };
       setTasks([...tasks, newTask]);
     }

@@ -126,7 +126,7 @@ button:hover, .btnActive {
   background: rgba(86, 96, 94, 1);
   border-radius: 12px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column; /**/
   justify-content: space-between;
   align-items: flex-start;
 }
@@ -136,6 +136,16 @@ button:hover, .btnActive {
   flex-direction: row;
   justify-content: flex-start;
   align-items: stretch;
+}
+
+.task__inputs { /**/
+  width: 520px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.task__btnDelete {
+  margin-right: 0;
 }
 
 .task__right {
