@@ -22,7 +22,10 @@ function Task({ task, removeTask, checkTask, tasks, validate }) {
   const handleSubmit = (event, id) => {
     event.preventDefault();
     const title = String(userInput).trim();
-    if (!validate(title)){setStatusInput(0); return}
+    if (!validate(title)) {
+      setStatusInput(0);
+      return;
+    }
     if (title) {
       tasks.find((task) => {
         if (task.id === id) {
@@ -50,49 +53,47 @@ function Task({ task, removeTask, checkTask, tasks, validate }) {
 
   return (
     <div key={task.id} className="task">
-      <div  className="task__inputs">
+      <div className="task__inputs">
         <section className="task__left">
-        <input
-          className="task__check"
-          defaultChecked={task.check}
-          onChange={() => setChecked(!checked)}
-          onClick={() => checkTask(task.id)}
-          type="checkbox"
-        />
-        {statusInput === 1 ? (
           <input
-            className="editTask"
-            autoFocus
-            onBlur={(event) => {
-              blurInput(event, task.id);
-            }}
-            onKeyDown={(event) => {
-              handleKeyPress(event, task.id);
-            }}
-            value={userInput}
-            onChange={handleChange}
-            type="text"
+            className="task__check"
+            defaultChecked={task.check}
+            onChange={() => setChecked(!checked)}
+            onClick={() => checkTask(task.id)}
+            type="checkbox"
           />
-        ) : (
-          <div
-            className="task__text"
-            id={task.id}
-            onDoubleClick={(event) => {
-              changeStatusInput(task.title, event);
-            }}
-          >
-            {task.title}
-          </div>
-        )}
-
-      </section>
-                      <button className="task__btnDelete" onClick={() => removeTask(task.id)}>
+          {statusInput === 1 ? (
+            <input
+              className="editTask"
+              autoFocus
+              onBlur={(event) => {
+                blurInput(event, task.id);
+              }}
+              onKeyDown={(event) => {
+                handleKeyPress(event, task.id);
+              }}
+              value={userInput}
+              onChange={handleChange}
+              type="text"
+            />
+          ) : (
+            <div
+              className="task__text"
+              id={task.id}
+              onDoubleClick={(event) => {
+                changeStatusInput(task.title, event);
+              }}
+            >
+              {task.title}
+            </div>
+          )}
+        </section>
+        <button className="task__btnDelete" onClick={() => removeTask(task.id)}>
           del
         </button>
       </div>
-      
 
-        <div className="task__date">{task.date}</div>
+      <div className="task__date">{task.date}</div>
     </div>
   );
 }

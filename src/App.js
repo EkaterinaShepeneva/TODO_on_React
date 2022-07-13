@@ -1,63 +1,22 @@
 import { useState } from "react";
 import { useEffect } from "react";
-import Task from "./Task";
-import TodoForm from "./TodoForm.js";
-import Filters from "./Filters";
-import PagesButton from "./PagesButton";
-import moment from "moment";
+
+import "./App.css";
+
+import TodoForm from "./components/TasksBox/TodoForm";
+import Filters from "./components/Filters/Filters";
+import PagesButton from "./components/Pagination/PagesButton";
+import TasksBox from "./components/TasksBox/TasksBox";
+
+const NUM_TASK = 4;
 
 function App() {
-  const NUM_TASK = 4;
   const [tasks, setTasks] = useState([]);
   const [filters, setFilter] = useState("filter__all");
   const [filtredArray, setFiltredArray] = useState(tasks);
   const [page, setPages] = useState(1);
   const [pagesCount, setPagesCount] = useState(1);
   const [sort, setSort] = useState("sort__last");
-
-  const handleFilter = (filter) => {
-    setFilter(filter);
-  };
-
-  const handleSort = (sort) => {
-    setSort(sort);
-  };
-
-  useEffect(() => {
-    switch (filters) {
-      case "filter__all":
-        setFiltredArray(
-          [...tasks].sort((prev, next) =>
-            sort === "sort__last" ? prev.id - next.id : next.id - prev.id
-          )
-        );
-        break;
-
-      case "filter__done":
-        setFiltredArray(
-          [...tasks]
-            .filter((task) => task.check === true)
-            .sort((prev, next) =>
-              sort === "sort__last" ? prev.id - next.id : next.id - prev.id
-            )
-        );
-        break;
-
-      default:
-        setFiltredArray(
-          [...tasks]
-            .filter((task) => task.check !== true)
-            .sort((prev, next) =>
-              sort === "sort__last" ? prev.id - next.id : next.id - prev.id
-            )
-        );
-        break;
-    }
-  }, [filters, sort, tasks]);
-
-  useEffect(() => {
-    setPagesCount(Math.ceil(filtredArray.length / 4) || 1);
-  }, [filtredArray, filters, sort]);
 
   useEffect(() => {
     if (page > pagesCount) {
@@ -88,85 +47,56 @@ function App() {
     setPages(number);
   };
 
-  const addTask = (userInput) => {
-    if (!validate(userInput))return
-    if (userInput) {
-      const newTask = {
-        title: userInput,
-        id: Date.now(),
-        check: false,
-        date: moment().format("LLLL"),
-      };
-      setTasks([...tasks, newTask]);
-    }
-  };
-
   const validate = (val) => {
-    if (val === '') {
-        alert('Введите что-нибудь');
-        return false};
-    let arrayWord = val.split(' ');
+    if (val === "") {
+      alert("Введите что-нибудь");
+      return false;
+    }
+    let arrayWord = val.split(" ");
     let result = true;
 
-    arrayWord.forEach(item => {
-        if (item.length > 32) {
-            alert('многого хотите, нет такого слова');
-            result = false;}
+    arrayWord.forEach((item) => {
+      if (item.length > 32) {
+        alert("многого хотите, нет такого слова");
+        result = false;
+      }
     });
 
     return result;
-}
-
-  const removeTask = (id) => {
-    setTasks(tasks.filter((task) => task.id !== id));
-  };
-
-  const checkTask = (id) => {
-    setTasks(
-      tasks.map((task) => ({
-        ...task,
-        check: task.id === id ? !task.check : task.check,
-      }))
-    );
   };
 
   return (
     <main>
       <h1>ToDo</h1>
-      <TodoForm addTask={addTask} />
+      <TodoForm setTasks={setTasks} tasks={tasks} validate={validate} />
       <Filters
-        onFilter={handleFilter}
-        onSort={handleSort}
+        setFilter={setFilter}
+        setSort={setSort}
+        setFiltredArray={setFiltredArray}
+        setPagesCount={setPagesCount}
         filters={filters}
+        tasks={tasks}
         sort={sort}
+        filtredArray={filtredArray}
       />
-      <div className="tasksBox">
-        {filtredArray
-          .slice((page - 1) * NUM_TASK, NUM_TASK * page)
-          .map((task) => {
-            return (
-              <Task
-                task={task}
-                key={task.id}
-                removeTask={removeTask}
-                checkTask={checkTask}
-                tasks={tasks}
-                page={page}
-                validate={validate}
-              />
-            );
-          })}
-      </div>
-      {(pagesCount>1)? (
-         (
-          <PagesButton
-            handlePage={handlePage}
-            pagesCount={pagesCount}
-            page={page}
-            movingOnPages={movingOnPages}
-          />
-        )
-      ):('')}
+      <TasksBox
+        NUM_TASK={NUM_TASK}
+        page={page}
+        tasks={tasks}
+        setTasks={setTasks}
+        filtredArray={filtredArray}
+        validate={validate}
+      />
+      {pagesCount > 1 ? (
+        <PagesButton
+          handlePage={handlePage}
+          pagesCount={pagesCount}
+          page={page}
+          movingOnPages={movingOnPages}
+        />
+      ) : (
+        ""
+      )}
     </main>
   );
 }
