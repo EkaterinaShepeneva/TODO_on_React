@@ -138,7 +138,7 @@ button:hover, .btnActive {
   align-items: stretch;
 }
 
-.task__inputs { /**/
+.task__inputs { 
   width: 520px;
   display: flex;
   justify-content: space-between;
