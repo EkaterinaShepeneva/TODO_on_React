@@ -16,7 +16,7 @@ function Task({ task, removeTask, checkTask, tasks, validate }) {
   };
 
   const blurInput = (event, id) => {
-    handleSubmit(event, id);
+    setStatusInput(0);
   };
 
   const handleSubmit = (event, id) => {

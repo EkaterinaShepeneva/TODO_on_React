@@ -20,7 +20,7 @@ function App() {
 
   useEffect(() => {
     if (page > pagesCount) {
-      setPages(pagesCount);
+      setPages(1);
     }
   }, [pagesCount]);
 
