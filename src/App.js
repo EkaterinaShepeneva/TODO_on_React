@@ -4,13 +4,14 @@ import Task from "./Task";
 import TodoForm from "./TodoForm.js";
 import Filters from "./Filters";
 import Pagination from "./Pagination";
+import PagesButton from "./PagesButton";
 import moment from "moment";
 
 function App() {
   const NUM_TASK = 4;
   const [tasks, setTasks] = useState([]);
   const [filters, setFilter] = useState("filter__all");
-  const [filtredArray, setFiltredArray] = useState(tasks)
+  const [filtredArray, setFiltredArray] = useState(tasks);
   const [page, setPages] = useState(1);
   const [pagesCount, setPagesCount] = useState(1);
   const [sort, setSort] = useState("sort__last");
@@ -25,16 +26,32 @@ function App() {
 
   useEffect(() => {
     switch (filters) {
-      case 'filter__all':
-        setFiltredArray([...tasks].sort((prev, next) =>sort === "sort__last" ? prev.id - next.id : next.id - prev.id));
+      case "filter__all":
+        setFiltredArray(
+          [...tasks].sort((prev, next) =>
+            sort === "sort__last" ? prev.id - next.id : next.id - prev.id
+          )
+        );
         break;
-    
-      case 'filter__done':
-        setFiltredArray([...tasks].filter((task) => task.check === true).sort((prev, next) =>sort === "sort__last" ? prev.id - next.id : next.id - prev.id));
+
+      case "filter__done":
+        setFiltredArray(
+          [...tasks]
+            .filter((task) => task.check === true)
+            .sort((prev, next) =>
+              sort === "sort__last" ? prev.id - next.id : next.id - prev.id
+            )
+        );
         break;
 
       default:
-        setFiltredArray([...tasks].filter((task) => task.check !== true).sort((prev, next) =>sort === "sort__last" ? prev.id - next.id : next.id - prev.id));
+        setFiltredArray(
+          [...tasks]
+            .filter((task) => task.check !== true)
+            .sort((prev, next) =>
+              sort === "sort__last" ? prev.id - next.id : next.id - prev.id
+            )
+        );
         break;
     }
   }, [filters, sort, tasks]);
@@ -44,7 +61,9 @@ function App() {
   }, [filtredArray, filters, sort]);
 
   useEffect(() => {
-    if (page > pagesCount){setPages(pagesCount)}
+    if (page > pagesCount) {
+      setPages(pagesCount);
+    }
   }, [pagesCount]);
 
   const handlePage = (event) => {
@@ -67,8 +86,8 @@ function App() {
   };
 
   const movingOnPages = (number) => {
-    setPages(number)
-  }
+    setPages(number);
+  };
 
   const addTask = (userInput) => {
     if (userInput) {
@@ -80,14 +99,19 @@ function App() {
       };
       setTasks([...tasks, newTask]);
     }
-  }
+  };
 
   const removeTask = (id) => {
     setTasks(tasks.filter((task) => task.id !== id));
   };
 
   const checkTask = (id) => {
-    setTasks(tasks.map((task) => ({...task, check: task.id === id ? (!task.check):(task.check)})));
+    setTasks(
+      tasks.map((task) => ({
+        ...task,
+        check: task.id === id ? !task.check : task.check,
+      }))
+    );
   };
 
   return (
@@ -101,7 +125,8 @@ function App() {
         sort={sort}
       />
       <div className="tasksBox">
-        {filtredArray.slice((page - 1) * NUM_TASK, NUM_TASK * page)
+        {filtredArray
+          .slice((page - 1) * NUM_TASK, NUM_TASK * page)
           .map((task) => {
             return (
               <Task
@@ -115,35 +140,16 @@ function App() {
             );
           })}
       </div>
-
-      <div className="pagination">
-        <button
-          className="pagination__back"
-          onClick={(event) => {
-            handlePage(event);
-          }}
-        >
-          back
-        </button>
-        <div className="pagination__pages">
-          {new Array(pagesCount).fill().map((el, i) => 
-          <Pagination
-            key={Math.random()}
-            page={page}
+      {(pagesCount>1)? (
+         (
+          <PagesButton
+            handlePage={handlePage}
             pagesCount={pagesCount}
-            i={i+1}
+            page={page}
             movingOnPages={movingOnPages}
-          />)}
-        </div>
-        <button
-          className="pagination__forward"
-          onClick={(event) => {
-            handlePage(event);
-          }}
-        >
-          forward
-        </button>
-      </div>
+          />
+        )
+      ):('')}
     </main>
   );
 }
