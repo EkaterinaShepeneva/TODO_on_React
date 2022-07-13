@@ -66,6 +66,10 @@ function App() {
     }
   };
 
+  const movingOnPages = (number) => {
+    setPages(number)
+  }
+
   const addTask = (userInput) => {
     if (userInput) {
       const newTask = {
@@ -128,6 +132,7 @@ function App() {
             page={page}
             pagesCount={pagesCount}
             i={i+1}
+            movingOnPages={movingOnPages}
           />)}
         </div>
         <button

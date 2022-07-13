@@ -1,7 +1,7 @@
-function Pagination ({ page, pagesCount, i}) {
+function Pagination ({ page, pagesCount, i, movingOnPages}) {
     return (
         <div className={ i === page ? "pagination__pages__number activePages" : "pagination__pages__number" }>
-          {i}
+          <button onClick={() => movingOnPages(i)}>{i}</button>
         </div>
     )
 }
