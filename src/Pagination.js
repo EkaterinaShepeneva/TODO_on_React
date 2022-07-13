@@ -1,7 +1,7 @@
-function Pagination ({item, page}) {
+function Pagination ({ page, pagesCount, i}) {
     return (
-        <div key={Math.random()} className={ item === page ? "pagination__pages__number activePages" : "pagination__pages__number" }>
-          {item}
+        <div className={ i === page ? "pagination__pages__number activePages" : "pagination__pages__number" }>
+          {i}
         </div>
     )
 }

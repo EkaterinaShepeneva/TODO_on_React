@@ -10,24 +10,43 @@ function App() {
   const NUM_TASK = 4;
   const [tasks, setTasks] = useState([]);
   const [filters, setFilter] = useState("filter__all");
-  //const [statusTask, setstatusTask] = useState(0);
+  const [filtredArray, setFiltredArray] = useState(tasks)
   const [page, setPages] = useState(1);
   const [pagesCount, setPagesCount] = useState(1);
-
   const [sort, setSort] = useState("sort__last");
-
-  // useEffect(() => {
-  //   console.log('use effect');
-  //   setPagesCount((Math.ceil((tasks.length + 1) / 4)) || 1)
-  // }, [filters]);
 
   const handleFilter = (filter) => {
     setFilter(filter);
-    //setPagesCount(Math.ceil(tasks.length / 4) || 1);
   };
+
   const handleSort = (sort) => {
     setSort(sort);
   };
+
+  useEffect(() => {
+    switch (filters) {
+      case 'filter__all':
+        setFiltredArray([...tasks].sort((prev, next) =>sort === "sort__last" ? prev.id - next.id : next.id - prev.id));
+        break;
+    
+      case 'filter__done':
+        setFiltredArray([...tasks].filter((task) => task.check === true).sort((prev, next) =>sort === "sort__last" ? prev.id - next.id : next.id - prev.id));
+        break;
+
+      default:
+        setFiltredArray([...tasks].filter((task) => task.check !== true).sort((prev, next) =>sort === "sort__last" ? prev.id - next.id : next.id - prev.id));
+        break;
+    }
+  }, [filters, sort, tasks]);
+
+  useEffect(() => {
+    setPagesCount(Math.ceil(filtredArray.length / 4) || 1);
+  }, [filtredArray, filters, sort]);
+
+  useEffect(() => {
+    if (page > pagesCount){setPages(pagesCount)}
+  }, [pagesCount]);
+
   const handlePage = (event) => {
     switch (event.target.className) {
       case "pagination__forward":
@@ -47,25 +66,6 @@ function App() {
     }
   };
 
-  // const pagination = () => {
-  //   let arrayPages = [];
-  //   for (let i = 1; i < pagesCount + 1; i++) {
-  //     arrayPages.push(
-  //       <div
-  //         key={Math.random()}
-  //         className={
-  //           i === page
-  //             ? "pagination__pages__number activePages"
-  //             : "pagination__pages__number"
-  //         }
-  //       >
-  //         {i}
-  //       </div>
-  //     );
-  //   }
-  //   return arrayPages;
-  // };
-
   const addTask = (userInput) => {
     if (userInput) {
       const newTask = {
@@ -74,28 +74,16 @@ function App() {
         check: false,
         date: moment().format("DD/MM/YYYY"),
       };
-
       setTasks([...tasks, newTask]);
     }
-
-    //setPagesCount((Math.ceil((tasks.length + 1) / 4)) || 1);
-  };
-  useEffect(() => {
-    setPagesCount(Math.ceil(tasks.length / 4) || 1);
-  }, [tasks]);
-
-
+  }
 
   const removeTask = (id) => {
     setTasks(tasks.filter((task) => task.id !== id));
-    //setPagesCount((Math.ceil((tasks.length-1) / 4)) || 1);
   };
 
-
-
-  const checkTask = (task) => {
-    task.check = !task.check;
-    // setstatusTask(1)
+  const checkTask = (id) => {
+    setTasks(tasks.map((task) => ({...task, check: task.id === id ? (!task.check):(task.check)})));
   };
 
   return (
@@ -109,18 +97,7 @@ function App() {
         sort={sort}
       />
       <div className="tasksBox">
-        {tasks
-          .filter((task) =>
-            filters === "filter__all"
-              ? tasks
-              : filters === "filter__done"
-              ? task.check === true
-              : task.check !== true
-          )
-          .sort((prev, next) =>
-            sort === "sort__last" ? prev.id - next.id : next.id - prev.id
-          )
-          .slice((page - 1) * NUM_TASK, NUM_TASK * page)
+        {filtredArray.slice((page - 1) * NUM_TASK, NUM_TASK * page)
           .map((task) => {
             return (
               <Task
@@ -145,7 +122,13 @@ function App() {
           back
         </button>
         <div className="pagination__pages">
-          {new Array(pagesCount).fill().map((el, i) => <div key={i}>{i}</div>)}
+          {new Array(pagesCount).fill().map((el, i) => 
+          <Pagination
+            key={Math.random()}
+            page={page}
+            pagesCount={pagesCount}
+            i={i+1}
+          />)}
         </div>
         <button
           className="pagination__forward"

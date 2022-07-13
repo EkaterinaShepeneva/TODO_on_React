@@ -50,7 +50,7 @@ function Task({ task, removeTask, checkTask, tasks }) {
           className="task__check"
           defaultChecked={task.check}
           onChange={() => setChecked(!checked)}
-          onClick={() => checkTask(task)}
+          onClick={() => checkTask(task.id)}
           type="checkbox"
         />
         {statusInput === 1 ? (
