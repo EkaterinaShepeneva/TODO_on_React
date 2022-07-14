@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import { FILTERS, SORT } from "./constants.js";
 
-import TodoForm from "./components/TasksBox/TodoForm";
+import TodoInputForm from "./components/TasksBox/TodoInputForm";
 import Filters from "./components/Filters/Filters";
 import PagesButton from "./components/Pagination/PagesButton";
 import TasksBox from "./components/TasksBox/TasksBox";
@@ -46,28 +46,10 @@ function App() {
     setCurrentPage(number);
   };
 
-  const validateInputTodo = (val) => {
-    if (!val) {
-      alert("Введите что-нибудь");
-      return false;
-    }
-    const arrayWord = val.split(" ");
-    let result = true;
-
-    arrayWord.forEach((item) => {
-      if (item.length > 32) {
-        alert("многого хотите, нет такого слова");
-        result = false;
-      }
-    });
-
-    return result;
-  };
-
   return (
     <main>
       <h1>ToDo</h1>
-      <TodoForm setTasks={setTasks} tasks={tasks} validateInputTodo={validateInputTodo} />
+      <TodoInputForm setTasks={setTasks} tasks={tasks} />
       <Filters
         setFilter={setFilter}
         setSort={setSort}
@@ -83,17 +65,14 @@ function App() {
         tasks={tasks}
         setTasks={setTasks}
         filtredArray={filtredArray}
-        validateInputTodo={validateInputTodo}
       />
-      {pagesCount > 1 ? (
+      {pagesCount > 1 && (
         <PagesButton
           flipPage={flipPage}
           pagesCount={pagesCount}
           currentPage={currentPage}
           changeCurrentPage={changeCurrentPage}
         />
-      ) : (
-        ""
       )}
     </main>
   );

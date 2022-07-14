@@ -50,7 +50,7 @@
   background: rgba(86, 96, 94, 1);
   border-radius: 12px;
   display: flex;
-  flex-direction: column; /**/
+  flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
 }

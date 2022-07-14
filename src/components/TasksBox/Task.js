@@ -1,50 +1,49 @@
-import { useState } from "react";
 import React from "react";
+import { useState } from "react";
+import {validateInputTodo} from "../../utils/utils.js";
 
-function Task({ task, removeTask, checkTask, tasks, validateInputTodo }) {
-  const [checked, setChecked] = useState(false);
-  const [statusInput, setStatusInput] = useState(0);
-  const [userInput, setUserInput] = useState();
-
+function Task({ task, removeTask, checkTask, tasks,  userInput,setUserInput}) {
+  const [statusInput, setStatusInput] = useState(false);
+  
   const handleChange = (event) => {
     setUserInput(event.target.value);
   };
 
-  const changeStatusInput = (value, event) => {
-    setUserInput(value);
-    setStatusInput(1);
+  const changeStatusInput = () => {
+    setUserInput(task.title);
+    setStatusInput(true);
   };
 
-  const blurInput = (event, id) => {
-    setStatusInput(0);
+  const blurInput = () => {
+    setStatusInput(false);
   };
 
-  const handleSubmit = (event, id) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    const title = String(userInput).trim();
+    const title = userInput.trim();
     if (!validateInputTodo(title)) {
-      setStatusInput(0);
+      setStatusInput(false);
       return;
     }
     if (title) {
-      tasks.find((task) => {
-        if (task.id === id) {
-          task.title = title;
+      tasks.find((item) => {
+        if (item.id === task.id) {
+          item.title = title;
           return true;
         }
       });
     }
 
-    setStatusInput(0);
+    setStatusInput(false);
   };
 
-  const handleKeyPress = (event, id) => {
+  const handleKeyPress = (event) => {
     switch (event.key) {
       case "Enter":
-        handleSubmit(event, id);
+        handleSubmit(event);
         break;
       case "Escape":
-        setStatusInput(0);
+        setStatusInput(false);
         break;
       default:
         break;
@@ -58,20 +57,15 @@ function Task({ task, removeTask, checkTask, tasks, validateInputTodo }) {
           <input
             className="task__check"
             defaultChecked={task.check}
-            onChange={() => setChecked(!checked)}
             onClick={() => checkTask(task.id)}
             type="checkbox"
           />
-          {statusInput === 1 ? (
+          {statusInput ? (
             <input
               className="editTask"
               autoFocus
-              onBlur={(event) => {
-                blurInput(event, task.id);
-              }}
-              onKeyDown={(event) => {
-                handleKeyPress(event, task.id);
-              }}
+              onBlur={blurInput}
+              onKeyDown={handleKeyPress}
               value={userInput}
               onChange={handleChange}
               type="text"
@@ -80,9 +74,7 @@ function Task({ task, removeTask, checkTask, tasks, validateInputTodo }) {
             <div
               className="task__text"
               id={task.id}
-              onDoubleClick={(event) => {
-                changeStatusInput(task.title, event);
-              }}
+              onDoubleClick={changeStatusInput}
             >
               {task.title}
             </div>

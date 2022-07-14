@@ -1,16 +1,17 @@
 import { useState } from "react";
 import moment from "moment";
 import "./TasksBox.css";
+import {validateInputTodo} from "../../utils/utils.js";
 
-function TodoForm({ setTasks, tasks, validateInputTodo }) {
+function TodoInputForm({ setTasks, tasks}) {
   const [userInput, setUserInput] = useState("");
 
   const changeInput = (event) => {
-    setUserInput([event.currentTarget.value]);
+    setUserInput(event.currentTarget.value);
   };
 
   const handleSubmit = (event) => {
-    const title = String(userInput).trim();
+    const title = userInput.trim();
     event.preventDefault();
     addTask(title);
     setUserInput("");
@@ -42,6 +43,7 @@ function TodoForm({ setTasks, tasks, validateInputTodo }) {
         className="inputBox__input"
         value={userInput}
         type="text"
+
         onChange={changeInput}
         onKeyDown={handleKeyPress}
         placeholder="Write something..."
@@ -51,4 +53,4 @@ function TodoForm({ setTasks, tasks, validateInputTodo }) {
   );
 }
 
-export default TodoForm;
+export default TodoInputForm;

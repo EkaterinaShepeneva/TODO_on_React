@@ -1,13 +1,15 @@
 import Pagination from "./Pagination";
 import "./Pagination.css";
 
-const PagesButton = ({ flipPage, pagesCount, currentPage, changeCurrentPage }) => {
+const PagesButton = ({
+  flipPage,
+  pagesCount,
+  currentPage,
+  changeCurrentPage,
+}) => {
   return (
     <div className="pagination">
-      <button
-        className="pagination__back"
-        onClick={flipPage}
-      >
+      <button className="pagination__back" onClick={flipPage}>
         back
       </button>
       <button onClick={() => changeCurrentPage(1)} className="first_page">
@@ -23,17 +25,17 @@ const PagesButton = ({ flipPage, pagesCount, currentPage, changeCurrentPage }) =
           />
         ))}
       </div>
-      <button onClick={() => changeCurrentPage(pagesCount)} className="last_page">
+      <button
+        onClick={() => changeCurrentPage(pagesCount)}
+        className="last_page"
+      >
         Last page
       </button>
-      <button
-        className="pagination__forward"
-        onClick={flipPage}
-      >
+      <button className="pagination__forward" onClick={flipPage}>
         forward
       </button>
     </div>
   );
-}
+};
 
 export default PagesButton;

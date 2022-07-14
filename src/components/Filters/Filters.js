@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import {FILTERS, SORT } from "../../constants.js";
+import { FILTERS, SORT } from "../../constants.js";
 import "./Filters.css";
 
 function Filters({
@@ -35,7 +35,7 @@ function Filters({
           tasks
             .filter((task) => task.check)
             .sort((prev, next) =>
-              !sort  ? prev.id - next.id : next.id - prev.id
+              !sort ? prev.id - next.id : next.id - prev.id
             )
         );
         break;
@@ -60,9 +60,7 @@ function Filters({
     <section className="filterBox">
       <div className="filterBox__filter">
         <button
-          className={
-            filters === 0 ? "filter__all btnActive" : "filter__all"
-          }
+          aria-pressed={filters === 0}
           onClick={() => {
             onFilter(FILTERS.ALL);
           }}
@@ -70,11 +68,7 @@ function Filters({
           All
         </button>
         <button
-          className={
-            filters === 1
-              ? "filter__donel btnActive"
-              : "filter__done"
-          }
+          aria-pressed={filters === 1}
           onClick={() => {
             onFilter(FILTERS.DONE);
           }}
@@ -82,11 +76,7 @@ function Filters({
           Done
         </button>
         <button
-          className={
-            filters === 2
-              ? "filter__undone btnActive"
-              : "filter__undone"
-          }
+          aria-pressed={filters === 2}
           onClick={() => {
             onFilter(FILTERS.UNDONE);
           }}
@@ -97,9 +87,7 @@ function Filters({
       <div className="filterBox__sorting">
         <span>Sort by Date</span>
         <button
-          className={
-            sort  ? "sort__early btnActive" : "sort__early"
-          }
+          aria-pressed={sort}
           onClick={() => {
             onSort(SORT.EARLY);
           }}
@@ -107,9 +95,7 @@ function Filters({
           Ear
         </button>
         <button
-          className={
-            !sort ? "sort__last btnActive" : "sort__last"
-          }
+          aria-pressed={!sort}
           onClick={() => {
             onSort(SORT.LAST);
           }}
