@@ -54,7 +54,7 @@ function Filters({
 
   useEffect(() => {
     setPagesCount(Math.ceil(filtredArray.length / 4) || 1);
-  }, [filtredArray, filters, sort]);
+  }, [filtredArray, filters]);
 
   return (
     <section className="filterBox">

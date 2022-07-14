@@ -1,4 +1,4 @@
-function Pagination({ currentPage, i, changeCurrentPage }) {
+function Pagination({ currentPage, numberPage, changeCurrentPage }) {
   return (
     <div
       className={ "pagination__pages__number"
@@ -6,9 +6,9 @@ function Pagination({ currentPage, i, changeCurrentPage }) {
         //   ? "pagination__pages__number activePages"
         //   : "pagination__pages__number"
       }
-      aria-selected={i === currentPage}
+      aria-selected={numberPage === currentPage}
     >
-      <button onClick={() => changeCurrentPage(i)}>{i}</button>
+      <button onClick={() => changeCurrentPage(numberPage)}>{numberPage}</button>
     </div>
   );
 }

@@ -1,14 +1,12 @@
 import Pagination from "./Pagination";
 import "./Pagination.css";
 
-function PagesButton({ flipPage, pagesCount, currentPage, changeCurrentPage }) {
+const PagesButton = ({ flipPage, pagesCount, currentPage, changeCurrentPage }) => {
   return (
     <div className="pagination">
       <button
         className="pagination__back"
-        onClick={(event) => {
-          flipPage(event);
-        }}
+        onClick={flipPage}
       >
         back
       </button>
@@ -16,11 +14,11 @@ function PagesButton({ flipPage, pagesCount, currentPage, changeCurrentPage }) {
         First page
       </button>
       <div className="pagination__pages">
-        {new Array(pagesCount).fill().map((el, i) => (
+        {new Array(pagesCount).fill().map((_, index) => (
           <Pagination
-            key={Math.random()}
+            key={index}
             currentPage={currentPage}
-            i={i + 1}
+            numberPage={index + 1}
             changeCurrentPage={changeCurrentPage}
           />
         ))}
@@ -30,9 +28,7 @@ function PagesButton({ flipPage, pagesCount, currentPage, changeCurrentPage }) {
       </button>
       <button
         className="pagination__forward"
-        onClick={(event) => {
-          flipPage(event);
-        }}
+        onClick={flipPage}
       >
         forward
       </button>
