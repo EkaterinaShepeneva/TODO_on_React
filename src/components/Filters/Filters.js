@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { FILTERS, SORT } from "../../constants.js";
 import "./Filters.css";
+import style from "./Filters.module.css";
 
 function Filters({
   setFilter,
@@ -57,8 +58,8 @@ function Filters({
   }, [filtredArray, filters]);
 
   return (
-    <section className="filterBox">
-      <div className="filterBox__filter">
+    <section className={style.filterBox}>
+      <div className={style.filterBox__filter}>
         <button
           aria-pressed={filters === 0}
           onClick={() => {
