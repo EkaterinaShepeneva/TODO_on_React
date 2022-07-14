@@ -1,7 +1,7 @@
 import { useState } from "react";
 import React from "react";
 
-function Task({ task, removeTask, checkTask, tasks, validate }) {
+function Task({ task, removeTask, checkTask, tasks, validateInputTodo }) {
   const [checked, setChecked] = useState(false);
   const [statusInput, setStatusInput] = useState(0);
   const [userInput, setUserInput] = useState();
@@ -22,7 +22,7 @@ function Task({ task, removeTask, checkTask, tasks, validate }) {
   const handleSubmit = (event, id) => {
     event.preventDefault();
     const title = String(userInput).trim();
-    if (!validate(title)) {
+    if (!validateInputTodo(title)) {
       setStatusInput(0);
       return;
     }

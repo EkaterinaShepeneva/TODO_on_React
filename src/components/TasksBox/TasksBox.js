@@ -1,7 +1,8 @@
 import Task from "./Task";
 import "./TasksBox.css";
+import {NUM_TASK } from "../../constants.js";
 
-function TasksBox({ NUM_TASK, page, tasks, setTasks, filtredArray, validate }) {
+function TasksBox({  currentPage, tasks, setTasks, filtredArray, validateInputTodo }) {
   const removeTask = (id) => {
     setTasks(tasks.filter((task) => task.id !== id));
   };
@@ -18,7 +19,7 @@ function TasksBox({ NUM_TASK, page, tasks, setTasks, filtredArray, validate }) {
   return (
     <div className="tasksBox">
       {filtredArray
-        .slice((page - 1) * NUM_TASK, NUM_TASK * page)
+        .slice((currentPage - 1) * NUM_TASK, NUM_TASK * currentPage)
         .map((task) => {
           return (
             <Task
@@ -27,7 +28,7 @@ function TasksBox({ NUM_TASK, page, tasks, setTasks, filtredArray, validate }) {
               removeTask={removeTask}
               checkTask={checkTask}
               tasks={tasks}
-              validate={validate}
+              validateInputTodo={validateInputTodo}
             />
           );
         })}

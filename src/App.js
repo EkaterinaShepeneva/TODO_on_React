@@ -1,58 +1,57 @@
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import "./App.css";
+import { FILTERS, SORT } from "./constants.js";
 
 import TodoForm from "./components/TasksBox/TodoForm";
 import Filters from "./components/Filters/Filters";
 import PagesButton from "./components/Pagination/PagesButton";
 import TasksBox from "./components/TasksBox/TasksBox";
 
-const NUM_TASK = 4;
-
 function App() {
   const [tasks, setTasks] = useState([]);
-  const [filters, setFilter] = useState("filter__all");
-  const [filtredArray, setFiltredArray] = useState(tasks);
-  const [page, setPages] = useState(1);
+  const [filters, setFilter] = useState(FILTERS.ALL);
+  const [filtredArray, setFiltredArray] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
   const [pagesCount, setPagesCount] = useState(1);
-  const [sort, setSort] = useState("sort__last");
+  const [sort, setSort] = useState(SORT.LAST);
 
   useEffect(() => {
-    if (page > pagesCount) {
-      setPages(1);
+    if (currentPage > pagesCount) {
+      setCurrentPage(1);
     }
   }, [pagesCount]);
 
-  const handlePage = (event) => {
-    switch (event.target.className) {
+  const flipPage = ({target: {className}}) => {
+    
+    switch (className) {
       case "pagination__forward":
-        if (page === pagesCount) {
+        if (currentPage === pagesCount) {
           break;
         }
-        setPages(page + 1);
+        setCurrentPage(currentPage + 1);
         break;
       case "pagination__back":
-        if (page === 1) {
+        if (currentPage === 1) {
           break;
         }
-        setPages(page - 1);
+        setCurrentPage(currentPage - 1);
         break;
       default:
         break;
     }
   };
 
-  const movingOnPages = (number) => {
-    setPages(number);
+  const changeCurrentPage = (number) => {
+    setCurrentPage(number);
   };
 
-  const validate = (val) => {
-    if (val === "") {
+  const validateInputTodo = (val) => {
+    if (!val) {
       alert("Введите что-нибудь");
       return false;
     }
-    let arrayWord = val.split(" ");
+    const arrayWord = val.split(" ");
     let result = true;
 
     arrayWord.forEach((item) => {
@@ -68,7 +67,7 @@ function App() {
   return (
     <main>
       <h1>ToDo</h1>
-      <TodoForm setTasks={setTasks} tasks={tasks} validate={validate} />
+      <TodoForm setTasks={setTasks} tasks={tasks} validateInputTodo={validateInputTodo} />
       <Filters
         setFilter={setFilter}
         setSort={setSort}
@@ -80,19 +79,18 @@ function App() {
         filtredArray={filtredArray}
       />
       <TasksBox
-        NUM_TASK={NUM_TASK}
-        page={page}
+        currentPage={currentPage}
         tasks={tasks}
         setTasks={setTasks}
         filtredArray={filtredArray}
-        validate={validate}
+        validateInputTodo={validateInputTodo}
       />
       {pagesCount > 1 ? (
         <PagesButton
-          handlePage={handlePage}
+          flipPage={flipPage}
           pagesCount={pagesCount}
-          page={page}
-          movingOnPages={movingOnPages}
+          currentPage={currentPage}
+          changeCurrentPage={changeCurrentPage}
         />
       ) : (
         ""

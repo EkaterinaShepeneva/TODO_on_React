@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import {FILTERS, SORT } from "../../constants.js";
 import "./Filters.css";
 
 function Filters({
@@ -21,30 +22,30 @@ function Filters({
 
   useEffect(() => {
     switch (filters) {
-      case "filter__all":
+      case 0:
         setFiltredArray(
           [...tasks].sort((prev, next) =>
-            sort === "sort__last" ? prev.id - next.id : next.id - prev.id
+            !sort ? prev.id - next.id : next.id - prev.id
           )
         );
         break;
 
-      case "filter__done":
+      case 1:
         setFiltredArray(
-          [...tasks]
-            .filter((task) => task.check === true)
+          tasks
+            .filter((task) => task.check)
             .sort((prev, next) =>
-              sort === "sort__last" ? prev.id - next.id : next.id - prev.id
+              !sort  ? prev.id - next.id : next.id - prev.id
             )
         );
         break;
 
       default:
         setFiltredArray(
-          [...tasks]
+          tasks
             .filter((task) => task.check !== true)
             .sort((prev, next) =>
-              sort === "sort__last" ? prev.id - next.id : next.id - prev.id
+              !sort ? prev.id - next.id : next.id - prev.id
             )
         );
         break;
@@ -60,34 +61,34 @@ function Filters({
       <div className="filterBox__filter">
         <button
           className={
-            filters === "filter__all" ? "filter__all btnActive" : "filter__all"
+            filters === 0 ? "filter__all btnActive" : "filter__all"
           }
           onClick={() => {
-            onFilter("filter__all");
+            onFilter(FILTERS.ALL);
           }}
         >
           All
         </button>
         <button
           className={
-            filters === "filter__done"
+            filters === 1
               ? "filter__donel btnActive"
               : "filter__done"
           }
           onClick={() => {
-            onFilter("filter__done");
+            onFilter(FILTERS.DONE);
           }}
         >
           Done
         </button>
         <button
           className={
-            filters === "filter__undone"
+            filters === 2
               ? "filter__undone btnActive"
               : "filter__undone"
           }
           onClick={() => {
-            onFilter("filter__undone");
+            onFilter(FILTERS.UNDONE);
           }}
         >
           Undone
@@ -97,20 +98,20 @@ function Filters({
         <span>Sort by Date</span>
         <button
           className={
-            sort === "sort__early" ? "sort__early btnActive" : "sort__early"
+            sort  ? "sort__early btnActive" : "sort__early"
           }
           onClick={() => {
-            onSort("sort__early");
+            onSort(SORT.EARLY);
           }}
         >
           Ear
         </button>
         <button
           className={
-            sort === "sort__last" ? "sort__last btnActive" : "sort__last"
+            !sort ? "sort__last btnActive" : "sort__last"
           }
           onClick={() => {
-            onSort("sort__last");
+            onSort(SORT.LAST);
           }}
         >
           Las

@@ -2,7 +2,7 @@ import { useState } from "react";
 import moment from "moment";
 import "./TasksBox.css";
 
-function TodoForm({ setTasks, tasks, validate }) {
+function TodoForm({ setTasks, tasks, validateInputTodo }) {
   const [userInput, setUserInput] = useState("");
 
   const changeInput = (event) => {
@@ -23,7 +23,7 @@ function TodoForm({ setTasks, tasks, validate }) {
   };
 
   const addTask = (userInput) => {
-    if (!validate(userInput)) return;
+    if (!validateInputTodo(userInput)) return;
     if (userInput) {
       const newTask = {
         title: userInput,
