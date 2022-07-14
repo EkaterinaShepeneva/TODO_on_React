@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { FILTERS, SORT } from "../../constants.js";
-import "./Filters.css";
 import style from "./Filters.module.css";
 
 function Filters({
@@ -85,7 +84,7 @@ function Filters({
           Undone
         </button>
       </div>
-      <div className="filterBox__sorting">
+      <div className={style.filterBox__sorting}>
         <span>Sort by Date</span>
         <button
           aria-pressed={sort}
