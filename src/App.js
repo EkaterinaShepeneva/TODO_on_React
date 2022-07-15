@@ -7,8 +7,34 @@ import TodoInputForm from "./components/TasksBox/TodoInputForm";
 import Filters from "./components/Filters/Filters";
 import PagesButton from "./components/Pagination/PagesButton";
 import TasksBox from "./components/TasksBox/TasksBox";
+import Api from "./Api.js";
+
+import axios from "axios";
+
+import UserData from "./UserData";
+import OnLoadingUserData from "./OnLoadingUserData";
 
 function App() {
+  const DataLoading = OnLoadingUserData(UserData);
+
+  const [appState, setAppState] = useState({
+    loading: false,
+    persons: null,
+  });
+
+  useEffect(() => {
+    setAppState({ loading: true });
+    const apiUrl =
+      "https://todo-api-learning.herokuapp.com/v1/tasks/9?order=asc&pp=5&page=4";
+    axios.get(apiUrl).then((resp) => {
+      const allPersons = resp.data;
+      setAppState({
+        loading: false,
+        persons: allPersons,
+      });
+    });
+  }, [setAppState]);
+
   const [tasks, setTasks] = useState([]);
   const [filters, setFilter] = useState(FILTERS.ALL);
   const [filtredArray, setFiltredArray] = useState([]);
@@ -73,6 +99,12 @@ function App() {
           changeCurrentPage={changeCurrentPage}
         />
       )}
+      <DataLoading
+        isLoading={appState.loading}
+        persons={appState.persons}
+        tasks={tasks}
+        setTasks={setTasks}
+      />
     </main>
   );
 }

@@ -21,6 +21,7 @@ function Filters({
   };
 
   useEffect(() => {
+    console.log(tasks);
     switch (filters) {
       case 0:
         setFiltredArray(

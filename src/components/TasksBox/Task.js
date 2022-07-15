@@ -11,7 +11,7 @@ function Task({ task, removeTask, checkTask, tasks, userInput, setUserInput }) {
   };
 
   const changeStatusInput = () => {
-    setUserInput(task.title);
+    setUserInput(task.name);
     setStatusInput(true);
   };
 
@@ -29,7 +29,7 @@ function Task({ task, removeTask, checkTask, tasks, userInput, setUserInput }) {
     if (title) {
       tasks.find((item) => {
         if (item.id === task.id) {
-          item.title = title;
+          item.name = title;
           return true;
         }
       });
@@ -52,13 +52,13 @@ function Task({ task, removeTask, checkTask, tasks, userInput, setUserInput }) {
   };
 
   return (
-    <div key={task.id} className={style.task}>
+    <div key={task.userId} className={style.task}>
       <div className={style.task__inputs}>
         <section className={style.task__left}>
           <input
             className={style.task__check}
             defaultChecked={task.check}
-            onClick={() => checkTask(task.id)}
+            onClick={() => checkTask(task.userId)}
             type="checkbox"
           />
           {statusInput ? (
@@ -77,13 +77,13 @@ function Task({ task, removeTask, checkTask, tasks, userInput, setUserInput }) {
               id={task.id}
               onDoubleClick={changeStatusInput}
             >
-              {task.title}
+              {task.name}
             </div>
           )}
         </section>
         <button
           className={style.task__btnDelete}
-          onClick={() => removeTask(task.id)}
+          onClick={() => removeTask(task.userId)}
         >
           del
         </button>
