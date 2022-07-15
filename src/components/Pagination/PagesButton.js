@@ -9,8 +9,8 @@ const PagesButton = ({
 }) => {
   return (
     <div className={style.pagination}>
-      <button onClick={flipPage}>back</button>
-      <button onClick={() => changeCurrentPage(1)} className="first_page">
+      <button onClick={() => flipPage("back")}>back</button>
+      <button onClick={() => changeCurrentPage(1)} className={style.first_page}>
         First page
       </button>
       <div className={style.pagination__pages}>
@@ -29,7 +29,7 @@ const PagesButton = ({
       >
         Last page
       </button>
-      <button onClick={flipPage}>forward</button>
+      <button onClick={() => flipPage("forward")}>forward</button>
     </div>
   );
 };

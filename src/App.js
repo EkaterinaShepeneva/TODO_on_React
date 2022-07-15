@@ -22,16 +22,15 @@ function App() {
     }
   }, [pagesCount]);
 
-  const flipPage = ({target: {className}}) => {
-    
-    switch (className) {
-      case "pagination__forward":
+  const flipPage = (direction) => {
+    switch (direction) {
+      case "forward":
         if (currentPage === pagesCount) {
           break;
         }
         setCurrentPage(currentPage + 1);
         break;
-      case "pagination__back":
+      case "back":
         if (currentPage === 1) {
           break;
         }

@@ -1,9 +1,9 @@
 import { useState } from "react";
 import moment from "moment";
-import "./TasksBox.css";
-import {validateInputTodo} from "../../utils/utils.js";
+import style from "./TasksBox.module.css";
+import { validateInputTodo } from "../../utils/utils.js";
 
-function TodoInputForm({ setTasks, tasks}) {
+function TodoInputForm({ setTasks, tasks }) {
   const [userInput, setUserInput] = useState("");
 
   const changeInput = (event) => {
@@ -37,13 +37,12 @@ function TodoInputForm({ setTasks, tasks}) {
   };
 
   return (
-    <form className="inputBox" onSubmit={handleSubmit}>
+    <form className={style.inputBox} onSubmit={handleSubmit}>
       <input
         autoFocus
-        className="inputBox__input"
+        className={style.inputBox__input}
         value={userInput}
         type="text"
-
         onChange={changeInput}
         onKeyDown={handleKeyPress}
         placeholder="Write something..."

@@ -1,7 +1,7 @@
 import Task from "./Task";
 import { useState } from "react";
-import "./TasksBox.css";
 import { NUM_TASK } from "../../constants.js";
+import style from "./TasksBox.module.css";
 
 function TasksBox({ currentPage, tasks, setTasks, filtredArray }) {
   const [checked, setChecked] = useState(false);
@@ -12,13 +12,16 @@ function TasksBox({ currentPage, tasks, setTasks, filtredArray }) {
   };
 
   const checkTask = (id) => {
-    setChecked(!checked)
-    const newTask = tasks.map((task) => ({...task,check: task.id === id ? !task.check : task.check,}))
+    setChecked(!checked);
+    const newTask = tasks.map((task) => ({
+      ...task,
+      check: task.id === id ? !task.check : task.check,
+    }));
     setTasks(newTask);
   };
 
   return (
-    <div className="tasksBox">
+    <div className={style.tasksBox}>
       {filtredArray
         .slice((currentPage - 1) * NUM_TASK, NUM_TASK * currentPage)
         .map((task) => {

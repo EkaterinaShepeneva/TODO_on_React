@@ -1,10 +1,11 @@
 import React from "react";
 import { useState } from "react";
-import {validateInputTodo} from "../../utils/utils.js";
+import { validateInputTodo } from "../../utils/utils.js";
+import style from "./TasksBox.module.css";
 
-function Task({ task, removeTask, checkTask, tasks,  userInput,setUserInput}) {
+function Task({ task, removeTask, checkTask, tasks, userInput, setUserInput }) {
   const [statusInput, setStatusInput] = useState(false);
-  
+
   const handleChange = (event) => {
     setUserInput(event.target.value);
   };
@@ -51,18 +52,18 @@ function Task({ task, removeTask, checkTask, tasks,  userInput,setUserInput}) {
   };
 
   return (
-    <div key={task.id} className="task">
-      <div className="task__inputs">
-        <section className="task__left">
+    <div key={task.id} className={style.task}>
+      <div className={style.task__inputs}>
+        <section className={style.task__left}>
           <input
-            className="task__check"
+            className={style.task__check}
             defaultChecked={task.check}
             onClick={() => checkTask(task.id)}
             type="checkbox"
           />
           {statusInput ? (
             <input
-              className="editTask"
+              className={style.editTask}
               autoFocus
               onBlur={blurInput}
               onKeyDown={handleKeyPress}
@@ -72,7 +73,7 @@ function Task({ task, removeTask, checkTask, tasks,  userInput,setUserInput}) {
             />
           ) : (
             <div
-              className="task__text"
+              className={style.task__text}
               id={task.id}
               onDoubleClick={changeStatusInput}
             >
@@ -80,12 +81,15 @@ function Task({ task, removeTask, checkTask, tasks,  userInput,setUserInput}) {
             </div>
           )}
         </section>
-        <button className="task__btnDelete" onClick={() => removeTask(task.id)}>
+        <button
+          className={style.task__btnDelete}
+          onClick={() => removeTask(task.id)}
+        >
           del
         </button>
       </div>
 
-      <div className="task__date">{task.date}</div>
+      <div className={style.task__date}>{task.date}</div>
     </div>
   );
 }
