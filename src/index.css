@@ -1,0 +1,47 @@
+body {
+  background: rgba(205, 219, 216, 1);
+  display: flex;
+  justify-content: center;
+}
+
+span {
+  margin: 0px;
+  font-family: "Inika";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 25px;
+  color: rgba(48, 119, 105, 1);
+}
+
+button {
+  padding: 3px 10px;
+  margin: 3px;
+  font-family: "Inika";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 19px;
+  line-height: 25px;
+  color: rgba(48, 119, 105, 1);
+  background: rgba(255, 255, 255, 1);
+  border: 1px solid rgba(48, 119, 105, 1);
+  border-radius: 6px;
+}
+
+button:hover,
+button[aria-pressed="true"] {
+  color: rgba(255, 255, 255, 1);
+  background: rgba(48, 119, 105, 1);
+}
+
+@media screen and (max-width: 650px) {
+  button {
+    font-size: 15px;
+    max-width: 70px;
+    line-height: normal;
+  }
+
+  span {
+    font-size: 15px;
+  }
+}

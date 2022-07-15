@@ -1,0 +1,40 @@
+.pagination {
+  width: 341px;
+  margin: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.pagination__pages {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.pagination__pages__number {
+  margin: 3px;
+  font-size: 19px;
+  font-family: "Inika";
+  font-style: normal;
+  font-weight: 700;
+  color: rgba(86, 96, 94, 1);
+}
+
+.pagination__pages__number[aria-selected="true"] {
+  padding: 3px;
+  border: 1px solid rgba(86, 96, 94, 1);
+}
+
+.last_page,
+.first_page {
+  border: none;
+  background-color: rgba(255, 255, 255, 0.493);
+}S
+
+@media screen and (max-width: 650px) {
+  .pagination {
+    margin-top: 30px;
+  }
+}
