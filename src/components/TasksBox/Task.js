@@ -57,7 +57,7 @@ function Task({ task, removeTask, checkTask, tasks, userInput, setUserInput }) {
         <section className={style.task__left}>
           <input
             className={style.task__check}
-            defaultChecked={task.check}
+            defaultChecked={task.done}
             onClick={() => checkTask(task.userId)}
             type="checkbox"
           />

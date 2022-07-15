@@ -21,7 +21,6 @@ function Filters({
   };
 
   useEffect(() => {
-    console.log(tasks);
     switch (filters) {
       case 0:
         setFiltredArray(
@@ -34,7 +33,7 @@ function Filters({
       case 1:
         setFiltredArray(
           tasks
-            .filter((task) => task.check)
+            .filter((task) => task.done)
             .sort((prev, next) =>
               !sort ? prev.id - next.id : next.id - prev.id
             )
@@ -44,7 +43,7 @@ function Filters({
       default:
         setFiltredArray(
           tasks
-            .filter((task) => task.check !== true)
+            .filter((task) => task.done !== true)
             .sort((prev, next) =>
               !sort ? prev.id - next.id : next.id - prev.id
             )
@@ -53,9 +52,9 @@ function Filters({
     }
   }, [filters, sort, tasks]);
 
-  useEffect(() => {
-    setPagesCount(Math.ceil(filtredArray.length / 4) || 1);
-  }, [filtredArray, filters]);
+  // useEffect(() => {
+  //   setPagesCount(2);
+  // }, [filtredArray, filters]);
 
   return (
     <section className={style.filterBox}>

@@ -15,28 +15,26 @@ function TasksBox({ currentPage, tasks, setTasks, filtredArray }) {
     setChecked(!checked);
     const newTask = tasks.map((task) => ({
       ...task,
-      check: task.id === id ? !task.check : task.check,
+      check: task.id === id ? !task.done : task.done,
     }));
     setTasks(newTask);
   };
 
   return (
     <div className={style.tasksBox}>
-      {filtredArray
-        .slice((currentPage - 1) * NUM_TASK, NUM_TASK * currentPage)
-        .map((task) => {
-          return (
-            <Task
-              task={task}
-              key={task.id}
-              removeTask={removeTask}
-              checkTask={checkTask}
-              tasks={tasks}
-              userInput={userInput}
-              setUserInput={setUserInput}
-            />
-          );
-        })}
+      {filtredArray.map((task) => {
+        return (
+          <Task
+            task={task}
+            key={task.id}
+            removeTask={removeTask}
+            checkTask={checkTask}
+            tasks={tasks}
+            userInput={userInput}
+            setUserInput={setUserInput}
+          />
+        );
+      })}
     </div>
   );
 }

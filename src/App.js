@@ -7,7 +7,6 @@ import TodoInputForm from "./components/TasksBox/TodoInputForm";
 import Filters from "./components/Filters/Filters";
 import PagesButton from "./components/Pagination/PagesButton";
 import TasksBox from "./components/TasksBox/TasksBox";
-import Api from "./Api.js";
 
 import axios from "axios";
 
@@ -22,10 +21,16 @@ function App() {
     persons: null,
   });
 
+  const [tasks, setTasks] = useState([]);
+  const [filters, setFilter] = useState(FILTERS.ALL);
+  const [filtredArray, setFiltredArray] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pagesCount, setPagesCount] = useState(1);
+  const [sort, setSort] = useState(SORT.LAST);
+
   useEffect(() => {
     setAppState({ loading: true });
-    const apiUrl =
-      "https://todo-api-learning.herokuapp.com/v1/tasks/9?order=asc&pp=5&page=4";
+    const apiUrl = `https://todo-api-learning.herokuapp.com/v1/tasks/9?order=asc&pp=5&page=${currentPage}`;
     axios.get(apiUrl).then((resp) => {
       const allPersons = resp.data;
       setAppState({
@@ -33,14 +38,7 @@ function App() {
         persons: allPersons,
       });
     });
-  }, [setAppState]);
-
-  const [tasks, setTasks] = useState([]);
-  const [filters, setFilter] = useState(FILTERS.ALL);
-  const [filtredArray, setFiltredArray] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pagesCount, setPagesCount] = useState(1);
-  const [sort, setSort] = useState(SORT.LAST);
+  }, [setAppState, currentPage]);
 
   useEffect(() => {
     if (currentPage > pagesCount) {
@@ -104,6 +102,7 @@ function App() {
         persons={appState.persons}
         tasks={tasks}
         setTasks={setTasks}
+        setPagesCount={setPagesCount}
       />
     </main>
   );
