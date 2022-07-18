@@ -2,9 +2,9 @@ import { useState } from "react";
 import moment from "moment";
 import style from "./TasksBox.module.css";
 import { validateInputTodo } from "../../utils/utils.js";
-import { postTask } from "../../api/http.js";
+import { postTasks } from "../../api/http.js";
 
-function TodoInputForm({ setTasks, tasks }) {
+function TodoInputForm({ setTasks, tasks, renderTask }) {
   const [userInput, setUserInput] = useState("");
 
   const changeInput = (event) => {
@@ -34,7 +34,7 @@ function TodoInputForm({ setTasks, tasks }) {
         updatedAt: moment().format("LLLL"),
       };
 
-      postTask(newTask);
+      postTasks(newTask, renderTask);
     }
   };
 

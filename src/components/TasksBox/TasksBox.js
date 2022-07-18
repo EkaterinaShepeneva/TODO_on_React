@@ -1,14 +1,14 @@
 import Task from "./Task";
 import { useState } from "react";
-import { NUM_TASK } from "../../constants.js";
 import style from "./TasksBox.module.css";
+import { deleteTasks } from "../../api/http.js";
 
-function TasksBox({ currentPage, tasks, setTasks, filtredArray }) {
+function TasksBox({ tasks, setTasks, filtredArray, renderTask }) {
   const [checked, setChecked] = useState(false);
   const [userInput, setUserInput] = useState("");
 
   const removeTask = (uuid) => {
-    setTasks(tasks.filter((task) => task.uuid !== uuid));
+    deleteTasks(uuid, renderTask);
   };
 
   const checkTask = (uuid) => {

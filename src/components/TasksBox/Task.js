@@ -52,7 +52,7 @@ function Task({ task, removeTask, checkTask, tasks, userInput, setUserInput }) {
   };
 
   return (
-    <div key={task.userId} className={style.task}>
+    <div key={task.uuid} className={style.task}>
       <div className={style.task__inputs}>
         <section className={style.task__left}>
           <input
@@ -83,7 +83,7 @@ function Task({ task, removeTask, checkTask, tasks, userInput, setUserInput }) {
         </section>
         <button
           className={style.task__btnDelete}
-          onClick={() => removeTask(task.userId)}
+          onClick={() => removeTask(task.uuid)}
         >
           del
         </button>

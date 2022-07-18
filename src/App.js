@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { FILTERS, SORT, NUM_TASK } from "./constants.js";
-import { getTask } from "./api/http.js";
+import { getTasks } from "./api/http.js";
 
 import "./App.css";
 
@@ -8,6 +8,8 @@ import TodoInputForm from "./components/TasksBox/TodoInputForm";
 import Filters from "./components/Filters/Filters";
 import PagesButton from "./components/Pagination/PagesButton";
 import TasksBox from "./components/TasksBox/TasksBox";
+
+export const hello = "hello";
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -18,17 +20,26 @@ function App() {
   const [sort, setSort] = useState(SORT.LAST);
 
   useEffect(() => {
-    getTask(currentPage).then((response) => {
+    renderTask();
+    console.log("flip 1");
+  }, []);
+
+  const renderTask = () => {
+    getTasks(currentPage).then((response) => {
       setPagesCount(Math.ceil(response.count / NUM_TASK));
       setTasks(response.tasks);
     });
-  }, [currentPage]);
+  };
 
   useEffect(() => {
     if (currentPage > pagesCount) {
       setCurrentPage(1);
     }
   }, [pagesCount]);
+
+  useEffect(() => {
+    renderTask();
+  }, [currentPage]);
 
   const flipPage = (direction) => {
     switch (direction) {
@@ -56,7 +67,11 @@ function App() {
   return (
     <main>
       <h1>ToDo</h1>
-      <TodoInputForm setTasks={setTasks} tasks={tasks} />
+      <TodoInputForm
+        setTasks={setTasks}
+        tasks={tasks}
+        renderTask={renderTask}
+      />
       <Filters
         setFilter={setFilter}
         setSort={setSort}
@@ -72,6 +87,7 @@ function App() {
         tasks={tasks}
         setTasks={setTasks}
         filtredArray={filtredArray}
+        renderTask={renderTask}
       />
       {pagesCount > 1 && (
         <PagesButton
@@ -84,5 +100,4 @@ function App() {
     </main>
   );
 }
-
 export default App;
