@@ -2,8 +2,9 @@ import { useState } from "react";
 import moment from "moment";
 import style from "./TasksBox.module.css";
 import { validateInputTodo } from "../../utils/utils.js";
+import { postTasks } from "../../api/http.js";
 
-function TodoInputForm({ setTasks, tasks }) {
+function TodoInputForm({ setTasks, tasks, renderTask }) {
   const [userInput, setUserInput] = useState("");
 
   const changeInput = (event) => {
@@ -11,9 +12,9 @@ function TodoInputForm({ setTasks, tasks }) {
   };
 
   const handleSubmit = (event) => {
-    const title = userInput.trim();
+    const name = userInput.trim();
     event.preventDefault();
-    addTask(title);
+    addTask(name);
     setUserInput("");
   };
 
@@ -27,12 +28,13 @@ function TodoInputForm({ setTasks, tasks }) {
     if (!validateInputTodo(userInput)) return;
     if (userInput) {
       const newTask = {
-        title: userInput,
-        id: Date.now(),
-        check: false,
-        date: moment().format("LLLL"),
+        name: userInput,
+        done: false,
+        createdAt: Date.now(),
+        updatedAt: moment().format("LLLL"),
       };
-      setTasks([...tasks, newTask]);
+
+      postTasks(newTask, renderTask);
     }
   };
 

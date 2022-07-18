@@ -1,42 +1,40 @@
 import Task from "./Task";
 import { useState } from "react";
-import { NUM_TASK } from "../../constants.js";
 import style from "./TasksBox.module.css";
+import { deleteTasks } from "../../api/http.js";
 
-function TasksBox({ currentPage, tasks, setTasks, filtredArray }) {
+function TasksBox({ tasks, setTasks, filtredArray, renderTask }) {
   const [checked, setChecked] = useState(false);
   const [userInput, setUserInput] = useState("");
 
-  const removeTask = (id) => {
-    setTasks(tasks.filter((task) => task.id !== id));
+  const removeTask = (uuid) => {
+    deleteTasks(uuid, renderTask);
   };
 
-  const checkTask = (id) => {
+  const checkTask = (uuid) => {
     setChecked(!checked);
     const newTask = tasks.map((task) => ({
       ...task,
-      check: task.id === id ? !task.check : task.check,
+      check: task.uuid === uuid ? !task.done : task.done,
     }));
     setTasks(newTask);
   };
 
   return (
     <div className={style.tasksBox}>
-      {filtredArray
-        .slice((currentPage - 1) * NUM_TASK, NUM_TASK * currentPage)
-        .map((task) => {
-          return (
-            <Task
-              task={task}
-              key={task.id}
-              removeTask={removeTask}
-              checkTask={checkTask}
-              tasks={tasks}
-              userInput={userInput}
-              setUserInput={setUserInput}
-            />
-          );
-        })}
+      {filtredArray.map((task) => {
+        return (
+          <Task
+            task={task}
+            key={task.uuid}
+            removeTask={removeTask}
+            checkTask={checkTask}
+            tasks={tasks}
+            userInput={userInput}
+            setUserInput={setUserInput}
+          />
+        );
+      })}
     </div>
   );
 }

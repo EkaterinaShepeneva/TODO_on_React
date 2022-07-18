@@ -11,7 +11,7 @@ function Task({ task, removeTask, checkTask, tasks, userInput, setUserInput }) {
   };
 
   const changeStatusInput = () => {
-    setUserInput(task.title);
+    setUserInput(task.name);
     setStatusInput(true);
   };
 
@@ -21,15 +21,15 @@ function Task({ task, removeTask, checkTask, tasks, userInput, setUserInput }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const title = userInput.trim();
-    if (!validateInputTodo(title)) {
+    const name = userInput.trim();
+    if (!validateInputTodo(name)) {
       setStatusInput(false);
       return;
     }
-    if (title) {
+    if (name) {
       tasks.find((item) => {
-        if (item.id === task.id) {
-          item.title = title;
+        if (item.uuid === task.uuid) {
+          item.name = name;
           return true;
         }
       });
@@ -52,13 +52,13 @@ function Task({ task, removeTask, checkTask, tasks, userInput, setUserInput }) {
   };
 
   return (
-    <div key={task.id} className={style.task}>
+    <div key={task.uuid} className={style.task}>
       <div className={style.task__inputs}>
         <section className={style.task__left}>
           <input
             className={style.task__check}
-            defaultChecked={task.check}
-            onClick={() => checkTask(task.id)}
+            defaultChecked={task.done}
+            onClick={() => checkTask(task.userId)}
             type="checkbox"
           />
           {statusInput ? (
@@ -74,16 +74,16 @@ function Task({ task, removeTask, checkTask, tasks, userInput, setUserInput }) {
           ) : (
             <div
               className={style.task__text}
-              id={task.id}
+              uuid={task.uuid}
               onDoubleClick={changeStatusInput}
             >
-              {task.title}
+              {task.name}
             </div>
           )}
         </section>
         <button
           className={style.task__btnDelete}
-          onClick={() => removeTask(task.id)}
+          onClick={() => removeTask(task.uuid)}
         >
           del
         </button>
