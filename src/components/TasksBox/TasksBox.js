@@ -7,15 +7,15 @@ function TasksBox({ currentPage, tasks, setTasks, filtredArray }) {
   const [checked, setChecked] = useState(false);
   const [userInput, setUserInput] = useState("");
 
-  const removeTask = (id) => {
-    setTasks(tasks.filter((task) => task.id !== id));
+  const removeTask = (uuid) => {
+    setTasks(tasks.filter((task) => task.uuid !== uuid));
   };
 
-  const checkTask = (id) => {
+  const checkTask = (uuid) => {
     setChecked(!checked);
     const newTask = tasks.map((task) => ({
       ...task,
-      check: task.id === id ? !task.done : task.done,
+      check: task.uuid === uuid ? !task.done : task.done,
     }));
     setTasks(newTask);
   };
@@ -26,7 +26,7 @@ function TasksBox({ currentPage, tasks, setTasks, filtredArray }) {
         return (
           <Task
             task={task}
-            key={task.id}
+            key={task.uuid}
             removeTask={removeTask}
             checkTask={checkTask}
             tasks={tasks}

@@ -7,19 +7,15 @@ import TodoInputForm from "./components/TasksBox/TodoInputForm";
 import Filters from "./components/Filters/Filters";
 import PagesButton from "./components/Pagination/PagesButton";
 import TasksBox from "./components/TasksBox/TasksBox";
-
-import axios from "axios";
-
-import UserData from "./UserData";
-import OnLoadingUserData from "./OnLoadingUserData";
+import Api from "./api/http";
 
 function App() {
-  const DataLoading = OnLoadingUserData(UserData);
+  // const DataLoading = OnLoadingUserData(UserData);
 
-  const [appState, setAppState] = useState({
-    loading: false,
-    persons: null,
-  });
+  // const [appState, setAppState] = useState({
+  //   loading: false,
+  //   persons: null,
+  // });
 
   const [tasks, setTasks] = useState([]);
   const [filters, setFilter] = useState(FILTERS.ALL);
@@ -28,17 +24,17 @@ function App() {
   const [pagesCount, setPagesCount] = useState(1);
   const [sort, setSort] = useState(SORT.LAST);
 
-  useEffect(() => {
-    setAppState({ loading: true });
-    const apiUrl = `https://todo-api-learning.herokuapp.com/v1/tasks/9?order=asc&pp=5&page=${currentPage}`;
-    axios.get(apiUrl).then((resp) => {
-      const allPersons = resp.data;
-      setAppState({
-        loading: false,
-        persons: allPersons,
-      });
-    });
-  }, [setAppState, currentPage]);
+  // useEffect(() => {
+  //   setAppState({ loading: true });
+  //   const apiUrl = `https://todo-api-learning.herokuapp.com/v1/tasks/9?order=asc&pp=5&page=${currentPage}`;
+  //   axios.get(apiUrl).then((resp) => {
+  //     const allPersons = resp.data;
+  //     setAppState({
+  //       loading: false,
+  //       persons: allPersons,
+  //     });
+  //   });
+  // }, [setAppState, currentPage]);
 
   useEffect(() => {
     if (currentPage > pagesCount) {
@@ -97,13 +93,19 @@ function App() {
           changeCurrentPage={changeCurrentPage}
         />
       )}
-      <DataLoading
+      <Api
+        tasks={tasks}
+        setTasks={setTasks}
+        setPagesCount={setPagesCount}
+        currentPage={currentPage}
+      />
+      {/* <DataLoading
         isLoading={appState.loading}
         persons={appState.persons}
         tasks={tasks}
         setTasks={setTasks}
         setPagesCount={setPagesCount}
-      />
+      /> */}
     </main>
   );
 }

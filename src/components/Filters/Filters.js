@@ -25,7 +25,7 @@ function Filters({
       case 0:
         setFiltredArray(
           [...tasks].sort((prev, next) =>
-            !sort ? prev.id - next.id : next.id - prev.id
+            !sort ? prev.uuid - next.uuid : next.uuid - prev.uuid
           )
         );
         break;
@@ -35,7 +35,7 @@ function Filters({
           tasks
             .filter((task) => task.done)
             .sort((prev, next) =>
-              !sort ? prev.id - next.id : next.id - prev.id
+              !sort ? prev.uuid - next.uuid : next.uuid - prev.uuid
             )
         );
         break;
@@ -45,7 +45,7 @@ function Filters({
           tasks
             .filter((task) => task.done !== true)
             .sort((prev, next) =>
-              !sort ? prev.id - next.id : next.id - prev.id
+              !sort ? prev.uuid - next.uuid : next.uuid - prev.uuid
             )
         );
         break;

@@ -9,7 +9,7 @@ function UserData(props) {
   //console.log(persons.tasks);
 
   setTasks(persons.tasks);
-  setPagesCount(persons.count / NUM_TASK);
+  setPagesCount(Math.ceil(persons.count / NUM_TASK));
 
   return <div></div>;
 }

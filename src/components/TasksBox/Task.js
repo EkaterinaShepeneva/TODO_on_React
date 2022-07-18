@@ -21,15 +21,15 @@ function Task({ task, removeTask, checkTask, tasks, userInput, setUserInput }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const title = userInput.trim();
-    if (!validateInputTodo(title)) {
+    const name = userInput.trim();
+    if (!validateInputTodo(name)) {
       setStatusInput(false);
       return;
     }
-    if (title) {
+    if (name) {
       tasks.find((item) => {
-        if (item.id === task.id) {
-          item.name = title;
+        if (item.uuid === task.uuid) {
+          item.name = name;
           return true;
         }
       });
@@ -74,7 +74,7 @@ function Task({ task, removeTask, checkTask, tasks, userInput, setUserInput }) {
           ) : (
             <div
               className={style.task__text}
-              id={task.id}
+              uuid={task.uuid}
               onDoubleClick={changeStatusInput}
             >
               {task.name}

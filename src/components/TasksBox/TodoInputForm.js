@@ -2,6 +2,11 @@ import { useState } from "react";
 import moment from "moment";
 import style from "./TasksBox.module.css";
 import { validateInputTodo } from "../../utils/utils.js";
+import axios from "axios";
+
+export const axiosInstance = axios.create({
+  baseURL: "https://todo-api-learning.herokuapp.com/v1",
+});
 
 function TodoInputForm({ setTasks, tasks }) {
   const [userInput, setUserInput] = useState("");
@@ -11,9 +16,9 @@ function TodoInputForm({ setTasks, tasks }) {
   };
 
   const handleSubmit = (event) => {
-    const title = userInput.trim();
+    const name = userInput.trim();
     event.preventDefault();
-    addTask(title);
+    addTask(name);
     setUserInput("");
   };
 
@@ -27,12 +32,21 @@ function TodoInputForm({ setTasks, tasks }) {
     if (!validateInputTodo(userInput)) return;
     if (userInput) {
       const newTask = {
-        title: userInput,
-        id: Date.now(),
-        check: false,
-        date: moment().format("LLLL"),
+        name: userInput,
+        done: false,
+        createdAt: Date.now(),
+        updatedAt: moment().format("LLLL"),
       };
-      setTasks([...tasks, newTask]);
+      //setTasks([...tasks, newTask]);
+
+      axiosInstance
+        .post(`/task/9`, newTask)
+        .then((resp) => {
+          console.log("send");
+        })
+        .catch(function (error) {
+          console.log("ошибочка");
+        });
     }
   };
 
