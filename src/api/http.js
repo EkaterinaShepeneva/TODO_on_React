@@ -1,55 +1,26 @@
 import axios from "axios";
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
-import UserData from "../UserData";
-import OnLoadingUserData from "../OnLoadingUserData";
-import { useState, useEffect } from "react";
-
-export const axiosInstance = axios.create({
-  baseURL: "https://todo-api-learning.herokuapp.com/v1",
+const axiosInstance = axios.create({
+  baseURL: BASE_URL,
 });
 
-//https://todo-api-learning.herokuapp.com/v1/tasks/9?order=asc&pp=5&page=1
-//https://todo-api-learning.herokuapp.com/v1/task/9
-const Api = ({ tasks, setTasks, setPagesCount, currentPage }) => {
-  const DataLoading = OnLoadingUserData(UserData);
+export const getTask = (currentPage) =>
+  axiosInstance
+    .get(`/tasks/5?order=asc&pp=5&page=${currentPage}`)
+    .then((resp) => {
+      const newTasks = resp.data;
 
-  const [appState, setAppState] = useState({
-    loading: false,
-    persons: null,
-  });
+      return newTasks;
+    });
 
-  useEffect(() => {
-    setAppState({ loading: true });
-
-    axiosInstance
-      .get(`/tasks/9?order=asc&pp=5&page=${currentPage}`)
-      .then((resp) => {
-        const allPersons = resp.data;
-        setAppState({
-          loading: false,
-          persons: allPersons,
-        });
-      });
-  }, [setAppState, currentPage]);
-
-  // axiosInstance
-  //   .post(`/task/9`, ans)
-  //   .then((resp) => {
-  //     console.log("send");
-  //   })
-  //   .catch(function (error) {
-  //     console.log(error);
-  //   });
-
-  return (
-    <DataLoading
-      isLoading={appState.loading}
-      persons={appState.persons}
-      tasks={tasks}
-      setTasks={setTasks}
-      setPagesCount={setPagesCount}
-    />
-  );
+export const postTask = (newTask) => {
+  axiosInstance
+    .post(`/task/5`, newTask)
+    .then((resp) => {
+      console.log("send");
+    })
+    .catch(function (error) {
+      console.log("ошибочка");
+    });
 };
-
-export default Api;

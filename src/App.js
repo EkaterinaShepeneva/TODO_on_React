@@ -1,40 +1,28 @@
 import { useState, useEffect } from "react";
+import { FILTERS, SORT, NUM_TASK } from "./constants.js";
+import { getTask } from "./api/http.js";
 
 import "./App.css";
-import { FILTERS, SORT } from "./constants.js";
 
 import TodoInputForm from "./components/TasksBox/TodoInputForm";
 import Filters from "./components/Filters/Filters";
 import PagesButton from "./components/Pagination/PagesButton";
 import TasksBox from "./components/TasksBox/TasksBox";
-import Api from "./api/http";
 
 function App() {
-  // const DataLoading = OnLoadingUserData(UserData);
-
-  // const [appState, setAppState] = useState({
-  //   loading: false,
-  //   persons: null,
-  // });
-
   const [tasks, setTasks] = useState([]);
   const [filters, setFilter] = useState(FILTERS.ALL);
   const [filtredArray, setFiltredArray] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [pagesCount, setPagesCount] = useState(1);
+  const [pagesCount, setPagesCount] = useState(6);
   const [sort, setSort] = useState(SORT.LAST);
 
-  // useEffect(() => {
-  //   setAppState({ loading: true });
-  //   const apiUrl = `https://todo-api-learning.herokuapp.com/v1/tasks/9?order=asc&pp=5&page=${currentPage}`;
-  //   axios.get(apiUrl).then((resp) => {
-  //     const allPersons = resp.data;
-  //     setAppState({
-  //       loading: false,
-  //       persons: allPersons,
-  //     });
-  //   });
-  // }, [setAppState, currentPage]);
+  useEffect(() => {
+    getTask(currentPage).then((response) => {
+      setPagesCount(Math.ceil(response.count / NUM_TASK));
+      setTasks(response.tasks);
+    });
+  }, [currentPage]);
 
   useEffect(() => {
     if (currentPage > pagesCount) {
@@ -93,19 +81,6 @@ function App() {
           changeCurrentPage={changeCurrentPage}
         />
       )}
-      <Api
-        tasks={tasks}
-        setTasks={setTasks}
-        setPagesCount={setPagesCount}
-        currentPage={currentPage}
-      />
-      {/* <DataLoading
-        isLoading={appState.loading}
-        persons={appState.persons}
-        tasks={tasks}
-        setTasks={setTasks}
-        setPagesCount={setPagesCount}
-      /> */}
     </main>
   );
 }
