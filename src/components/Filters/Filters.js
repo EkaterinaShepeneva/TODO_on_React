@@ -1,17 +1,7 @@
-import { useEffect } from "react";
 import { FILTERS, SORT } from "../../constants.js";
 import style from "./Filters.module.css";
 
-function Filters({
-  setFilter,
-  setSort,
-  setFiltredArray,
-  setPagesCount,
-  filters,
-  tasks,
-  sort,
-  filtredArray,
-}) {
+function Filters({ setFilter, setSort, filters, sort }) {
   const onFilter = (filter) => {
     setFilter(filter);
   };
@@ -19,42 +9,6 @@ function Filters({
   const onSort = (sort) => {
     setSort(sort);
   };
-
-  useEffect(() => {
-    switch (filters) {
-      case 0:
-        setFiltredArray(
-          [...tasks].sort((prev, next) =>
-            !sort ? prev.uuid - next.uuid : next.uuid - prev.uuid
-          )
-        );
-        break;
-
-      case 1:
-        setFiltredArray(
-          tasks
-            .filter((task) => task.done)
-            .sort((prev, next) =>
-              !sort ? prev.uuid - next.uuid : next.uuid - prev.uuid
-            )
-        );
-        break;
-
-      default:
-        setFiltredArray(
-          tasks
-            .filter((task) => task.done !== true)
-            .sort((prev, next) =>
-              !sort ? prev.uuid - next.uuid : next.uuid - prev.uuid
-            )
-        );
-        break;
-    }
-  }, [filters, sort, tasks]);
-
-  // useEffect(() => {
-  //   setPagesCount(2);
-  // }, [filtredArray, filters]);
 
   return (
     <section className={style.filterBox}>

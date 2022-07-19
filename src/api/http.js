@@ -5,9 +5,25 @@ const axiosInstance = axios.create({
   baseURL: BASE_URL,
 });
 
-export const getTasks = (currentPage) =>
+export const getAllTasks = (currentPage) =>
   axiosInstance
     .get(`/tasks/5?order=asc&pp=5&page=${currentPage}`)
+    .then((resp) => {
+      const newTasks = resp.data;
+      return newTasks;
+    });
+
+export const getDoneTasks = (currentPage) =>
+  axiosInstance
+    .get(`/tasks/5?filterBy=done&order=asc&pp=5&page=${currentPage}`)
+    .then((resp) => {
+      const newTasks = resp.data;
+      return newTasks;
+    });
+
+export const getUndoneTasks = (currentPage) =>
+  axiosInstance
+    .get(`/tasks/5?filterBy=undone&order=asc&pp=5&page=${currentPage}`)
     .then((resp) => {
       const newTasks = resp.data;
       return newTasks;
@@ -16,9 +32,8 @@ export const getTasks = (currentPage) =>
 export const postTasks = (newTask, renderTask) => {
   axiosInstance
     .post(`/task/5`, newTask)
-    .then((resp) => {
+    .then(() => {
       renderTask();
-      console.log("send");
     })
     .catch(function (error) {
       console.log("ошибочка", error);
@@ -26,7 +41,27 @@ export const postTasks = (newTask, renderTask) => {
 };
 
 export const deleteTasks = (uuid, renderTask) => {
-  axiosInstance.delete(`/task/5/${uuid}`).then((resp) => {
+  axiosInstance.delete(`/task/5/${uuid}`).then(() => {
     renderTask();
   });
+};
+
+export const changeTasks = (uuid, renderTask, newName) => {
+  axiosInstance
+    .patch(`/task/5/${uuid}`, {
+      name: newName,
+    })
+    .then(() => {
+      renderTask();
+    });
+};
+
+export const checkTasks = (uuid, renderTask, checkStatus) => {
+  axiosInstance
+    .patch(`/task/5/${uuid}`, {
+      done: checkStatus,
+    })
+    .then(() => {
+      renderTask();
+    });
 };

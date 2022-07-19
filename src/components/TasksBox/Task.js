@@ -2,8 +2,17 @@ import React from "react";
 import { useState } from "react";
 import { validateInputTodo } from "../../utils/utils.js";
 import style from "./TasksBox.module.css";
+import { changeTasks } from "../../api/http.js";
 
-function Task({ task, removeTask, checkTask, tasks, userInput, setUserInput }) {
+function Task({
+  task,
+  removeTask,
+  checkTask,
+  tasks,
+  userInput,
+  setUserInput,
+  renderTask,
+}) {
   const [statusInput, setStatusInput] = useState(false);
 
   const handleChange = (event) => {
@@ -27,14 +36,9 @@ function Task({ task, removeTask, checkTask, tasks, userInput, setUserInput }) {
       return;
     }
     if (name) {
-      tasks.find((item) => {
-        if (item.uuid === task.uuid) {
-          item.name = name;
-          return true;
-        }
-      });
+      changeTasks(task.uuid, renderTask, name, setStatusInput);
+      task.name = name;
     }
-
     setStatusInput(false);
   };
 
@@ -58,7 +62,7 @@ function Task({ task, removeTask, checkTask, tasks, userInput, setUserInput }) {
           <input
             className={style.task__check}
             defaultChecked={task.done}
-            onClick={() => checkTask(task.userId)}
+            onClick={(event) => checkTask(task.uuid, event)}
             type="checkbox"
           />
           {statusInput ? (

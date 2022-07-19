@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { FILTERS, SORT, NUM_TASK } from "./constants.js";
-import { getTasks } from "./api/http.js";
+import { getAllTasks } from "./api/http.js";
+import { getDoneTasks } from "./api/http.js";
+import { getUndoneTasks } from "./api/http.js";
 
 import "./App.css";
 
@@ -16,18 +18,36 @@ function App() {
   const [filters, setFilter] = useState(FILTERS.ALL);
   const [filtredArray, setFiltredArray] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [pagesCount, setPagesCount] = useState(6);
+  const [pagesCount, setPagesCount] = useState(1);
   const [sort, setSort] = useState(SORT.LAST);
 
   useEffect(() => {
     renderTask();
-  }, []);
+  }, [filters, currentPage]);
 
   const renderTask = () => {
-    getTasks(currentPage).then((response) => {
-      setPagesCount(Math.ceil(response.count / NUM_TASK));
-      setTasks(response.tasks);
-    });
+    switch (filters) {
+      case 0:
+        getAllTasks(currentPage).then((response) => {
+          setPagesCount(Math.ceil(response.count / NUM_TASK));
+          setTasks(response.tasks);
+        });
+        break;
+
+      case 1:
+        getDoneTasks(currentPage).then((response) => {
+          setPagesCount(Math.ceil(response.count / NUM_TASK));
+          setTasks(response.tasks);
+        });
+        break;
+
+      default:
+        getUndoneTasks(currentPage).then((response) => {
+          setPagesCount(Math.ceil(response.count / NUM_TASK));
+          setTasks(response.tasks);
+        });
+        break;
+    }
   };
 
   useEffect(() => {
@@ -35,10 +55,6 @@ function App() {
       setCurrentPage(1);
     }
   }, [pagesCount]);
-
-  useEffect(() => {
-    renderTask();
-  }, [currentPage]);
 
   const flipPage = (direction) => {
     switch (direction) {
@@ -74,12 +90,8 @@ function App() {
       <Filters
         setFilter={setFilter}
         setSort={setSort}
-        setFiltredArray={setFiltredArray}
-        setPagesCount={setPagesCount}
         filters={filters}
-        tasks={tasks}
         sort={sort}
-        filtredArray={filtredArray}
       />
       <TasksBox
         currentPage={currentPage}
