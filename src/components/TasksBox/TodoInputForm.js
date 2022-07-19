@@ -4,7 +4,7 @@ import style from "./TasksBox.module.css";
 import { validateInputTodo } from "../../utils/utils.js";
 import { postTasks } from "../../api/http.js";
 
-function TodoInputForm({ setTasks, tasks, renderTask }) {
+function TodoInputForm({ setTasks, tasks, renderTask, setError }) {
   const [userInput, setUserInput] = useState("");
 
   const changeInput = (event) => {
@@ -34,7 +34,11 @@ function TodoInputForm({ setTasks, tasks, renderTask }) {
         updatedAt: moment().format("LLLL"),
       };
 
-      postTasks(newTask, renderTask);
+      postTasks(newTask, renderTask).then((response) => {
+        if (!response) {
+          setError(true);
+        }
+      });
     }
   };
 

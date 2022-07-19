@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { FILTERS, SORT, NUM_TASK } from "./constants.js";
-import { getTasks } from "./api/http.js";
+import { getTasks, renderError } from "./api/http.js";
 
 import "./App.css";
 
@@ -8,6 +8,7 @@ import TodoInputForm from "./components/TasksBox/TodoInputForm";
 import Filters from "./components/Filters/Filters";
 import PagesButton from "./components/Pagination/PagesButton";
 import TasksBox from "./components/TasksBox/TasksBox";
+import Error from "./components/Error/Error.js";
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -16,6 +17,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [pagesCount, setPagesCount] = useState(1);
   const [sort, setSort] = useState(SORT.LAST);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     renderTask();
@@ -87,11 +89,15 @@ function App() {
   return (
     <main>
       <h1>ToDo</h1>
+      {error && <Error setError={setError} />}
+
       <TodoInputForm
         setTasks={setTasks}
         tasks={tasks}
         renderTask={renderTask}
+        setError={setError}
       />
+
       <Filters
         setFilter={setFilter}
         setSort={setSort}
