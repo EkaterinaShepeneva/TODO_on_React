@@ -21,7 +21,6 @@ function App() {
 
   useEffect(() => {
     renderTask();
-    console.log("flip 1");
   }, []);
 
   const renderTask = () => {
