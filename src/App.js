@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import { FILTERS, SORT, NUM_TASK } from "./constants.js";
-import { getAllTasks } from "./api/http.js";
-import { getDoneTasks } from "./api/http.js";
-import { getUndoneTasks } from "./api/http.js";
+import { getTasks } from "./api/http.js";
 
 import "./App.css";
 
@@ -25,6 +23,8 @@ function App() {
 
   const renderTask = () => {
     let currentSort = "";
+    let currentFilter = "";
+
     switch (sort) {
       case false:
         currentSort = "asc";
@@ -37,26 +37,22 @@ function App() {
 
     switch (filters) {
       case 0:
-        getAllTasks(currentPage, currentSort).then((response) => {
-          setPagesCount(Math.ceil(response.count / NUM_TASK));
-          setTasks(response.tasks);
-        });
+        currentFilter = "";
         break;
 
       case 1:
-        getDoneTasks(currentPage, currentSort).then((response) => {
-          setPagesCount(Math.ceil(response.count / NUM_TASK));
-          setTasks(response.tasks);
-        });
+        currentFilter = "filterBy=done&";
         break;
 
       default:
-        getUndoneTasks(currentPage, currentSort).then((response) => {
-          setPagesCount(Math.ceil(response.count / NUM_TASK));
-          setTasks(response.tasks);
-        });
+        currentFilter = "filterBy=undone&";
         break;
     }
+
+    getTasks(currentPage, currentSort, currentFilter).then((response) => {
+      setPagesCount(Math.ceil(response.count / NUM_TASK));
+      setTasks(response.tasks);
+    });
   };
 
   useEffect(() => {
