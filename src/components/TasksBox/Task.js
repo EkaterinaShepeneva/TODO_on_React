@@ -93,7 +93,7 @@ function Task({
         </button>
       </div>
 
-      <div className={style.task__date}>{task.date}</div>
+      <div className={style.task__date}>{task.updatedAt}</div>
     </div>
   );
 }

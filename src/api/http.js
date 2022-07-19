@@ -5,25 +5,27 @@ const axiosInstance = axios.create({
   baseURL: BASE_URL,
 });
 
-export const getAllTasks = (currentPage) =>
+export const getAllTasks = (currentPage, currentSort) =>
   axiosInstance
-    .get(`/tasks/5?order=asc&pp=5&page=${currentPage}`)
+    .get(`/tasks/5?order=${currentSort}&pp=5&page=${currentPage}`)
     .then((resp) => {
       const newTasks = resp.data;
       return newTasks;
     });
 
-export const getDoneTasks = (currentPage) =>
+export const getDoneTasks = (currentPage, currentSort) =>
   axiosInstance
-    .get(`/tasks/5?filterBy=done&order=asc&pp=5&page=${currentPage}`)
+    .get(`/tasks/5?filterBy=done&order=${currentSort}&pp=5&page=${currentPage}`)
     .then((resp) => {
       const newTasks = resp.data;
       return newTasks;
     });
 
-export const getUndoneTasks = (currentPage) =>
+export const getUndoneTasks = (currentPage, currentSort) =>
   axiosInstance
-    .get(`/tasks/5?filterBy=undone&order=asc&pp=5&page=${currentPage}`)
+    .get(
+      `/tasks/5?filterBy=undone&order=${currentSort}&pp=5&page=${currentPage}`
+    )
     .then((resp) => {
       const newTasks = resp.data;
       return newTasks;

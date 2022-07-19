@@ -11,8 +11,6 @@ import Filters from "./components/Filters/Filters";
 import PagesButton from "./components/Pagination/PagesButton";
 import TasksBox from "./components/TasksBox/TasksBox";
 
-export const hello = "hello";
-
 function App() {
   const [tasks, setTasks] = useState([]);
   const [filters, setFilter] = useState(FILTERS.ALL);
@@ -23,26 +21,37 @@ function App() {
 
   useEffect(() => {
     renderTask();
-  }, [filters, currentPage]);
+  }, [filters, currentPage, sort]);
 
   const renderTask = () => {
+    let currentSort = "";
+    switch (sort) {
+      case false:
+        currentSort = "asc";
+        break;
+
+      default:
+        currentSort = "desc";
+        break;
+    }
+
     switch (filters) {
       case 0:
-        getAllTasks(currentPage).then((response) => {
+        getAllTasks(currentPage, currentSort).then((response) => {
           setPagesCount(Math.ceil(response.count / NUM_TASK));
           setTasks(response.tasks);
         });
         break;
 
       case 1:
-        getDoneTasks(currentPage).then((response) => {
+        getDoneTasks(currentPage, currentSort).then((response) => {
           setPagesCount(Math.ceil(response.count / NUM_TASK));
           setTasks(response.tasks);
         });
         break;
 
       default:
-        getUndoneTasks(currentPage).then((response) => {
+        getUndoneTasks(currentPage, currentSort).then((response) => {
           setPagesCount(Math.ceil(response.count / NUM_TASK));
           setTasks(response.tasks);
         });
