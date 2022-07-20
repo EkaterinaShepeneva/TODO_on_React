@@ -4,16 +4,24 @@ import style from "./TasksBox.module.css";
 import { deleteTasks } from "../../api/http.js";
 import { checkTasks } from "../../api/http.js";
 
-function TasksBox({ tasks, setTasks, filtredArray, renderTask }) {
+function TasksBox({ tasks, setTasks, filtredArray, renderTask, setError }) {
   const [userInput, setUserInput] = useState("");
 
   const removeTask = (uuid) => {
-    deleteTasks(uuid, renderTask);
+    deleteTasks(uuid, renderTask).then((response) => {
+      if (!response) {
+        setError(true);
+      }
+    });
   };
 
   const checkTask = (uuid, event) => {
     const checkStatus = event.target.checked;
-    checkTasks(uuid, renderTask, checkStatus);
+    checkTasks(uuid, renderTask, checkStatus).then((response) => {
+      if (!response) {
+        setError(true);
+      }
+    });
   };
 
   return (
@@ -29,6 +37,7 @@ function TasksBox({ tasks, setTasks, filtredArray, renderTask }) {
             userInput={userInput}
             setUserInput={setUserInput}
             renderTask={renderTask}
+            setError={setError}
           />
         );
       })}

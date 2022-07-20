@@ -12,6 +12,7 @@ function Task({
   userInput,
   setUserInput,
   renderTask,
+  setError,
 }) {
   const [statusInput, setStatusInput] = useState(false);
 
@@ -36,7 +37,13 @@ function Task({
       return;
     }
     if (name) {
-      changeTasks(task.uuid, renderTask, name, setStatusInput);
+      changeTasks(task.uuid, renderTask, name, setStatusInput).then(
+        (response) => {
+          if (!response) {
+            setError(true);
+          }
+        }
+      );
       task.name = name;
     }
     setStatusInput(false);

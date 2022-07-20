@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { FILTERS, SORT, NUM_TASK } from "./constants.js";
-import { getTasks, renderError } from "./api/http.js";
+import { getTasks } from "./api/http.js";
 
 import "./App.css";
 
@@ -51,10 +51,16 @@ function App() {
         break;
     }
 
-    getTasks(currentPage, currentSort, currentFilter).then((response) => {
-      setPagesCount(Math.ceil(response.count / NUM_TASK));
-      setTasks(response.tasks);
-    });
+    getTasks(currentPage, currentSort, currentFilter)
+      .then((response) => {
+        setPagesCount(Math.ceil(response.count / NUM_TASK));
+        setTasks(response.tasks);
+      })
+      .catch((response) => {
+        if (!response) {
+          setError(true);
+        }
+      });
   };
 
   useEffect(() => {
@@ -110,6 +116,7 @@ function App() {
         setTasks={setTasks}
         filtredArray={filtredArray}
         renderTask={renderTask}
+        setError={setError}
       />
       {pagesCount > 1 && (
         <PagesButton

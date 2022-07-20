@@ -6,6 +6,20 @@ const axiosInstance = axios.create({
   baseURL: BASE_URL,
 });
 
+export let errorMessage = "";
+export let errorCode = "";
+
+axiosInstance.interceptors.response.use(
+  function (config) {
+    return config;
+  },
+  function (error) {
+    errorCode = error.response.status;
+    errorMessage = error.response.data.message;
+    return Promise.reject(error);
+  }
+);
+
 export const renderError = (error) => {};
 
 export const getTasks = (currentPage, currentSort, currentFilter) =>
@@ -17,7 +31,9 @@ export const getTasks = (currentPage, currentSort, currentFilter) =>
       const newTasks = resp.data;
       return newTasks;
     })
-    .catch(function (error) {});
+    .catch(() => {
+      return false;
+    });
 
 export const postTasks = (newTask, renderTask) =>
   axiosInstance
@@ -26,33 +42,43 @@ export const postTasks = (newTask, renderTask) =>
       renderTask();
       return true;
     })
-    .catch(function (error) {
-      renderError(error);
+    .catch(() => {
       return false;
     });
 
-export const deleteTasks = (uuid, renderTask) => {
-  axiosInstance.delete(`/task/5/${uuid}`).then(() => {
-    renderTask();
-  });
-};
+export const deleteTasks = (uuid, renderTask) =>
+  axiosInstance
+    .delete(`/task/5/${uuid}`)
+    .then(() => {
+      renderTask();
+      return true;
+    })
+    .catch(() => {
+      return false;
+    });
 
-export const changeTasks = (uuid, renderTask, newName) => {
+export const changeTasks = (uuid, renderTask, newName) =>
   axiosInstance
     .patch(`/task/5/${uuid}`, {
       name: newName,
     })
     .then(() => {
       renderTask();
+      return true;
+    })
+    .catch(() => {
+      return false;
     });
-};
 
-export const checkTasks = (uuid, renderTask, checkStatus) => {
+export const checkTasks = (uuid, renderTask, checkStatus) =>
   axiosInstance
     .patch(`/task/5/${uuid}`, {
       done: checkStatus,
     })
     .then(() => {
       renderTask();
+      return true;
+    })
+    .catch(() => {
+      return false;
     });
-};
