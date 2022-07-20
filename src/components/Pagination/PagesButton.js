@@ -8,7 +8,7 @@ const PagesButton = ({
   changeCurrentPage,
 }) => {
   return (
-    <div className={style.pagination} redStyle>
+    <div className={style.pagination}>
       <button onClick={() => flipPage("back")}>back</button>
       <button onClick={() => changeCurrentPage(1)} className={style.first_page}>
         First page

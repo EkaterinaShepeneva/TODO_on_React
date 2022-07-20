@@ -13,7 +13,6 @@ import Error from "./components/Error/Error.js";
 function App() {
   const [tasks, setTasks] = useState([]);
   const [filters, setFilter] = useState(FILTERS.ALL);
-  const [filtredArray, setFiltredArray] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [pagesCount, setPagesCount] = useState(1);
   const [sort, setSort] = useState(SORT.LAST);
@@ -97,12 +96,7 @@ function App() {
       <h1>ToDo</h1>
       {error && <Error setError={setError} />}
 
-      <TodoInputForm
-        setTasks={setTasks}
-        tasks={tasks}
-        renderTask={renderTask}
-        setError={setError}
-      />
+      <TodoInputForm renderTask={renderTask} setError={setError} />
 
       <Filters
         setFilter={setFilter}
@@ -110,14 +104,7 @@ function App() {
         filters={filters}
         sort={sort}
       />
-      <TasksBox
-        currentPage={currentPage}
-        tasks={tasks}
-        setTasks={setTasks}
-        filtredArray={filtredArray}
-        renderTask={renderTask}
-        setError={setError}
-      />
+      <TasksBox tasks={tasks} renderTask={renderTask} setError={setError} />
       {pagesCount > 1 && (
         <PagesButton
           flipPage={flipPage}

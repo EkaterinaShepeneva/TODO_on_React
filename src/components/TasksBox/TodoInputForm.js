@@ -1,10 +1,10 @@
-import { useState } from "react";
 import moment from "moment";
 import style from "./TasksBox.module.css";
+import { useState } from "react";
 import { validateInputTodo } from "../../utils/utils.js";
 import { postTasks } from "../../api/http.js";
 
-function TodoInputForm({ setTasks, tasks, renderTask, setError }) {
+function TodoInputForm({ renderTask, setError }) {
   const [userInput, setUserInput] = useState("");
 
   const changeInput = (event) => {

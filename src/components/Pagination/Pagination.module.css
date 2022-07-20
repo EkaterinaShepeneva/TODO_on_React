@@ -32,7 +32,7 @@
   border: none;
   background-color: rgba(255, 255, 255, 0.493);
 }
-S @media screen and (max-width: 650px) {
+@media screen and (max-width: 650px) {
   .pagination {
     margin-top: 30px;
   }

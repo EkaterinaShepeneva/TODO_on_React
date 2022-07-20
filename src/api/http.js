@@ -1,13 +1,12 @@
 import axios from "axios";
 
-const BASE_URL = process.env.REACT_APP_BASE_URL;
+export let errorMessage = "";
+export let errorCode = "";
 
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
 });
-
-export let errorMessage = "";
-export let errorCode = "";
 
 axiosInstance.interceptors.response.use(
   function (config) {
@@ -19,8 +18,6 @@ axiosInstance.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
-export const renderError = (error) => {};
 
 export const getTasks = (currentPage, currentSort, currentFilter) =>
   axiosInstance

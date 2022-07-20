@@ -1,14 +1,13 @@
 import React from "react";
+import style from "./TasksBox.module.css";
 import { useState } from "react";
 import { validateInputTodo } from "../../utils/utils.js";
-import style from "./TasksBox.module.css";
 import { changeTasks } from "../../api/http.js";
 
 function Task({
   task,
   removeTask,
   checkTask,
-  tasks,
   userInput,
   setUserInput,
   renderTask,
