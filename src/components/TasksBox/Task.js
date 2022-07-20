@@ -62,15 +62,17 @@ function Task({
   };
 
   return (
-    <div key={task.uuid} className={style.task}>
+    <div key={task.uuid} className= {task.done?(style.task__checked):(style.task)}>
       <div className={style.task__inputs}>
         <section className={style.task__left}>
+          <label className={style.task__check}>
           <input
-            className={style.task__check}
             defaultChecked={task.done}
             onClick={(event) => checkTask(task.uuid, event)}
             type="checkbox"
           />
+          <span>Indigo</span>
+          </label>
           {statusInput ? (
             <input
               className={style.editTask}
@@ -83,7 +85,7 @@ function Task({
             />
           ) : (
             <div
-              className={style.task__text}
+              className={task.done?(style.task__text__checked):(style.task__text)}
               uuid={task.uuid}
               onDoubleClick={changeStatusInput}
             >

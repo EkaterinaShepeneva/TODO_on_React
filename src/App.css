@@ -1,18 +1,19 @@
 main {
   display: flex;
-  align-items: center;
+align-items: flex-start;
   justify-content: center;
   flex-direction: column;
 }
 
 h1 {
+
   margin: 10px;
-  font-family: "Inika", serif;
-  font-size: 76px;
-  line-height: 99px;
-  color: rgba(86, 96, 94, 1);
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  text-align: center;
+font-family: 'Roboto';
+font-style: normal;
+font-weight: 800;
+font-size: 203px;
+line-height: 238px;
+text-align: center;
+
+color: rgba(206, 195, 189, 0.23);
 }

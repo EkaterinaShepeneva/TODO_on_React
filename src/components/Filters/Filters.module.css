@@ -1,6 +1,7 @@
 .filterBox {
     margin: 34px 0 13px 0;
-    width: 520px;
+    width: 471px;
+height: 27px;
     display: flex;
     justify-content: space-between;
     flex-direction: row;
