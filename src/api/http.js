@@ -25,49 +25,27 @@ export const getTasks = (currentPage, filter, sort) =>
       params: { filterBy: filter, order: sort, pp:5,page: currentPage }
     })
     .then((resp) => {
-      //const newTasks = resp.data;
       return resp.data;
     })
-    .catch(() => {
-      return false;
-    });
 
-export const postTasks = (newTask, renderTask) =>
+export const postTask = (newTask) =>
   axiosInstance
     .post(`/task/5`, newTask)
-    .then(() => {
-      renderTask();/////убрать отсюда и перенести в вызов и так везде
-      return true;
-    })
-    .catch(() => {
-      return false;
-    });
 
-export const deleteTasks = (uuid, renderTask) =>
+export const deleteTask = (uuid) =>
   axiosInstance
     .delete(`/task/5/${uuid}`)
-    .then(() => {
-      renderTask();
-      return true;
-    })
-    .catch(() => {
-      return false;
-    });
 
-export const changeTasks = (uuid, renderTask, newName) =>
+export const changeTask = (uuid,  newName) =>
   axiosInstance
     .patch(`/task/5/${uuid}`, {
       name: newName,
     })
     .then(() => {
-      renderTask();
       return true;
     })
-    .catch(() => {
-      return false;
-    });
 
-export const checkTasks = (uuid, renderTask, checkStatus) =>
+export const checkPatchTask = (uuid, checkStatus) =>
   axiosInstance
     .patch(`/task/5/${uuid}`, {
       done: checkStatus,

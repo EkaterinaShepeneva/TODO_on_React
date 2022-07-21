@@ -1,27 +1,22 @@
 import Task from "./Task";
 import style from "./TasksBox.module.css";
-import { useState } from "react";
-import { deleteTasks } from "../../api/http.js";
-import { checkTasks } from "../../api/http.js";
+import {  useState } from "react";
+import { deleteTask } from "../../api/http.js";
+import { checkPatchTask } from "../../api/http.js";
 
 function TasksBox({ tasks, renderTask, setIsError }) {
   const [userInput, setUserInput] = useState("");
+  const [statusInput, setStatusInput] = useState({idTask:null, status:false});
 
   const removeTask = (uuid) => {
-    deleteTasks(uuid, renderTask).then((response) => {
-      if (!response) {
-        setIsError(true);
-      }
-    });
+    deleteTask(uuid).then(() => {
+      renderTask()
+    }).catch(()=>setIsError(true));
   };
 
   const checkTask = (uuid, event) => {
     const checkStatus = event.target.checked;
-    checkTasks(uuid, renderTask, checkStatus).then((response) => {
-      renderTask()
-    }).catch(()=>{
-      setIsError(true);
-    });
+    checkPatchTask(uuid, checkStatus).catch(()=>setIsError(true));
   };
 
   return (
@@ -30,6 +25,7 @@ function TasksBox({ tasks, renderTask, setIsError }) {
         return (
           <Task
             task={task}
+            tasks={tasks}
             key={task.uuid}
             removeTask={removeTask}
             checkTask={checkTask}
@@ -37,6 +33,8 @@ function TasksBox({ tasks, renderTask, setIsError }) {
             setUserInput={setUserInput}
             renderTask={renderTask}
             setIsError={setIsError}
+            statusInput={statusInput}
+            setStatusInput={setStatusInput}
           />
         );
       })}

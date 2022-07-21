@@ -2,7 +2,7 @@ import moment from "moment";
 import style from "./TasksBox.module.css";
 import { useState } from "react";
 import { validateInputTodo } from "../../utils/utils.js";
-import { postTasks } from "../../api/http.js";
+import { postTask } from "../../api/http.js";
 
 function TodoInputForm({ renderTask, setIsError }) {
   const [userInput, setUserInput] = useState("");
@@ -34,16 +34,12 @@ function TodoInputForm({ renderTask, setIsError }) {
         updatedAt: moment().format("LLLL"),
       };
 
-      postTasks(newTask, renderTask).then((response) => { //task она одна, а не много
-        if (!response) {
-          setIsError(true);
-        }
-      });
+      postTask(newTask).catch(()=>setIsError(true));
     }
   };
 
   return (
-    <form className={style.inputBox} onSubmit={handleSubmit}>//form!
+    <div className={style.inputBox}>
       <input
         autoFocus
         className={style.inputBox__input}
@@ -53,8 +49,8 @@ function TodoInputForm({ renderTask, setIsError }) {
         onKeyDown={handleKeyPress}
         placeholder="Write something..."
       />
-      <button>+</button>
-    </form>
+      <button onClick={handleSubmit}>+</button>
+    </div>
   );
 }
 

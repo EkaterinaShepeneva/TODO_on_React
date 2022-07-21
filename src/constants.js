@@ -8,7 +8,4 @@ export const SORT = {
   LAST: "asc",
   EARLY: "desc",
 };
-export const FLIP_PAGE ={ //Убрать константу и просто прокидывать тру, фолс
-  FORWARD: true,
-  BACK: false
-}
+

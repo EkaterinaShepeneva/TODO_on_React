@@ -1,19 +1,20 @@
 import React from "react";
 import style from "./TasksBox.module.css";
-import { useState } from "react";
 import { validateInputTodo } from "../../utils/utils.js";
-import { changeTasks } from "../../api/http.js";
+import { changeTask } from "../../api/http.js";
 
 function Task({
   task,
+  tasks,
   removeTask,
   checkTask,
   userInput,
   setUserInput,
   renderTask,
   setIsError,
+  statusInput,
+  setStatusInput
 }) {
-  const [statusInput, setStatusInput] = useState(false);////////ererereor
 
   const handleChange = (event) => {
     setUserInput(event.target.value);
@@ -21,31 +22,37 @@ function Task({
 
   const changeStatusInput = () => {
     setUserInput(task.name);
-    setStatusInput(true);
+    setStatusInput({idTask: task.uuid, status:true});
   };
 
   const blurInput = () => {
-    setStatusInput(false);
+    setStatusInput({idTask: task.uuid, status:false});
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const name = userInput.trim();
     if (!validateInputTodo(name)) {
-      setStatusInput(false);
+      setStatusInput({idTask: task.uuid, status:false});
       return;
     }
     if (name) {
-      changeTasks(task.uuid, renderTask, name, setStatusInput).then(
+      changeTask(task.uuid, name).then(
         (response) => {
+          renderTask()
           if (!response) {
             setIsError(true);
           }
         }
       );
-      task.name = name;  //МУТИРОВАНИЕ!!!!!!!!!!setState/ setTasks(...name), пройтись по локальному массиву, получить нужное имя и изменить его
+      tasks.find((item) => {
+        if (item.uuid === task.uuid) {
+          item.name = name;
+          return true;
+        }
+      });
     }
-    setStatusInput(false);
+    setStatusInput({idTask: task.uuid, status:false});
   };
 
   const handleKeyPress = (event) => {
@@ -54,7 +61,7 @@ function Task({
         handleSubmit(event);
         break;
       case "Escape":
-        setStatusInput(false);
+        setStatusInput({idTask: task.uuid, status:false});
         break;
       default:
         break;
@@ -71,11 +78,11 @@ function Task({
             onClick={(event) => checkTask(task.uuid, event)}
             type="checkbox"
           />
-          {statusInput ? (
+          {(statusInput.idTask === task.uuid && statusInput.status) ? (
             <input
               className={style.editTask}
               autoFocus
-              onBlur={blurInput}
+              onBlur={()=>blurInput()}
               onKeyDown={handleKeyPress}
               value={userInput}
               onChange={handleChange}

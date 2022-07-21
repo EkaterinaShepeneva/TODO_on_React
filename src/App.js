@@ -25,21 +25,20 @@ function App() {
   const renderTask = () => {
     getTasks(currentPage, filters, sort)
       .then((response) => {
-        const vabalaba = Math.ceil(response.count / NUM_TASK)
-        setPagesCount(vabalaba);
-        if (currentPage > vabalaba) {
-          setCurrentPage(1) //Когда удаляется последняя таска на странице переносит нас на 1, нельзя перенести
+        const countPage = Math.ceil(response.count / NUM_TASK)
+        setPagesCount(countPage);
+        if (currentPage > countPage) {
+          setCurrentPage(1) 
         }
         setTasks(response.tasks);
       })
       .catch((response) => {
         if (response) setIsError(true);
       });
-      
   };
 
-  const flipPage = (direction) => {//changePageNext(next)
-    switch (direction) {
+  const changePageNext = (next) => {
+    switch (next) {
       case true: 
         if (currentPage === pagesCount) {
           break;
@@ -77,7 +76,7 @@ function App() {
       <TasksBox tasks={tasks} renderTask={renderTask} setIsError={setIsError} />
       {pagesCount > 1 && (
         <PagesButton
-          flipPage={flipPage}
+        changePageNext={changePageNext}
           pagesCount={pagesCount}
           currentPage={currentPage}
           changeCurrentPage={changeCurrentPage}
