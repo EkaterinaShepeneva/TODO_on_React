@@ -1,5 +1,6 @@
 import Pagination from "./Pagination";
 import style from "./Pagination.module.css";
+import {FLIP_PAGE} from '../../constants.js'
 
 const PagesButton = ({
   flipPage,
@@ -9,7 +10,7 @@ const PagesButton = ({
 }) => {
   return (
     <div className={style.pagination}>
-      <button onClick={() => flipPage("back")}>back</button>
+      <button onClick={() => flipPage(FLIP_PAGE.BACK)}>back</button>
       <button onClick={() => changeCurrentPage(1)} className={style.first_page}>
         First page
       </button>
@@ -29,7 +30,7 @@ const PagesButton = ({
       >
         Last page
       </button>
-      <button onClick={() => flipPage("forward")}>forward</button>
+      <button onClick={() => flipPage(FLIP_PAGE.FORWARD)}>forward</button>
     </div>
   );
 };

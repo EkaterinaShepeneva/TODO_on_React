@@ -1,9 +1,9 @@
 import style from "./Error.module.css";
 import { errorMessage, errorCode } from "../../api/http.js";
 
-const Error = ({ setError }) => {
+const Error = ({ setIsError }) => {
   const closeErrorWindow = () => {
-    setError(false);
+    setIsError(false);
   };
 
   return (

@@ -4,13 +4,13 @@ import { useState } from "react";
 import { deleteTasks } from "../../api/http.js";
 import { checkTasks } from "../../api/http.js";
 
-function TasksBox({ tasks, renderTask, setError }) {
+function TasksBox({ tasks, renderTask, setIsError }) {
   const [userInput, setUserInput] = useState("");
 
   const removeTask = (uuid) => {
     deleteTasks(uuid, renderTask).then((response) => {
       if (!response) {
-        setError(true);
+        setIsError(true);
       }
     });
   };
@@ -18,9 +18,9 @@ function TasksBox({ tasks, renderTask, setError }) {
   const checkTask = (uuid, event) => {
     const checkStatus = event.target.checked;
     checkTasks(uuid, renderTask, checkStatus).then((response) => {
-      if (!response) {
-        setError(true);
-      }
+      renderTask()
+    }).catch(()=>{
+      setIsError(true);
     });
   };
 
@@ -36,7 +36,7 @@ function TasksBox({ tasks, renderTask, setError }) {
             userInput={userInput}
             setUserInput={setUserInput}
             renderTask={renderTask}
-            setError={setError}
+            setIsError={setIsError}
           />
         );
       })}

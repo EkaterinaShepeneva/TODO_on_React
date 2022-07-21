@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { FILTERS, SORT, NUM_TASK } from "./constants.js";
+import { FILTERS, SORT, NUM_TASK, FLIP_PAGE } from "./constants.js";
 import { getTasks } from "./api/http.js";
 
 import "./App.css";
@@ -16,67 +16,37 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [pagesCount, setPagesCount] = useState(1);
   const [sort, setSort] = useState(SORT.LAST);
-  const [error, setError] = useState(false);
+  const [isError, setIsError] = useState(false); 
 
   useEffect(() => {
     renderTask();
   }, [filters, currentPage, sort]);
 
   const renderTask = () => {
-    let currentSort = "";
-    let currentFilter = "";
-
-    switch (sort) {
-      case false:
-        currentSort = "asc";
-        break;
-
-      default:
-        currentSort = "desc";
-        break;
-    }
-
-    switch (filters) {
-      case 0:
-        currentFilter = "";
-        break;
-
-      case 1:
-        currentFilter = "filterBy=done&";
-        break;
-
-      default:
-        currentFilter = "filterBy=undone&";
-        break;
-    }
-
-    getTasks(currentPage, currentSort, currentFilter)
+    getTasks(currentPage, filters, sort)
       .then((response) => {
-        setPagesCount(Math.ceil(response.count / NUM_TASK));
+        const vabalaba = Math.ceil(response.count / NUM_TASK)
+        setPagesCount(vabalaba);
+        if (currentPage > vabalaba) {
+          setCurrentPage(1) //Когда удаляется последняя таска на странице переносит нас на 1, нельзя перенести
+        }
         setTasks(response.tasks);
       })
       .catch((response) => {
-        if (!response) {
-          setError(true);
-        }
+        if (response) setIsError(true);
       });
+      
   };
 
-  useEffect(() => {
-    if (currentPage > pagesCount) {
-      setCurrentPage(1);
-    }
-  }, [pagesCount]);
-
-  const flipPage = (direction) => {
+  const flipPage = (direction) => {//changePageNext(next)
     switch (direction) {
-      case "forward":
+      case true: 
         if (currentPage === pagesCount) {
           break;
         }
         setCurrentPage(currentPage + 1);
         break;
-      case "back":
+      case false:
         if (currentPage === 1) {
           break;
         }
@@ -94,9 +64,9 @@ function App() {
   return (
     <main>
       <h1>ToDo</h1>
-      {error && <Error setError={setError} />}
+      {isError && <Error setIsError={setIsError} />}
 
-      <TodoInputForm renderTask={renderTask} setError={setError} />
+      <TodoInputForm renderTask={renderTask} setIsError={setIsError} />
 
       <Filters
         setFilter={setFilter}
@@ -104,7 +74,7 @@ function App() {
         filters={filters}
         sort={sort}
       />
-      <TasksBox tasks={tasks} renderTask={renderTask} setError={setError} />
+      <TasksBox tasks={tasks} renderTask={renderTask} setIsError={setIsError} />
       {pagesCount > 1 && (
         <PagesButton
           flipPage={flipPage}

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { validateInputTodo } from "../../utils/utils.js";
 import { postTasks } from "../../api/http.js";
 
-function TodoInputForm({ renderTask, setError }) {
+function TodoInputForm({ renderTask, setIsError }) {
   const [userInput, setUserInput] = useState("");
 
   const changeInput = (event) => {
@@ -34,16 +34,16 @@ function TodoInputForm({ renderTask, setError }) {
         updatedAt: moment().format("LLLL"),
       };
 
-      postTasks(newTask, renderTask).then((response) => {
+      postTasks(newTask, renderTask).then((response) => { //task она одна, а не много
         if (!response) {
-          setError(true);
+          setIsError(true);
         }
       });
     }
   };
 
   return (
-    <form className={style.inputBox} onSubmit={handleSubmit}>
+    <form className={style.inputBox} onSubmit={handleSubmit}>//form!
       <input
         autoFocus
         className={style.inputBox__input}

@@ -11,9 +11,9 @@ function Task({
   userInput,
   setUserInput,
   renderTask,
-  setError,
+  setIsError,
 }) {
-  const [statusInput, setStatusInput] = useState(false);
+  const [statusInput, setStatusInput] = useState(false);////////ererereor
 
   const handleChange = (event) => {
     setUserInput(event.target.value);
@@ -39,11 +39,11 @@ function Task({
       changeTasks(task.uuid, renderTask, name, setStatusInput).then(
         (response) => {
           if (!response) {
-            setError(true);
+            setIsError(true);
           }
         }
       );
-      task.name = name;
+      task.name = name;  //МУТИРОВАНИЕ!!!!!!!!!!setState/ setTasks(...name), пройтись по локальному массиву, получить нужное имя и изменить его
     }
     setStatusInput(false);
   };

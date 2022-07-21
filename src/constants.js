@@ -1,10 +1,14 @@
 export const NUM_TASK = 5;
 export const FILTERS = {
-  ALL: 0,
-  DONE: 1,
-  UNDONE: 2,
+  ALL: "",
+  DONE: "done",
+  UNDONE: "undone",
 };
 export const SORT = {
-  LAST: false,
-  EARLY: true,
+  LAST: "asc",
+  EARLY: "desc",
 };
+export const FLIP_PAGE ={ //Убрать константу и просто прокидывать тру, фолс
+  FORWARD: true,
+  BACK: false
+}

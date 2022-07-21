@@ -14,7 +14,7 @@ function Filters({ setFilter, setSort, filters, sort }) {
     <section className={style.filterBox}>
       <div className={style.filterBox__filter}>
         <button
-          aria-pressed={filters === 0}
+          aria-pressed={filters === ""}
           onClick={() => {
             onFilter(FILTERS.ALL);
           }}
@@ -22,7 +22,7 @@ function Filters({ setFilter, setSort, filters, sort }) {
           All
         </button>
         <button
-          aria-pressed={filters === 1}
+          aria-pressed={filters === "done"}
           onClick={() => {
             onFilter(FILTERS.DONE);
           }}
@@ -30,7 +30,7 @@ function Filters({ setFilter, setSort, filters, sort }) {
           Done
         </button>
         <button
-          aria-pressed={filters === 2}
+          aria-pressed={filters === "undone"}
           onClick={() => {
             onFilter(FILTERS.UNDONE);
           }}
@@ -41,7 +41,7 @@ function Filters({ setFilter, setSort, filters, sort }) {
       <div className={style.filterBox__sorting}>
         <span>Sort by Date</span>
         <button
-          aria-pressed={sort}
+          aria-pressed={sort==='desc'}
           onClick={() => {
             onSort(SORT.EARLY);
           }}
@@ -49,7 +49,7 @@ function Filters({ setFilter, setSort, filters, sort }) {
           Ear
         </button>
         <button
-          aria-pressed={!sort}
+          aria-pressed={sort==='asc'}
           onClick={() => {
             onSort(SORT.LAST);
           }}

@@ -19,14 +19,14 @@ axiosInstance.interceptors.response.use(
   }
 );
 
-export const getTasks = (currentPage, currentSort, currentFilter) =>
+export const getTasks = (currentPage, filter, sort) =>
   axiosInstance
-    .get(
-      `/tasks/5?${currentFilter}order=${currentSort}&pp=5&page=${currentPage}`
-    )
+    .get("/tasks/5", {
+      params: { filterBy: filter, order: sort, pp:5,page: currentPage }
+    })
     .then((resp) => {
-      const newTasks = resp.data;
-      return newTasks;
+      //const newTasks = resp.data;
+      return resp.data;
     })
     .catch(() => {
       return false;
@@ -36,7 +36,7 @@ export const postTasks = (newTask, renderTask) =>
   axiosInstance
     .post(`/task/5`, newTask)
     .then(() => {
-      renderTask();
+      renderTask();/////убрать отсюда и перенести в вызов и так везде
       return true;
     })
     .catch(() => {
@@ -72,10 +72,3 @@ export const checkTasks = (uuid, renderTask, checkStatus) =>
     .patch(`/task/5/${uuid}`, {
       done: checkStatus,
     })
-    .then(() => {
-      renderTask();
-      return true;
-    })
-    .catch(() => {
-      return false;
-    });
