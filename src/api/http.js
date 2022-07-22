@@ -24,8 +24,8 @@ axiosInstance.interceptors.response.use(
 );
 
 export const getTasks = (currentPage, filter, sort) =>
-  axiosInstance
-    .get("/tasks/5", {
+  axiosInstanceServer
+    .get("/tasks", {
       params: { filterBy: filter, order: sort, pp: 5, page: currentPage },
     })
     .then((resp) => {
