@@ -30,6 +30,7 @@ function TodoInputForm({ renderTask, setIsError }) {
         name: userInput,
       };
       postTask(newTask).catch(() => setIsError(true));
+      renderTask();
     }
   };
 

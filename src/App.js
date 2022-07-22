@@ -16,7 +16,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [pagesCount, setPagesCount] = useState(1);
   const [sort, setSort] = useState(SORT.LAST);
-  const [isError, setIsError] = useState(false); 
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     renderTask();
@@ -25,10 +25,10 @@ function App() {
   const renderTask = () => {
     getTasks(currentPage, filters, sort)
       .then((response) => {
-        const countPage = Math.ceil(response.count / NUM_TASK)
+        const countPage = Math.ceil(response.count / NUM_TASK);
         setPagesCount(countPage);
         if (currentPage > countPage) {
-          setCurrentPage(1) 
+          setCurrentPage(1);
         }
         setTasks(response.tasks);
       })
@@ -39,7 +39,7 @@ function App() {
 
   const changePageNext = (next) => {
     switch (next) {
-      case true: 
+      case true:
         if (currentPage === pagesCount) {
           break;
         }
@@ -76,7 +76,7 @@ function App() {
       <TasksBox tasks={tasks} renderTask={renderTask} setIsError={setIsError} />
       {pagesCount > 1 && (
         <PagesButton
-        changePageNext={changePageNext}
+          changePageNext={changePageNext}
           pagesCount={pagesCount}
           currentPage={currentPage}
           changeCurrentPage={changeCurrentPage}

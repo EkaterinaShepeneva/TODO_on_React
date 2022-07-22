@@ -47,6 +47,6 @@ export const changeTask = (uuid, newName) =>
     });
 
 export const checkPatchTask = (uuid, checkStatus) =>
-  axiosInstance.patch(`/task/5/${uuid}`, {
+  axiosInstanceServer.patch(`/tasks/${uuid}`, {
     done: checkStatus,
   });
