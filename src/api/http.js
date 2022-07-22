@@ -35,7 +35,8 @@ export const getTasks = (currentPage, filter, sort) =>
 export const postTask = (newTask) =>
   axiosInstanceServer.post(`/tasks`, newTask);
 
-export const deleteTask = (uuid) => axiosInstance.delete(`/task/5/${uuid}`);
+export const deleteTask = (uuid) =>
+  axiosInstanceServer.delete(`/tasks/${uuid}`);
 
 export const changeTask = (uuid, newName) =>
   axiosInstanceServer
