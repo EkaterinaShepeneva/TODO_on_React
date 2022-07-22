@@ -38,15 +38,13 @@ export const postTask = (newTask) =>
 export const deleteTask = (uuid) => axiosInstance.delete(`/task/5/${uuid}`);
 
 export const changeTask = (uuid, newName) =>
-  axiosInstance
-    .patch(`/task/5/${uuid}`, {
+  axiosInstanceServer
+    .patch(`/tasks/${uuid}`, {
       name: newName,
     })
     .then(() => {
       return true;
     });
 
-export const checkPatchTask = (uuid, checkStatus) =>
-  axiosInstanceServer.patch(`/tasks/${uuid}`, {
-    done: checkStatus,
-  });
+export const checkPatchTask = (uuid) =>
+  axiosInstanceServer.patch(`/tasks/${uuid}`);

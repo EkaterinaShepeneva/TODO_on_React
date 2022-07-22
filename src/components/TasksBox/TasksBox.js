@@ -1,22 +1,27 @@
 import Task from "./Task";
 import style from "./TasksBox.module.css";
-import {  useState } from "react";
+import { useState } from "react";
 import { deleteTask } from "../../api/http.js";
 import { checkPatchTask } from "../../api/http.js";
 
 function TasksBox({ tasks, renderTask, setIsError }) {
   const [userInput, setUserInput] = useState("");
-  const [statusInput, setStatusInput] = useState({idTask:null, status:false});
+  const [statusInput, setStatusInput] = useState({
+    idTask: null,
+    status: false,
+  });
 
   const removeTask = (uuid) => {
-    deleteTask(uuid).then(() => {
-      renderTask()
-    }).catch(()=>setIsError(true));
+    deleteTask(uuid)
+      .then(() => {
+        renderTask();
+      })
+      .catch(() => setIsError(true));
   };
 
-  const checkTask = (uuid, event) => {
-    const checkStatus = event.target.checked;
-    checkPatchTask(uuid, checkStatus).catch(()=>setIsError(true));
+  const checkTask = (uuid) => {
+    checkPatchTask(uuid).catch(() => setIsError(true));
+    renderTask();
   };
 
   return (
