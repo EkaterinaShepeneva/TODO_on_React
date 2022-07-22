@@ -1,4 +1,3 @@
-import moment from "moment";
 import style from "./TasksBox.module.css";
 import { useState } from "react";
 import { validateInputTodo } from "../../utils/utils.js";
@@ -29,12 +28,9 @@ function TodoInputForm({ renderTask, setIsError }) {
     if (userInput) {
       const newTask = {
         name: userInput,
-        done: false,
-        createdAt: Date.now(),
-        updatedAt: moment().format("LLLL"),
       };
-
-      postTask(newTask).catch(()=>setIsError(true));
+      console.log(newTask);
+      postTask(newTask).catch(() => setIsError(true));
     }
   };
 

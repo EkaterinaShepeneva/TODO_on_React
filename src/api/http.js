@@ -8,6 +8,10 @@ const axiosInstance = axios.create({
   baseURL: BASE_URL,
 });
 
+const axiosInstanceServer = axios.create({
+  baseURL: "http://localhost:4000",
+});
+
 axiosInstance.interceptors.response.use(
   function (config) {
     return config;
@@ -22,31 +26,27 @@ axiosInstance.interceptors.response.use(
 export const getTasks = (currentPage, filter, sort) =>
   axiosInstance
     .get("/tasks/5", {
-      params: { filterBy: filter, order: sort, pp:5,page: currentPage }
+      params: { filterBy: filter, order: sort, pp: 5, page: currentPage },
     })
     .then((resp) => {
       return resp.data;
-    })
+    });
 
 export const postTask = (newTask) =>
-  axiosInstance
-    .post(`/task/5`, newTask)
+  axiosInstanceServer.post(`/tasks`, newTask);
 
-export const deleteTask = (uuid) =>
-  axiosInstance
-    .delete(`/task/5/${uuid}`)
+export const deleteTask = (uuid) => axiosInstance.delete(`/task/5/${uuid}`);
 
-export const changeTask = (uuid,  newName) =>
+export const changeTask = (uuid, newName) =>
   axiosInstance
     .patch(`/task/5/${uuid}`, {
       name: newName,
     })
     .then(() => {
       return true;
-    })
+    });
 
 export const checkPatchTask = (uuid, checkStatus) =>
-  axiosInstance
-    .patch(`/task/5/${uuid}`, {
-      done: checkStatus,
-    })
+  axiosInstance.patch(`/task/5/${uuid}`, {
+    done: checkStatus,
+  });
