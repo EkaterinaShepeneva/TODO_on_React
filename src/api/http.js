@@ -12,7 +12,7 @@ const axiosInstanceServer = axios.create({
   baseURL: "http://localhost:4000",
 });
 
-axiosInstance.interceptors.response.use(
+axiosInstanceServer.interceptors.response.use(
   function (config) {
     return config;
   },

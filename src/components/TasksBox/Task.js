@@ -13,38 +13,37 @@ function Task({
   renderTask,
   setIsError,
   statusInput,
-  setStatusInput
+  setStatusInput,
 }) {
-
   const handleChange = (event) => {
     setUserInput(event.target.value);
   };
 
   const changeStatusInput = () => {
     setUserInput(task.name);
-    setStatusInput({idTask: task.uuid, status:true});
+    setStatusInput({ idTask: task.uuid, status: true });
   };
 
   const blurInput = () => {
-    setStatusInput({idTask: task.uuid, status:false});
+    setStatusInput({ idTask: task.uuid, status: false });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const name = userInput.trim();
     if (!validateInputTodo(name)) {
-      setStatusInput({idTask: task.uuid, status:false});
+      setStatusInput({ idTask: task.uuid, status: false });
       return;
     }
     if (name) {
-      changeTask(task.uuid, name).then(
-        (response) => {
-          renderTask()
-          if (!response) {
-            setIsError(true);
-          }
-        }
-      );
+      changeTask(task.uuid, name)
+        .then(() => {
+          renderTask();
+        })
+        .catch(() => {
+          setIsError(true);
+          renderTask();
+        });
       tasks.find((item) => {
         if (item.uuid === task.uuid) {
           item.name = name;
@@ -52,7 +51,7 @@ function Task({
         }
       });
     }
-    setStatusInput({idTask: task.uuid, status:false});
+    setStatusInput({ idTask: task.uuid, status: false });
   };
 
   const handleKeyPress = (event) => {
@@ -61,7 +60,7 @@ function Task({
         handleSubmit(event);
         break;
       case "Escape":
-        setStatusInput({idTask: task.uuid, status:false});
+        setStatusInput({ idTask: task.uuid, status: false });
         break;
       default:
         break;
@@ -78,11 +77,11 @@ function Task({
             onClick={(event) => checkTask(task.uuid, event)}
             type="checkbox"
           />
-          {(statusInput.idTask === task.uuid && statusInput.status) ? (
+          {statusInput.idTask === task.uuid && statusInput.status ? (
             <input
               className={style.editTask}
               autoFocus
-              onBlur={()=>blurInput()}
+              onBlur={() => blurInput()}
               onKeyDown={handleKeyPress}
               value={userInput}
               onChange={handleChange}
