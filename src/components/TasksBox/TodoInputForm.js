@@ -29,8 +29,9 @@ function TodoInputForm({ renderTask, setIsError }) {
       const newTask = {
         name: userInput,
       };
-      postTask(newTask).catch(() => setIsError(true));
-      renderTask();
+      postTask(newTask)
+        .then(() => renderTask())
+        .catch(() => setIsError(true));
     }
   };
 
