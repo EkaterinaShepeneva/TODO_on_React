@@ -47,5 +47,7 @@ export const changeTask = (uuid, newName) =>
       return true;
     });
 
-export const checkPatchTask = (uuid) =>
-  axiosInstanceServer.patch(`/tasks/${uuid}`);
+export const checkPatchTask = (uuid, checkStatus) =>
+  axiosInstanceServer.patch(`/tasks/${uuid}`, {
+    done: !checkStatus,
+  });

@@ -19,9 +19,8 @@ function TasksBox({ tasks, renderTask, setIsError }) {
       .catch(() => setIsError(true));
   };
 
-  const checkTask = (uuid) => {
-    checkPatchTask(uuid).catch(() => setIsError(true));
-    renderTask();
+  const checkTask = (uuid, done) => {
+    checkPatchTask(uuid, done).then(()=>renderTask()).catch(() => {setIsError(true); renderTask()});
   };
 
   return (

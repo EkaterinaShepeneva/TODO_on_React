@@ -74,7 +74,7 @@ function Task({
           <input
             className={style.task__check}
             defaultChecked={task.done}
-            onClick={(event) => checkTask(task.uuid, event)}
+            onClick={() => checkTask(task.uuid, task.done)}
             type="checkbox"
           />
           {statusInput.idTask === task.uuid && statusInput.status ? (
