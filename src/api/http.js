@@ -10,6 +10,9 @@ const axiosInstance = axios.create({
 
 const axiosInstanceServer = axios.create({
   baseURL: "http://localhost:4000",
+  headers: {
+    Authorization: localStorage.getItem("token") ? `Bearer ${localStorage.getItem("token")}` : ""
+  }
 });
 
 axiosInstanceServer.interceptors.response.use(
