@@ -23,7 +23,10 @@ function App() {
   }, [filters, currentPage, sort]);
 
   const renderTask = () => {
-    getTasks(currentPage, filters, sort)
+    const token = localStorage.getItem('token')
+    const login = localStorage.getItem('login')
+
+    getTasks(currentPage, filters, sort, login, token)
       .then((response) => {
         const countPage = Math.ceil(response.count / NUM_TASK);
         setPagesCount(countPage);

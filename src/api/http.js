@@ -23,10 +23,10 @@ axiosInstanceServer.interceptors.response.use(
   }
 );
 
-export const getTasks = (currentPage, filter, sort) =>
+export const getTasks = (currentPage, filter, sort, login, token) =>
   axiosInstanceServer
-    .get("/tasks", {
-      params: { filterBy: filter, order: sort, pp: 5, page: currentPage },
+    .get(`/tasks/${token}`, {
+      params: { filterBy: filter, order: sort, pp: 5, page: currentPage, login: login },
     })
     .then((resp) => {
       return resp.data;
@@ -51,3 +51,19 @@ export const checkPatchTask = (uuid, checkStatus) =>
   axiosInstanceServer.patch(`/tasks/${uuid}`, {
     done: !checkStatus,
   });
+
+
+export const postSignIn = (login, password, token) =>
+  axiosInstanceServer.post(`/signIn`, {
+    login,
+    password,
+    token
+  });
+
+
+export const postRegistration = (login, password) =>
+  axiosInstanceServer.post(`/registration`, {
+    login,
+    password
+  });
+
