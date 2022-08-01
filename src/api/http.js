@@ -35,8 +35,8 @@ export const getTasks = (currentPage, filter, sort, login) =>
       return resp.data;
     });
 
-export const postTask = (newTask) =>
-  axiosInstanceServer.post(`/tasks`, newTask);
+export const postTask = (login, name) =>
+  axiosInstanceServer.post(`/tasks`, { name, login });
 
 export const deleteTask = (uuid) =>
   axiosInstanceServer.delete(`/tasks/${uuid}`);
