@@ -26,10 +26,8 @@ function TodoInputForm({ renderTask, setIsError }) {
   const addTask = (userInput) => {
     if (!validateInputTodo(userInput)) return;
     if (userInput) {
-      const newTask = {
-        name: userInput,
-      };
-      postTask(newTask)
+      const login = localStorage.getItem('login')
+      postTask(login, userInput)
         .then(() => renderTask())
         .catch(() => setIsError(true));
     }

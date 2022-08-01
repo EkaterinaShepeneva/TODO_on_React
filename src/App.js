@@ -9,6 +9,7 @@ import Filters from "./components/Filters/Filters";
 import PagesButton from "./components/Pagination/PagesButton";
 import TasksBox from "./components/TasksBox/TasksBox";
 import Error from "./components/Error/Error.js";
+import SignOut from "./components/SignIn/SignOut.js";
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -23,7 +24,9 @@ function App() {
   }, [filters, currentPage, sort]);
 
   const renderTask = () => {
-    getTasks(currentPage, filters, sort)
+    const login = localStorage.getItem('login')
+
+    getTasks(currentPage, filters, sort, login)
       .then((response) => {
         const countPage = Math.ceil(response.count / NUM_TASK);
         setPagesCount(countPage);
@@ -62,6 +65,7 @@ function App() {
 
   return (
     <main>
+      <SignOut />
       <h1>ToDo</h1>
       {isError && <Error setIsError={setIsError} />}
 

@@ -10,6 +10,9 @@ const axiosInstance = axios.create({
 
 const axiosInstanceServer = axios.create({
   baseURL: "http://localhost:4000",
+  headers: {
+    Authorization: localStorage.getItem("token") ? `Bearer ${localStorage.getItem("token")}` : ""
+  }
 });
 
 axiosInstanceServer.interceptors.response.use(
@@ -23,17 +26,17 @@ axiosInstanceServer.interceptors.response.use(
   }
 );
 
-export const getTasks = (currentPage, filter, sort) =>
+export const getTasks = (currentPage, filter, sort, login) =>
   axiosInstanceServer
-    .get("/tasks", {
-      params: { filterBy: filter, order: sort, pp: 5, page: currentPage },
+    .get(`/tasks`, {
+      params: { filterBy: filter, order: sort, pp: 5, page: currentPage, login: login },
     })
     .then((resp) => {
       return resp.data;
     });
 
-export const postTask = (newTask) =>
-  axiosInstanceServer.post(`/tasks`, newTask);
+export const postTask = (login, name) =>
+  axiosInstanceServer.post(`/tasks`, { name, login });
 
 export const deleteTask = (uuid) =>
   axiosInstanceServer.delete(`/tasks/${uuid}`);
@@ -51,3 +54,18 @@ export const checkPatchTask = (uuid, checkStatus) =>
   axiosInstanceServer.patch(`/tasks/${uuid}`, {
     done: !checkStatus,
   });
+
+
+export const postSignIn = (login, password) =>
+  axiosInstanceServer.post(`/signIn`, {
+    login,
+    password
+  });
+
+
+export const postRegistration = (login, password) =>
+  axiosInstanceServer.post(`/registration`, {
+    login,
+    password
+  });
+
