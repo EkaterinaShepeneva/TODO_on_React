@@ -34,18 +34,22 @@ function TodoInputForm({ renderTask, setIsError }) {
   };
 
   return (
-    <div className={style.inputBox}>
-      <input
-        autoFocus
-        className={style.inputBox__input}
-        value={userInput}
-        type="text"
-        onChange={changeInput}
-        onKeyDown={handleKeyPress}
-        placeholder="Write something..."
-      />
-      <button onClick={handleSubmit}>+</button>
+    <div className={style.containerInput}>
+      <div className={style.inputBox}>
+        <input
+          autoFocus
+          className={style.inputBox__input}
+          value={userInput}
+          type="text"
+          onChange={changeInput}
+          onKeyDown={handleKeyPress}
+          placeholder="Write something..."
+        />
+
+      </div>
+      <button className={style.inputBtn} onClick={handleSubmit}></button>
     </div>
+
   );
 }
 

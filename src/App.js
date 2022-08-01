@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { FILTERS, SORT, NUM_TASK, FLIP_PAGE } from "./constants.js";
 import { getTasks } from "./api/http.js";
-
-import "./App.css";
+import style from "./App.module.css";
 
 import TodoInputForm from "./components/TasksBox/TodoInputForm";
 import Filters from "./components/Filters/Filters";
@@ -66,7 +65,7 @@ function App() {
   return (
     <main>
       <SignOut />
-      <h1>ToDo</h1>
+      <div className={style.logo}>TODOTODOT</div>
       {isError && <Error setIsError={setIsError} />}
 
       <TodoInputForm renderTask={renderTask} setIsError={setIsError} />

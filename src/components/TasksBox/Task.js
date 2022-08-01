@@ -68,34 +68,41 @@ function Task({
   };
 
   return (
-    <div key={task.uuid} className={style.task}>
+    <div key={task.uuid} className={task.done ? (style.task__checked) : (style.task)}>
       <div className={style.task__inputs}>
         <section className={style.task__left}>
-          <input
-            className={style.task__check}
-            defaultChecked={task.done}
-            onClick={() => checkTask(task.uuid, task.done)}
-            type="checkbox"
-          />
-          {statusInput.idTask === task.uuid && statusInput.status ? (
+          <label className={style.task__check}>
             <input
-              className={style.editTask}
-              autoFocus
-              onBlur={() => blurInput()}
-              onKeyDown={handleKeyPress}
-              value={userInput}
-              onChange={handleChange}
-              type="text"
+
+              defaultChecked={task.done}
+              onClick={() => checkTask(task.uuid, task.done)}
+              type="checkbox"
             />
-          ) : (
-            <div
-              className={style.task__text}
-              uuid={task.uuid}
-              onDoubleClick={changeStatusInput}
-            >
-              {task.name}
-            </div>
-          )}
+            <span>Indigo</span>
+          </label>
+          <div className={style.task__containerText}>
+            {statusInput.idTask === task.uuid && statusInput.status ? (
+              <input
+                className={style.editTask}
+                autoFocus
+                onBlur={() => blurInput()}
+                onKeyDown={handleKeyPress}
+                value={userInput}
+                onChange={handleChange}
+                type="text"
+              />
+            ) : (
+              <div
+                className={style.task__text}
+                uuid={task.uuid}
+                onDoubleClick={changeStatusInput}
+              >
+                {task.name}
+              </div>
+            )}
+            <div className={style.task__date}>{task.updatedAt}</div>
+          </div>
+
         </section>
         <button
           className={style.task__btnDelete}
@@ -104,8 +111,6 @@ function Task({
           del
         </button>
       </div>
-
-      <div className={style.task__date}>{task.updatedAt}</div>
     </div>
   );
 }

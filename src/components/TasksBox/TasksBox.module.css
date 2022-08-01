@@ -1,25 +1,32 @@
 .tasksBox {
-  width: 555px;
+  width: auto;
   min-height: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px solid rgb(79, 151, 137);
-  border-radius: 6px;
 }
 
 .inputBox {
-  width: 405px;
-  height: 46px;
-  background: rgba(255, 255, 255, 1);
-  border-radius: 12px;
+  padding: 15px 0px 15px 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content:flex-start ;
+  width: 1025px;
+  height: 60px;
+  background: #A58878;
+  box-shadow: inset 0px 2px 7px 2px rgba(0, 0, 0, 0.19);
+}
+
+.containerInput{
+  margin-top: 115px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  flex-direction: row;
 }
 
 .inputBox__input {
-  padding: 5px;
+  width: 900px;
   resize: none;
   overflow: auto;
   -ms-overflow-style: none;
@@ -27,14 +34,28 @@
   outline: 0;
   border: none;
   background-color: rgba(86, 96, 94, 0);
-  width: 383px;
-  height: 30px;
-  font-family: "Roboto";
+  font-family: 'Comfortaa';
   font-style: normal;
-  font-weight: 400;
-  font-size: 19px;
-  line-height: 22px;
-  color: rgba(86, 96, 94, 1);
+  font-weight: 600;
+  font-size: 38px;
+  line-height: 42px;
+  color: #EDE6E2;
+}
+
+.inputBtn {
+  width: 90px;
+  height: 90px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-image: url('../../icon/plus.svg');
+}
+
+.inputBtn:hover {
+  background-color:  #CEC3BD
+}
+
+.inputBox__input::placeholder {
+  color: rgba(206, 195, 189, 1)
 }
 
 .inputBox__input::-webkit-scrollbar {
@@ -43,16 +64,41 @@
 }
 
 .task {
-  width: 520px;
+  width: 472px;
+height: 65px;
   min-height: 46px;
-  margin: 5px;
-  padding: 6px;
-  background: rgba(86, 96, 94, 1);
-  border-radius: 12px;
+  margin-bottom: 4px;
+  padding: 8.5px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
+  justify-content: center;
+  border: 1px solid rgba(206, 195, 189, 0);
+
+}
+
+.task:hover{
+  border: 1px solid #5C5C5C;
+}
+
+.task:hover::after {
+  border: 1px solid rgba(206, 195, 189, 1)
+}
+
+.task__checked{
+  width: 472px;
+  height: 65px;
+    min-height: 46px;
+    margin-bottom: 4px;
+    padding: 8.5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid rgba(206, 195, 189, 0);
+
+}
+
+.task__checked:hover{
+    border: 1px solid rgba(206, 195, 189, 1);
 }
 
 .task__left {
@@ -63,7 +109,6 @@
 }
 
 .task__inputs {
-  width: 520px;
   display: flex;
   justify-content: space-between;
 }
@@ -79,23 +124,77 @@
   align-items: center;
 }
 
-.task__check {
-  width: 27px;
-  height: 27px;
-  background: rgba(255, 255, 255, 1);
-  border-radius: 9px;
+/* .task__check {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+} */
+.task__check>input {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+
+.task__check>span {
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
+}
+
+.task__check>span::before {
+  content: '';
+  display: inline-block;
+  width: 43.66px;
+  height: 43.56px;
+  border: 1px solid #5C5C5C;
+  flex-shrink: 0;
+  flex-grow: 0;
+  margin-right: 0.5em;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 50% 50%;
+}
+
+/* стили для активного чекбокса (при нажатии на него) */
+/* .task__check>input:not(:disabled):active+span::before {
+  background-image: url('../../check.svg');
+} */
+
+/* стили для чекбокса, находящегося в состоянии checked */
+.task__check>input:checked+span::before {
+  border: 1px solid rgba(206, 195, 189, 1);
+  
+  background-image: url('../../icon/check.svg');
+}
+
+.task__containerText{
+  display: flex;
+  flex-direction: column;
+
 }
 
 .task__text {
-  font-family: "Roboto";
+  font-family: 'Comfortaa';
   font-style: normal;
   font-weight: 400;
-  font-size: 19px;
-  overflow-wrap: break-word;
-  line-height: 22px;
+  font-size: 22px;
+  line-height: 25px;
   display: flex;
   align-items: center;
-  color: rgba(255, 255, 255, 1);
+  text-align: right;
+  color: #5C5C5C;
+}
+
+.task__text__checked {
+  font-family: 'Comfortaa';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 25px;
+  display: flex;
+  align-items: center;
+  text-align: right;
+  color: rgba(206, 195, 189, 1);
 }
 
 .task__date {
@@ -104,7 +203,7 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 19px;
-  color: rgba(205, 219, 216, 0.58);
+  color: rgba(206, 195, 189, 1);
 }
 
 .editTask {

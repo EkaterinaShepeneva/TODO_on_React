@@ -1,36 +1,37 @@
 .filterBox {
-    margin: 34px 0 13px 0;
-    width: 520px;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-  }
-  
-  .filterBox__filter {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-  }
-  
-  .filterBox__sorting {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: center;
-  }
+  margin: 34px 0 13px 0;
+  width: 471px;
+height: 27px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
 
-  @media screen and (max-width: 650px) {
-    .filterBox {
-        flex-direction: column;
-        justify-content: space-between;
-        max-width: 350px;
-        margin: 10px 0 10px 0;
-      }
-      .filterBox__filter,
-  .filterBox__sorting {
-    min-width: 310px;
-    justify-content: space-between;
-  }
+.filterBox__filter {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
 
-  }
+.filterBox__sorting {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+@media screen and (max-width: 650px) {
+  .filterBox {
+      flex-direction: column;
+      justify-content: space-between;
+      max-width: 350px;
+      margin: 10px 0 10px 0;
+    }
+    .filterBox__filter,
+.filterBox__sorting {
+  min-width: 310px;
+  justify-content: space-between;
+}
+
+}
