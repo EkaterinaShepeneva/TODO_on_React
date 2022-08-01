@@ -5,6 +5,7 @@ import Main from "./Main"
 import Registration from "./components/SignIn/Registration";
 import SignIn from "./components/SignIn/SignIn";
 import App from "./App";
+import PrivateRoute from "./PrivateRoute";
 
 import {
   BrowserRouter, Routes,
@@ -18,7 +19,11 @@ root.render(
       <Route path="/" element={<Main />} />
       <Route path="registration" element={<Registration />} />
       <Route path="signIn" element={<SignIn />} />
-      <Route path="app" element={<App />} />
+
+      <Route path="/app" element={
+        <PrivateRoute
+          Component={<App />} />
+      } />
     </Routes>
   </BrowserRouter>
 );
