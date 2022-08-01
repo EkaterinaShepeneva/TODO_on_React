@@ -108,7 +108,6 @@ function Task({
           className={style.task__btnDelete}
           onClick={() => removeTask(task.uuid)}
         >
-          del
         </button>
       </div>
     </div>

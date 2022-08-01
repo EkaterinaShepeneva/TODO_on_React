@@ -11,14 +11,14 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content:flex-start ;
+  justify-content: flex-start;
   width: 1025px;
   height: 60px;
   background: #A58878;
   box-shadow: inset 0px 2px 7px 2px rgba(0, 0, 0, 0.19);
 }
 
-.containerInput{
+.containerInput {
   margin-top: 115px;
   display: flex;
   align-items: center;
@@ -51,7 +51,7 @@
 }
 
 .inputBtn:hover {
-  background-color:  #CEC3BD
+  background-color: #CEC3BD
 }
 
 .inputBox__input::placeholder {
@@ -65,7 +65,7 @@
 
 .task {
   width: 472px;
-height: 65px;
+  height: 65px;
   min-height: 46px;
   margin-bottom: 4px;
   padding: 8.5px;
@@ -76,7 +76,7 @@ height: 65px;
 
 }
 
-.task:hover{
+.task:hover {
   border: 1px solid #5C5C5C;
 }
 
@@ -84,21 +84,21 @@ height: 65px;
   border: 1px solid rgba(206, 195, 189, 1)
 }
 
-.task__checked{
+.task__checked {
   width: 472px;
   height: 65px;
-    min-height: 46px;
-    margin-bottom: 4px;
-    padding: 8.5px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border: 1px solid rgba(206, 195, 189, 0);
+  min-height: 46px;
+  margin-bottom: 4px;
+  padding: 8.5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid rgba(206, 195, 189, 0);
 
 }
 
-.task__checked:hover{
-    border: 1px solid rgba(206, 195, 189, 1);
+.task__checked:hover {
+  border: 1px solid rgba(206, 195, 189, 1);
 }
 
 .task__left {
@@ -115,6 +115,17 @@ height: 65px;
 
 .task__btnDelete {
   margin-right: 0;
+  width: 50px;
+  height: 50px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-image: url('../../icon/delete.svg');
+  border: none;
+  border-radius: 0;
+}
+
+.task__btnDelete:hover {
+  border: 1px solid rgba(206, 195, 189, 1);
 }
 
 .task__right {
@@ -124,11 +135,6 @@ height: 65px;
   align-items: center;
 }
 
-/* .task__check {
-  position: absolute;
-  z-index: -1;
-  opacity: 0;
-} */
 .task__check>input {
   position: absolute;
   z-index: -1;
@@ -155,22 +161,14 @@ height: 65px;
   background-size: 50% 50%;
 }
 
-/* стили для активного чекбокса (при нажатии на него) */
-/* .task__check>input:not(:disabled):active+span::before {
-  background-image: url('../../check.svg');
-} */
-
-/* стили для чекбокса, находящегося в состоянии checked */
 .task__check>input:checked+span::before {
   border: 1px solid rgba(206, 195, 189, 1);
-  
   background-image: url('../../icon/check.svg');
 }
 
-.task__containerText{
+.task__containerText {
   display: flex;
   flex-direction: column;
-
 }
 
 .task__text {
