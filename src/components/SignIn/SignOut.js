@@ -3,11 +3,16 @@ import style from "./SignIn.module.css";
 
 function SignOut({ goToPage }) {
 
-    //const login = localStorage.getItem('login')
+    const signOut = () => {
+        localStorage.removeItem('login')
+        localStorage.removeItem('token')
+        goToPage('SignIn')
+    }
+
     return (
         <div className={style.container}>
             <h2>{localStorage.getItem('login')}</h2>
-            <button onClick={() => { goToPage('SignIn') }}>Выйти</button>
+            <button onClick={signOut}>Выйти</button>
         </div>
     );
 }
