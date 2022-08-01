@@ -6,12 +6,15 @@ function SignIn({ signIn, goToPage }) {
     const [loginInput, setLoginInput] = useState('')
     const [passwordInput, setPasswordInput] = useState('')
 
-    const verify = () => {
+    const verify = async () => {
         const login = loginInput.trim()
         const password = passwordInput.trim()
-        const token = { 'value': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6IkphbGUiLCJpYXQiOjE2NTkwNzkxNDV9.1Tq31ujDJ7tNbSMVt1umBzlNPnyZ9UCW9KfESIr1PYA' }
 
-        postSignIn(login, password, token)
+
+        const token = await postSignIn(login, password)
+        if (!token) return
+        localStorage.setItem('token', token.data)
+        localStorage.setItem('login', login)
         goToPage('App')
     }
 
@@ -30,7 +33,7 @@ function SignIn({ signIn, goToPage }) {
             <div className={style.container}>
                 <input placeholder="login" value={loginInput} onChange={changeLoginInput} />
                 <input placeholder="password" value={passwordInput} onChange={changePasswordInput} type="password" />
-                <button onClick={verify}>Войти</button>
+                <button onClick={() => { verify() }}>Войти</button>
             </div>
 
             <button onClick={() => { goToPage('Registration') }}>Зарегистрироваться</button>

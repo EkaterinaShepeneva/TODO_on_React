@@ -11,7 +11,7 @@ function Registration({ goToPage }) {
         const login = loginInput.trim()
         const password = passwordInput.trim()
 
-        const token = await postRegistration(login, password).catch((err) => { console.log('ERROR'); })
+        const token = await postRegistration(login, password)
         if (!token) return
         localStorage.setItem('token', token.data)
         localStorage.setItem('login', login)
