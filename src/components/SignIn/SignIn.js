@@ -1,8 +1,9 @@
 import style from "./SignIn.module.css";
 import { useState, useEffect } from "react";
 import { postSignIn } from "../../api/http"
+import { Link } from "react-router-dom";
 
-function SignIn({ signIn, goToPage }) {
+function SignIn() {
     const [loginInput, setLoginInput] = useState('')
     const [passwordInput, setPasswordInput] = useState('')
 
@@ -15,7 +16,7 @@ function SignIn({ signIn, goToPage }) {
         if (!token) return
         localStorage.setItem('token', token.data)
         localStorage.setItem('login', login)
-        goToPage('App')
+        document.location.href = "/app";
     }
 
     const changeLoginInput = (event) => {
@@ -36,7 +37,7 @@ function SignIn({ signIn, goToPage }) {
                 <button onClick={() => { verify() }}>Войти</button>
             </div>
 
-            <button onClick={() => { goToPage('Registration') }}>Зарегистрироваться</button>
+            <button onClick={() => { document.location.href = "/Registration" }}>Зарегистрироваться</button>
         </div>
 
     );

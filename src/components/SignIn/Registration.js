@@ -2,7 +2,7 @@ import style from "./SignIn.module.css";
 import { useState, useEffect } from "react";
 import { postRegistration } from "../../api/http"
 
-function Registration({ goToPage }) {
+function Registration() {
 
     const [loginInput, setLoginInput] = useState('')
     const [passwordInput, setPasswordInput] = useState('')
@@ -15,7 +15,7 @@ function Registration({ goToPage }) {
         if (!token) return
         localStorage.setItem('token', token.data)
         localStorage.setItem('login', login)
-        goToPage('App')
+        document.location.href = "/app";
     }
 
     const changeLoginInput = (event) => {

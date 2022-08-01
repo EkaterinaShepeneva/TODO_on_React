@@ -4,32 +4,32 @@ import SignIn from "./components/SignIn/SignIn"
 import SignOut from "./components/SignIn/SignOut";
 import { useState, useEffect } from "react";
 import { validateSignIn } from "./utils/utils"
+import { Link } from "react-router-dom";
 
 
 function Main() {
-    const [page, setPage] = useState('App')
 
-    const goToPage = (namePage) => {
-        setPage(namePage)
-    }
+
+
 
     const signIn = (login, password) => {
         validateSignIn(login)
-        goToPage('App')
+        document.location.href = "/app";
     }
 
 
     return (
         <div>
-
-            {page === 'Registration' && (<Registration goToPage={goToPage} />)}
-            {page === 'SignIn' && (<SignIn signIn={signIn} goToPage={goToPage} />)}
-            {page === 'App' && (
-                <div>
-                    <SignOut goToPage={goToPage} />
-                    <App />
-                </div>
-            )}
+            <h1>TODO</h1>
+            <nav
+                style={{
+                    borderBottom: "solid 1px",
+                    paddingBottom: "1rem",
+                }}
+            >
+                <Link to="/signin">signin</Link> |{" "}
+                <Link to="/registration">Registration</Link>
+            </nav>
         </div>
     )
 }

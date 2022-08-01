@@ -1,12 +1,12 @@
 import style from "./SignIn.module.css";
 
 
-function SignOut({ goToPage }) {
+function SignOut() {
 
     const signOut = () => {
         localStorage.removeItem('login')
         localStorage.removeItem('token')
-        goToPage('SignIn')
+        document.location.href = "/"
     }
 
     return (
