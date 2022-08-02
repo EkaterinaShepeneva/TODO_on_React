@@ -12,12 +12,13 @@ function Registration() {
         const login = loginInput.trim()
         const password = passwordInput.trim()
 
-        const token = await postRegistration(login, password).catch((response) => {
+        const response = await postRegistration(login, password).catch((response) => {
             if (response) setIsError(true);
         });
-        if (!token) return
-        localStorage.setItem('token', token.data)
-        localStorage.setItem('login', login)
+        if (!response) return
+        console.log('response = ', response);
+        localStorage.setItem('token', response.data.token)
+        localStorage.setItem('login', response.data.user.login)
         document.location.href = "/app";
     }
 
