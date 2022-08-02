@@ -1,6 +1,5 @@
 import style from "./Error.module.css";
 import { errorMessage, errorCode } from "../../api/http.js";
-import { useState } from "react";
 
 const Error = ({ setIsError }) => {
 

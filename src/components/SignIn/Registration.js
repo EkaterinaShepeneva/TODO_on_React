@@ -16,7 +16,6 @@ function Registration() {
             if (response) setIsError(true);
         });
         if (!response) return
-        console.log('response = ', response);
         localStorage.setItem('token', response.data.token)
         localStorage.setItem('login', response.data.user.login)
         document.location.href = "/app";
