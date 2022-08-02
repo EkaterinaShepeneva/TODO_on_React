@@ -1,4 +1,3 @@
-import moment from "moment";
 import style from "./TasksBox.module.css";
 import { useState } from "react";
 import { validateInputTodo } from "../../utils/utils.js";
@@ -27,30 +26,30 @@ function TodoInputForm({ renderTask, setIsError }) {
   const addTask = (userInput) => {
     if (!validateInputTodo(userInput)) return;
     if (userInput) {
-      const newTask = {
-        name: userInput,
-        done: false,
-        createdAt: Date.now(),
-        updatedAt: moment().format("LLLL"),
-      };
-
-      postTask(newTask).catch(()=>setIsError(true));
+      const login = localStorage.getItem('login')
+      postTask(login, userInput)
+        .then(() => renderTask())
+        .catch(() => setIsError(true));
     }
   };
 
   return (
-    <div className={style.inputBox}>
-      <input
-        autoFocus
-        className={style.inputBox__input}
-        value={userInput}
-        type="text"
-        onChange={changeInput}
-        onKeyDown={handleKeyPress}
-        placeholder="Write something..."
-      />
-      <button onClick={handleSubmit}>+</button>
+    <div className={style.containerInput}>
+      <div className={style.inputBox}>
+        <input
+          autoFocus
+          className={style.inputBox__input}
+          value={userInput}
+          type="text"
+          onChange={changeInput}
+          onKeyDown={handleKeyPress}
+          placeholder="Write something..."
+        />
+
+      </div>
+      <button className={style.inputBtn} onClick={handleSubmit}></button>
     </div>
+
   );
 }
 

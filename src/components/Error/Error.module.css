@@ -1,12 +1,14 @@
 .mainContainer {
   position: absolute;
-  width: 100%;
-  height: 100%;
-  background: #000000;
+  top: 10px;
+  right: 10px;
+  min-width: 162px;
+  max-width: 300px;
+  background: rgba(92, 92, 92, 1);
   display: flex;
-  align-items: center;
-  left: 0;
-  top: 0;
+  align-items: flex-end;
+  padding: 30px;
+
 }
 
 .nameContainer {
@@ -16,54 +18,43 @@
 }
 
 .nameError {
-  font-family: "Roboto";
+  font-family: 'Comfortaa';
   font-style: normal;
-  font-weight: 300;
-  font-size: 128px;
-  line-height: 150px;
-  color: #ffffff;
-}
-
-.btnError {
-  margin-top: 50px;
-  background: #000000;
-  border: none;
-  border-radius: 0;
-  display: flex;
-  justify-content: center;
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 300;
-  font-size: 28px;
-
+  margin-bottom: 10px;
+  font-weight: 500;
+  font-size: 26px;
+  line-height: 29px;
   display: flex;
   align-items: center;
-  text-align: center;
-  color: #ffffff;
-  border: 1px solid #ffffff;
-}
-
-.btnError:hover {
-  background: #ffffff;
-  color: #000000;
+  text-align: right;
+  color: #EDE6E2;
 }
 
 .textError {
-  margin: 5px;
-  font-family: "Roboto";
+  font-family: 'Comfortaa';
   font-style: normal;
-  font-weight: 300;
-  font-size: 18px;
-  line-height: 21px;
-  color: #ffffff83;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 25px;
+  text-align: right;
+  color: #CEC3BD;
 }
 
 .bodyError {
-  border: 1px solid #ffffff6c;
-  margin-top: 30px;
-  width: 676px;
-  height: 150px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  min-width: 229px;
+  font-family: 'Comfortaa';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 25px;
+  text-align: right;
+  color: #CEC3BD;
+}
+
+.timeLine {
+  margin-top: 10px;
+  width: 100%;
+  height: 2px;
+  background-color: #CEC3BD;
+  transition: width .5s;
 }

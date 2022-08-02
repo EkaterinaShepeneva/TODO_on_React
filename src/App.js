@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { FILTERS, SORT, NUM_TASK, FLIP_PAGE } from "./constants.js";
 import { getTasks } from "./api/http.js";
-
-import "./App.css";
+import style from "./App.module.css";
 
 import TodoInputForm from "./components/TasksBox/TodoInputForm";
 import Filters from "./components/Filters/Filters";
 import PagesButton from "./components/Pagination/PagesButton";
 import TasksBox from "./components/TasksBox/TasksBox";
 import Error from "./components/Error/Error.js";
+import SignOut from "./components/SignIn/SignOut.js";
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -16,19 +16,21 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [pagesCount, setPagesCount] = useState(1);
   const [sort, setSort] = useState(SORT.LAST);
-  const [isError, setIsError] = useState(false); 
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     renderTask();
   }, [filters, currentPage, sort]);
 
   const renderTask = () => {
-    getTasks(currentPage, filters, sort)
+    const login = localStorage.getItem('login')
+
+    getTasks(currentPage, filters, sort, login)
       .then((response) => {
-        const countPage = Math.ceil(response.count / NUM_TASK)
+        const countPage = Math.ceil(response.count / NUM_TASK);
         setPagesCount(countPage);
         if (currentPage > countPage) {
-          setCurrentPage(1) 
+          setCurrentPage(1);
         }
         setTasks(response.tasks);
       })
@@ -39,7 +41,7 @@ function App() {
 
   const changePageNext = (next) => {
     switch (next) {
-      case true: 
+      case true:
         if (currentPage === pagesCount) {
           break;
         }
@@ -62,26 +64,32 @@ function App() {
 
   return (
     <main>
-      <h1>ToDo</h1>
+      <div className={style.logo}>TODOTODOT</div>
       {isError && <Error setIsError={setIsError} />}
 
       <TodoInputForm renderTask={renderTask} setIsError={setIsError} />
+      <div className={style.container}>
+        <div>
+          <Filters
+            setFilter={setFilter}
+            setSort={setSort}
+            filters={filters}
+            sort={sort}
+          />
+          <TasksBox tasks={tasks} renderTask={renderTask} setIsError={setIsError} />
 
-      <Filters
-        setFilter={setFilter}
-        setSort={setSort}
-        filters={filters}
-        sort={sort}
-      />
-      <TasksBox tasks={tasks} renderTask={renderTask} setIsError={setIsError} />
-      {pagesCount > 1 && (
-        <PagesButton
-        changePageNext={changePageNext}
-          pagesCount={pagesCount}
-          currentPage={currentPage}
-          changeCurrentPage={changeCurrentPage}
-        />
-      )}
+          {pagesCount > 1 && (
+            <PagesButton
+              changePageNext={changePageNext}
+              pagesCount={pagesCount}
+              currentPage={currentPage}
+              changeCurrentPage={changeCurrentPage}
+            />
+          )}
+        </div>
+        <SignOut />
+      </div>
+
     </main>
   );
 }

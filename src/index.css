@@ -1,38 +1,43 @@
 body {
-  background: rgba(205, 219, 216, 1);
+  background: rgba(237, 230, 226, 1);
   display: flex;
   justify-content: center;
 }
 
 span {
-  margin: 0px;
-  font-family: "Inika";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 19px;
-  line-height: 25px;
-  color: rgba(48, 119, 105, 1);
+
+  color: rgba(48, 119, 105, 0);
+}
+
+input {
+  outline: none;
+  border: 0;
 }
 
 button {
   padding: 3px 10px;
   margin: 3px;
-  font-family: "Inika";
+  font-family: 'Comfortaa';
   font-style: normal;
-  font-weight: 700;
-  font-size: 19px;
-  line-height: 25px;
-  color: rgba(48, 119, 105, 1);
-  background: rgba(255, 255, 255, 1);
-  border: 1px solid rgba(48, 119, 105, 1);
-  border-radius: 6px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 20px;
+  color: rgba(165, 136, 120, 1);
+  background: rgba(255, 255, 255, 0);
+  border: none;
+  border-radius: 0;
 }
 
-button:hover,
-button[aria-pressed="true"] {
-  color: rgba(255, 255, 255, 1);
-  background: rgba(48, 119, 105, 1);
+button:hover {
+  color: rgba(92, 92, 92, 1);
 }
+
+button[aria-pressed="true"] {
+  color: rgba(92, 92, 92, 1);
+
+  border-bottom: 2px rgba(92, 92, 92, 1) solid;
+}
+
 
 @media screen and (max-width: 650px) {
   button {
