@@ -6,7 +6,7 @@ function SignOut() {
     const signOut = () => {
         localStorage.removeItem('login')
         localStorage.removeItem('token')
-        document.location.href = "/"
+        document.location.href = "/TODO_on_React"
     }
 
     return (

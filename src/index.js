@@ -15,7 +15,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<SignIn />} />
+      <Route path="/TODO_on_React" element={<SignIn />} />
       <Route path="registration" element={<Registration />} />
       <Route path="signIn" element={<SignIn />} />
       <Route path="/app" element={
