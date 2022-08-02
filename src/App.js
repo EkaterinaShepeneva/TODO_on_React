@@ -64,27 +64,32 @@ function App() {
 
   return (
     <main>
-      <SignOut />
       <div className={style.logo}>TODOTODOT</div>
       {isError && <Error setIsError={setIsError} />}
 
       <TodoInputForm renderTask={renderTask} setIsError={setIsError} />
+      <div className={style.container}>
+        <div>
+          <Filters
+            setFilter={setFilter}
+            setSort={setSort}
+            filters={filters}
+            sort={sort}
+          />
+          <TasksBox tasks={tasks} renderTask={renderTask} setIsError={setIsError} />
 
-      <Filters
-        setFilter={setFilter}
-        setSort={setSort}
-        filters={filters}
-        sort={sort}
-      />
-      <TasksBox tasks={tasks} renderTask={renderTask} setIsError={setIsError} />
-      {pagesCount > 1 && (
-        <PagesButton
-          changePageNext={changePageNext}
-          pagesCount={pagesCount}
-          currentPage={currentPage}
-          changeCurrentPage={changeCurrentPage}
-        />
-      )}
+          {pagesCount > 1 && (
+            <PagesButton
+              changePageNext={changePageNext}
+              pagesCount={pagesCount}
+              currentPage={currentPage}
+              changeCurrentPage={changeCurrentPage}
+            />
+          )}
+        </div>
+        <SignOut />
+      </div>
+
     </main>
   );
 }

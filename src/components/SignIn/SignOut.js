@@ -10,9 +10,9 @@ function SignOut() {
     }
 
     return (
-        <div className={style.container}>
-            <h2>{localStorage.getItem('login')}</h2>
-            <button onClick={signOut}>Выйти</button>
+        <div className={style.signOut}>
+            <h2>Hello, {localStorage.getItem('login')}</h2>
+            <button className={style.btnOut} onClick={signOut}></button>
         </div>
     );
 }

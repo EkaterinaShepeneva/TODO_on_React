@@ -27,10 +27,13 @@ function Registration() {
     };
 
     return (
+
         <div className={style.container}>
-            <input placeholder="login" value={loginInput} onChange={changeLoginInput} />
-            <input placeholder="password" value={passwordInput} onChange={changePasswordInput} type="password" />
-            <button onClick={() => { verify() }}>Зарегистрироваться</button>
+            <div className={style.logo}>TODOTODOT</div>
+            <input className={style.input} placeholder="login" value={loginInput} onChange={changeLoginInput} />
+            <input className={style.input} placeholder="password" value={passwordInput} onChange={changePasswordInput} type="password" />
+            <button className={style.btnMain} onClick={() => { verify() }}>sign up</button>
+            <button className={style.btnSign} onClick={() => { document.location.href = "/signin" }}>sign in</button>
         </div>
     );
 }

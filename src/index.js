@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import Main from "./Main"
 import Registration from "./components/SignIn/Registration";
 import SignIn from "./components/SignIn/SignIn";
 import App from "./App";
@@ -16,10 +15,9 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<Main />} />
+      <Route path="/" element={<SignIn />} />
       <Route path="registration" element={<Registration />} />
       <Route path="signIn" element={<SignIn />} />
-
       <Route path="/app" element={
         <PrivateRoute
           Component={<App />} />

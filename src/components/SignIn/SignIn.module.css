@@ -1,6 +1,124 @@
+.logo {
+    position: absolute;
+    top: 0;
+    margin: 0;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 203px;
+    line-height: 238px;
+    text-align: center;
+    user-select: none;
+    z-index: -99;
+    color: rgba(206, 195, 189, 0.23);
+}
+
 .container {
-    background-color: rgb(154, 165, 175);
+    margin-top: 40%;
     color: black;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.input {
+    display: flex;
+    margin: 10px;
+    width: 616px;
+    height: 67px;
+    background: #CEC3BD;
+    box-shadow: inset 0px 2px 7px rgba(0, 0, 0, 0.19);
+    width: 567px;
+    height: 33px;
+    font-family: 'Comfortaa';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 33px;
+    display: flex;
+    align-items: center;
+    padding: 17px;
+    color: rgba(92, 92, 92, 1);
+}
+
+.input::placeholder {
+    color: #EDE6E2;
+}
+
+.btnMain {
+    margin: 10px;
+    width: 601px;
+    padding: 17px;
+    height: 67px;
+    color: rgba(206, 195, 189, 1);
+    background: rgba(165, 136, 120, 1);
+    font-family: 'Comfortaa';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 25px;
+    line-height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btnMain:hover {
+    background: #5C5C5C;
+    color: #EDE6E2;
+}
+
+.btnSign {
+    margin: 0;
+    width: 300px;
+    padding: 0;
+    height: 67px;
+    color: rgba(206, 195, 189, 1);
+    font-family: 'Comfortaa';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 25px;
+    line-height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.signOut {
+    margin-top: 22px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 5px;
+    min-width: 269px;
+    height: 52px;
+    background: #CEC3BD;
+}
+
+h2 {
+    margin: 0;
+    margin-right: 10px;
+    font-family: 'Comfortaa';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 25px;
+    display: flex;
+    align-items: center;
+    color: #5C5C5C;
+}
+
+.btnOut {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-image: url('../../icon/delete.svg');
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 0;
+}
+
+.btnOut:hover {
+    border: 1px solid #5C5C5C;
 }
