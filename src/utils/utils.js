@@ -15,13 +15,3 @@ export const validateInputTodo = (val) => {
 
   return result;
 };
-
-export const validateSignIn = (val) => {
-  const value = val.trim();
-
-  if (!value) {
-    alert("Введите что-нибудь")
-    return false
-  }
-  return true
-}

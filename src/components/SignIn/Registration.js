@@ -1,9 +1,10 @@
 import style from "./SignIn.module.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { postRegistration } from "../../api/http"
+import Error from "../Error/Error";
 
 function Registration() {
-
+    const [isError, setIsError] = useState(false);
     const [loginInput, setLoginInput] = useState('')
     const [passwordInput, setPasswordInput] = useState('')
 
@@ -11,7 +12,9 @@ function Registration() {
         const login = loginInput.trim()
         const password = passwordInput.trim()
 
-        const token = await postRegistration(login, password)
+        const token = await postRegistration(login, password).catch((response) => {
+            if (response) setIsError(true);
+        });
         if (!token) return
         localStorage.setItem('token', token.data)
         localStorage.setItem('login', login)
@@ -29,6 +32,7 @@ function Registration() {
     return (
 
         <div className={style.container}>
+            {isError && <Error setIsError={setIsError} />}
             <div className={style.logo}>TODOTODOT</div>
             <input className={style.input} placeholder="login" value={loginInput} onChange={changeLoginInput} />
             <input className={style.input} placeholder="password" value={passwordInput} onChange={changePasswordInput} type="password" />
