@@ -12,7 +12,8 @@ function TasksBox({ tasks, renderTask, setIsError }) {
   });
 
   const removeTask = (uuid) => {
-    deleteTask(uuid)
+    const login = localStorage.getItem('login')
+    deleteTask(uuid, login)
       .then(() => {
         renderTask();
       })
@@ -20,7 +21,8 @@ function TasksBox({ tasks, renderTask, setIsError }) {
   };
 
   const checkTask = (uuid, done) => {
-    checkPatchTask(uuid, done).then(()=>renderTask()).catch(() => {setIsError(true); renderTask()});
+    const login = localStorage.getItem('login')
+    checkPatchTask(uuid, done, login).then(() => renderTask()).catch(() => { setIsError(true); renderTask() });
   };
 
   return (

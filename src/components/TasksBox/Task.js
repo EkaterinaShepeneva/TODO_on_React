@@ -36,7 +36,8 @@ function Task({
       return;
     }
     if (name) {
-      changeTask(task.uuid, name)
+      const login = localStorage.getItem('login')
+      changeTask(task.uuid, name, login)
         .then(() => {
           renderTask();
         })
