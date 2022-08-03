@@ -1,12 +1,13 @@
 import style from "./SignIn.module.css";
-
+import { useNavigate } from "react-router-dom";
 
 function SignOut() {
+    let navigate = useNavigate();
 
     const signOut = () => {
         localStorage.removeItem('login')
         localStorage.removeItem('token')
-        document.location.href = "/TODO_on_React"
+        navigate("../", { replace: true });
     }
 
     return (

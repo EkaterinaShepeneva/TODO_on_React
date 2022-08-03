@@ -46,6 +46,13 @@
     color: #EDE6E2;
 }
 
+.btnContainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
 .btnMain {
     margin: 10px;
     width: 601px;

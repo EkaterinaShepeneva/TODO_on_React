@@ -1,51 +1,63 @@
-import style from "./SignIn.module.css";
-import { useState } from "react";
-import { postSignIn } from "../../api/http"
-import Error from "../Error/Error";
+// import style from "./SignIn.module.css";
+// import { useState } from "react";
+// import { postSignIn } from "../../api/http"
+// import Error from "../Error/Error";
+// import SignInInput from "./SignInInput";
 
-function SignIn() {
-    const [loginInput, setLoginInput] = useState('')
-    const [passwordInput, setPasswordInput] = useState('')
-    const [isError, setIsError] = useState(false);
+// function SignIn() {
+//     const [loginInput, setLoginInput] = useState('')
+//     const [passwordInput, setPasswordInput] = useState('')
+//     const [isError, setIsError] = useState(false);
 
-    const verify = async () => {
-        const login = loginInput.trim()
-        const password = passwordInput.trim()
+//     const verify = async () => {
+//         const login = loginInput.trim()
+//         const password = passwordInput.trim()
 
-        const token = await postSignIn(login, password).catch((response) => {
-            if (response) setIsError(true);
-        });
-        if (!token) return
-        localStorage.setItem('token', token.data)
-        localStorage.setItem('login', login)
-        document.location.href = "/app";
-    }
-
-    const changeLoginInput = (event) => {
-        setLoginInput(event.currentTarget.value);
-    };
-
-    const changePasswordInput = (event) => {
-        setPasswordInput(event.currentTarget.value);
-    };
+//         const token = await postSignIn(login, password).catch((response) => {
+//             if (response) setIsError(true);
+//         });
+//         if (!token) return
+//         localStorage.setItem('token', token.data)
+//         localStorage.setItem('login', login)
+//         document.location.href = "/app";
+//     }
 
 
-    return (
-        <div>
 
-            <div className={style.container}>
-                {isError && <Error setIsError={setIsError} />}
-                <div className={style.logo}>TODOTODOT</div>
-                <input className={style.input} placeholder="login" value={loginInput} onChange={changeLoginInput} />
-                <input className={style.input} placeholder="password" value={passwordInput} onChange={changePasswordInput} type="password" />
-                <button className={style.btnMain} onClick={() => { verify() }}>sign in</button>
-                <button className={style.btnSign} onClick={() => { document.location.href = "/Registration" }}>sign up</button>
-            </div>
+//     const changeLoginInput = (event) => {
+//         setLoginInput(event.currentTarget.value);
+//     };
+
+//     const changePasswordInput = (event) => {
+//         setPasswordInput(event.currentTarget.value);
+//     };
 
 
-        </div>
+//     return (
+//         <div>
 
-    );
-}
+//             <div className={style.container}>
+//                 {isError && <Error setIsError={setIsError} />}
+//                 <div className={style.logo}>TODOTODOT</div>
+//                 <SignInInput
+//                     input={loginInput}
+//                     changeInput={changeLoginInput}
+//                     typeInput='input'
+//                     placeholder='login' />
+//                 <SignInInput
+//                     input={passwordInput}
+//                     changeInput={changePasswordInput}
+//                     typeInput='password'
+//                     placeholder='password' />
 
-export default SignIn;
+//                 <button className={style.btnMain} onClick={() => { verify() }}>sign in</button>
+//                 <button className={style.btnSign} onClick={() => { document.location.href = "/Registration" }}>sign up</button>
+//             </div>
+
+
+//         </div>
+
+//     );
+// }
+
+// export default SignIn;
