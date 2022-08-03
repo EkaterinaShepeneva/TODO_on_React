@@ -76,7 +76,7 @@ function App() {
 
       <TodoInputForm renderTask={renderTask} />
       <div className={style.container}>
-        <div>
+        <div className={style.content}>
           <Filters
             setFilter={setFilter}
             setSort={setSort}

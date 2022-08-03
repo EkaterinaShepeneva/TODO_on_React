@@ -1,6 +1,6 @@
 .pagination {
-  width: 341px;
-  margin: 10px;
+  width: 100%;
+  margin-top: 10px;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -32,6 +32,7 @@
   border: none;
   background-color: rgba(255, 255, 255, 0.493);
 }
+
 @media screen and (max-width: 650px) {
   .pagination {
     margin-top: 30px;

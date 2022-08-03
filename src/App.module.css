@@ -3,6 +3,11 @@ main {
   align-items: flex-start;
   justify-content: center;
   flex-direction: column;
+  margin: 0px auto;
+  max-width: 1025px;
+  width: auto;
+  min-width: 500px;
+  padding: 10px;
 }
 
 h1 {
@@ -38,4 +43,17 @@ h1 {
   flex-direction: row;
   align-items: flex-start;
   justify-content: space-between;
+}
+
+.content {
+  width: 50%;
+}
+
+@media screen and (max-width: 650px) {
+  .container {
+
+    flex-direction: column-reverse;
+
+  }
+
 }
