@@ -12,16 +12,14 @@ function TasksBox({ tasks, renderTask }) {
   });
 
   const removeTask = (uuid) => {
-    const login = localStorage.getItem('login')
-    deleteTask(uuid, login)
+    deleteTask(uuid)
       .then(() => {
         renderTask();
       })
   };
 
   const checkTask = (uuid, done) => {
-    const login = localStorage.getItem('login')
-    checkPatchTask(uuid, done, login).then(() => renderTask()).catch(() => renderTask());
+    checkPatchTask(uuid, done).then(() => renderTask()).catch(() => renderTask());
   };
 
   return (

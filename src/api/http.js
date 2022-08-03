@@ -44,37 +44,35 @@ axiosInstanceServer.interceptors.response.use(
   }
 );
 
-export const getTasks = (currentPage, filter, sort, login) =>
+export const getTasks = (currentPage, filter, sort) =>
   axiosInstanceServer
     .get(`/tasks`, {
 
-      params: { filterBy: filter, order: sort, pp: 5, page: currentPage, login },
+      params: { filterBy: filter, order: sort, pp: 5, page: currentPage },
 
     })
     .then((resp) => {
       return resp.data;
     });
 
-export const postTask = (login, name) =>
-  axiosInstanceServer.post(`/tasks`, { name, login });
+export const postTask = (name) =>
+  axiosInstanceServer.post(`/tasks`, { name });
 
-export const deleteTask = (uuid, login) =>
-  axiosInstanceServer.delete(`/tasks/${uuid}`, { params: { login } });
+export const deleteTask = (uuid) =>
+  axiosInstanceServer.delete(`/tasks/${uuid}`);
 
-export const changeTask = (uuid, newName, login) =>
+export const changeTask = (uuid, newName) =>
   axiosInstanceServer
     .patch(`/tasks/${uuid}`, {
       name: newName,
-      login
     })
     .then(() => {
       return true;
     });
 
-export const checkPatchTask = (uuid, checkStatus, login) =>
+export const checkPatchTask = (uuid, checkStatus) =>
   axiosInstanceServer.patch(`/tasks/${uuid}`, {
     done: !checkStatus,
-    login
   });
 
 

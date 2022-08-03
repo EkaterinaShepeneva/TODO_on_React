@@ -26,8 +26,7 @@ function TodoInputForm({ renderTask }) {
   const addTask = (userInput) => {
     if (!validateInputTodo(userInput)) return;
     if (userInput) {
-      const login = localStorage.getItem('login')
-      postTask(login, userInput)
+      postTask(userInput)
         .then(() => renderTask())
     }
   };
@@ -44,7 +43,6 @@ function TodoInputForm({ renderTask }) {
           onKeyDown={handleKeyPress}
           placeholder="Write something..."
         />
-
       </div>
       <button className={style.inputBtn} onClick={handleSubmit}></button>
     </div>
