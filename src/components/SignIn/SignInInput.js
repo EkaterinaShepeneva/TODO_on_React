@@ -1,9 +1,9 @@
 import style from "./SignIn.module.css";
 
-const SignInInput = ({ input, changeInput, typeInput, placeholder }) => {
+const SignInInput = ({ input, changeInput, typeInput, placeholder, handleKeyPress }) => {
 
     return (
-        <input className={style.input} placeholder={placeholder} value={input} onChange={changeInput} type={typeInput} />
+        <input className={style.input} onKeyDown={(event) => handleKeyPress(event)} placeholder={placeholder} value={input} onChange={changeInput} type={typeInput} />
     )
 }
 
