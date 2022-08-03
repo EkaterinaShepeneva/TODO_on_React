@@ -3,7 +3,7 @@ import { useState } from "react";
 import { validateInputTodo } from "../../utils/utils.js";
 import { postTask } from "../../api/http.js";
 
-function TodoInputForm({ renderTask, setIsError }) {
+function TodoInputForm({ renderTask }) {
   const [userInput, setUserInput] = useState("");
 
   const changeInput = (event) => {
@@ -29,7 +29,6 @@ function TodoInputForm({ renderTask, setIsError }) {
       const login = localStorage.getItem('login')
       postTask(login, userInput)
         .then(() => renderTask())
-        .catch(() => setIsError(true));
     }
   };
 

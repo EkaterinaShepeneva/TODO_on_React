@@ -1,3 +1,7 @@
+import React from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import axios from "axios";
 
 export let errorMessage = "";
@@ -26,6 +30,16 @@ axiosInstanceServer.interceptors.response.use(
   function (error) {
     errorCode = error.response.status;
     errorMessage = error.response.data.message;
+    const notify = () => toast(`ERROR CODE: ${errorCode}, ${errorMessage}`, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });;
+    notify()
     return Promise.reject(error);
   }
 );

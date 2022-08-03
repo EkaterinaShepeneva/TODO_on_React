@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
-import { FILTERS, SORT, NUM_TASK, FLIP_PAGE } from "./constants.js";
+import { FILTERS, SORT, NUM_TASK } from "./constants.js";
 import { getTasks } from "./api/http.js";
 import style from "./App.module.css";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import TodoInputForm from "./components/TasksBox/TodoInputForm";
 import Filters from "./components/Filters/Filters";
 import PagesButton from "./components/Pagination/PagesButton";
 import TasksBox from "./components/TasksBox/TasksBox";
-import Error from "./components/Error/Error.js";
 import SignOut from "./components/SignIn/SignOut.js";
 
 function App() {
@@ -16,7 +17,6 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [pagesCount, setPagesCount] = useState(1);
   const [sort, setSort] = useState(SORT.LAST);
-  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     renderTask();
@@ -34,9 +34,6 @@ function App() {
         }
         setTasks(response.tasks);
       })
-      .catch((response) => {
-        if (response) setIsError(true);
-      });
   };
 
   const changePageNext = (next) => {
@@ -65,9 +62,20 @@ function App() {
   return (
     <main>
       <div className={style.logo}>TODOTODOT</div>
-      {isError && <Error setIsError={setIsError} />}
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
 
-      <TodoInputForm renderTask={renderTask} setIsError={setIsError} />
+      />
+
+      <TodoInputForm renderTask={renderTask} />
       <div className={style.container}>
         <div>
           <Filters
@@ -76,7 +84,7 @@ function App() {
             filters={filters}
             sort={sort}
           />
-          <TasksBox tasks={tasks} renderTask={renderTask} setIsError={setIsError} />
+          <TasksBox tasks={tasks} renderTask={renderTask} />
 
           {pagesCount > 1 && (
             <PagesButton

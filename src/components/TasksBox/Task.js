@@ -11,7 +11,6 @@ function Task({
   userInput,
   setUserInput,
   renderTask,
-  setIsError,
   statusInput,
   setStatusInput,
 }) {
@@ -42,7 +41,6 @@ function Task({
           renderTask();
         })
         .catch(() => {
-          setIsError(true);
           renderTask();
         });
       tasks.find((item) => {

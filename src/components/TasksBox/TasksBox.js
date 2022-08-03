@@ -4,7 +4,7 @@ import { useState } from "react";
 import { deleteTask } from "../../api/http.js";
 import { checkPatchTask } from "../../api/http.js";
 
-function TasksBox({ tasks, renderTask, setIsError }) {
+function TasksBox({ tasks, renderTask }) {
   const [userInput, setUserInput] = useState("");
   const [statusInput, setStatusInput] = useState({
     idTask: null,
@@ -17,12 +17,11 @@ function TasksBox({ tasks, renderTask, setIsError }) {
       .then(() => {
         renderTask();
       })
-      .catch(() => setIsError(true));
   };
 
   const checkTask = (uuid, done) => {
     const login = localStorage.getItem('login')
-    checkPatchTask(uuid, done, login).then(() => renderTask()).catch(() => { setIsError(true); renderTask() });
+    checkPatchTask(uuid, done, login).then(() => renderTask()).catch(() => renderTask());
   };
 
   return (
@@ -38,7 +37,6 @@ function TasksBox({ tasks, renderTask, setIsError }) {
             userInput={userInput}
             setUserInput={setUserInput}
             renderTask={renderTask}
-            setIsError={setIsError}
             statusInput={statusInput}
             setStatusInput={setStatusInput}
           />
