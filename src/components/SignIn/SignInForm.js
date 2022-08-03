@@ -24,7 +24,7 @@ function SignInForm() {
         const response = await postSignIn(login, password)
         if (!response) return
         localStorage.setItem('token', response.data.token)
-        localStorage.setItem('login', response.data.user.login)
+        localStorage.setItem('login', loginInput)
         navigate("../app", { replace: true });
     }
 
@@ -35,7 +35,7 @@ function SignInForm() {
         const response = await postRegistration(login, password)
         if (!response) return
         localStorage.setItem('token', response.data.token)
-        localStorage.setItem('login', response.data.user.login)
+        localStorage.setItem('login', loginInput)
         navigate("../app", { replace: true });
     }
 
