@@ -1,19 +1,11 @@
-import React from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 import axios from "axios";
 
-export let errorMessage = "";
-export let errorCode = "";
-
 const BASE_URL = process.env.REACT_APP_BASE_URL;
-const axiosInstance = axios.create({
-  baseURL: BASE_URL,
-});
 
 const axiosInstanceServer = axios.create({
-  baseURL: "http://localhost:4000",
+  baseURL: BASE_URL,
 });
 
 axiosInstanceServer.interceptors.request.use(function (config) {
@@ -28,8 +20,8 @@ axiosInstanceServer.interceptors.response.use(
     return config;
   },
   function (error) {
-    errorCode = error.response.status;
-    errorMessage = error.response.data.message;
+    const errorCode = error.response.status;
+    const errorMessage = error.response.data.message;
     const notify = () => toast(`ERROR CODE: ${errorCode}, ${errorMessage}`, {
       position: "top-right",
       autoClose: 5000,
@@ -47,13 +39,8 @@ axiosInstanceServer.interceptors.response.use(
 export const getTasks = (currentPage, filter, sort) =>
   axiosInstanceServer
     .get(`/tasks`, {
-
       params: { filterBy: filter, order: sort, pp: 5, page: currentPage },
-
     })
-    .then((resp) => {
-      return resp.data;
-    });
 
 export const postTask = (name) =>
   axiosInstanceServer.post(`/tasks`, { name });

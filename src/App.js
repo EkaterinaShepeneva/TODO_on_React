@@ -26,12 +26,12 @@ function App() {
 
     getTasks(currentPage, filters, sort)
       .then((response) => {
-        const countPage = Math.ceil(response.count / NUM_TASK);
+        const countPage = Math.ceil(response.data.count / NUM_TASK);
         setPagesCount(countPage);
         if (currentPage > countPage) {
           setCurrentPage(1);
         }
-        setTasks(response.tasks);
+        setTasks(response.data.tasks);
       })
   };
 
