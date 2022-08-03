@@ -20,12 +20,12 @@ function SignInForm() {
         const login = loginInput.trim()
         const password = passwordInput.trim()
 
-        const token = await postSignIn(login, password).catch((response) => {
+        const response = await postSignIn(login, password).catch((response) => {
             if (response) setIsError(true);
         });
-        if (!token) return
-        localStorage.setItem('token', token.data)
-        localStorage.setItem('login', login)
+        if (!response) return
+        localStorage.setItem('token', response.data.token)
+        localStorage.setItem('login', response.data.user.login)
         navigate("../app", { replace: true });
     }
 
